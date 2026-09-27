@@ -1,0 +1,2022 @@
+; FBX 7.3.0 project file
+; Created by the Blockbench FBX Exporter
+; ----------------------------------------------------
+; 
+
+FBXHeaderExtension:  {
+	FBXHeaderVersion: 1003
+	FBXVersion: 7300
+	EncryptionType: 0
+	CreationTimeStamp:  {
+		Version: 1000
+		Year: 2026
+		Month: 9
+		Day: 27
+		Hour: 11
+		Minute: 5
+		Second: 2
+		Millisecond: 634
+	}
+	Creator: "Blockbench 5.2.1"
+	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
+		Type: "UserData"
+		Version: 100
+		MetaData:  {
+			Version: 100
+			Title: ""
+			Subject: ""
+			Author: ""
+			Keywords: ""
+			Revision: ""
+			Comment: ""
+		}
+		Properties70:  {
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Blockbench\foobar.fbx"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Blockbench\foobar.fbx"
+			P: "Original", "Compound", "", ""
+			P: "Original|ApplicationVendor", "KString", "", "", "Blockbench"
+			P: "Original|ApplicationName", "KString", "", "", "Blockbench FBX Exporter"
+			P: "Original|ApplicationVersion", "KString", "", "", "5.2.1"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "01/01/1970 00:00:00.000"
+			P: "Original|FileName", "KString", "", "", "/foobar.fbx"
+			P: "LastSaved", "Compound", "", ""
+			P: "LastSaved|ApplicationVendor", "KString", "", "", "Blockbench"
+			P: "LastSaved|ApplicationName", "KString", "", "", "Blockbench FBX Exporter"
+			P: "LastSaved|ApplicationVersion", "KString", "", "", "5.2.1"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "01/01/1970 00:00:00.000"
+			P: "Original|ApplicationNativeFile", "KString", "", "", ""
+		}
+	}
+}
+FileId: "iVFoobar"
+CreationTime: "2026-09-27 03:05:02:634"
+Creator: "Made with Blockbench"
+GlobalSettings:  {
+	Version: 1000
+	Properties70:  {
+		P: "UpAxis", "int", "Integer", "",1
+		P: "UpAxisSign", "int", "Integer", "",1
+		P: "FrontAxis", "int", "Integer", "",2
+		P: "FrontAxisSign", "int", "Integer", "",1
+		P: "CoordAxis", "int", "Integer", "",0
+		P: "CoordAxisSign", "int", "Integer", "",1
+		P: "OriginalUpAxis", "int", "Integer", "",-1
+		P: "OriginalUpAxisSign", "int", "Integer", "",1
+		P: "UnitScaleFactor", "double", "Number", "",1
+		P: "OriginalUnitScaleFactor", "double", "Number", "",1
+		P: "AmbientColor", "ColorRGB", "Color", "",0,0,0
+		P: "DefaultCamera", "KString", "", "", "Producer Perspective"
+		P: "TimeMode", "enum", "", "",0
+		P: "TimeSpanStart", "KTime", "Time", "",0
+		P: "TimeSpanStop", "KTime", "Time", "",46186158000
+		P: "CustomFrameRate", "double", "Number", "",24
+	}
+}
+
+; Documents Description
+;------------------------------------------------------------------
+
+Documents:  {
+	Count: 1
+	Document: 1630001345 {
+		Scene: "Scene"
+		Properties70:  {
+			P: "SourceObject", "object", "", ""
+			P: "ActiveAnimStackName", "KString", "", "", ""
+		}
+		RootNode: 0
+	}
+}
+
+; Document References
+;------------------------------------------------------------------
+
+References: 
+
+; Object definitions
+;------------------------------------------------------------------
+
+Definitions:  {
+	Version: 100
+	Count: 83
+	ObjectType: "GlobalSettings" {
+		Count: 1
+	}
+	ObjectType: "Model" {
+		Count: 13
+		PropertyTemplate: "FbxNode" {
+			Properties70:  {
+				P: "QuaternionInterpolate", "enum", "", "",0
+				P: "RotationOffset", "Vector3D", "Vector", "",0,0,0
+				P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+				P: "ScalingOffset", "Vector3D", "Vector", "",0,0,0
+				P: "ScalingPivot", "Vector3D", "Vector", "",0,0,0
+				P: "TranslationActive", "bool", "", "",0
+				P: "TranslationMin", "Vector3D", "Vector", "",0,0,0
+				P: "TranslationMax", "Vector3D", "Vector", "",0,0,0
+				P: "TranslationMinX", "bool", "", "",0
+				P: "TranslationMinY", "bool", "", "",0
+				P: "TranslationMinZ", "bool", "", "",0
+				P: "TranslationMaxX", "bool", "", "",0
+				P: "TranslationMaxY", "bool", "", "",0
+				P: "TranslationMaxZ", "bool", "", "",0
+				P: "RotationOrder", "enum", "", "",5
+				P: "RotationSpaceForLimitOnly", "bool", "", "",0
+				P: "RotationStiffnessX", "double", "Number", "",0
+				P: "RotationStiffnessY", "double", "Number", "",0
+				P: "RotationStiffnessZ", "double", "Number", "",0
+				P: "AxisLen", "double", "Number", "",10
+				P: "PreRotation", "Vector3D", "Vector", "",0,0,0
+				P: "PostRotation", "Vector3D", "Vector", "",0,0,0
+				P: "RotationActive", "bool", "", "",0
+				P: "RotationMin", "Vector3D", "Vector", "",0,0,0
+				P: "RotationMax", "Vector3D", "Vector", "",0,0,0
+				P: "RotationMinX", "bool", "", "",0
+				P: "RotationMinY", "bool", "", "",0
+				P: "RotationMinZ", "bool", "", "",0
+				P: "RotationMaxX", "bool", "", "",0
+				P: "RotationMaxY", "bool", "", "",0
+				P: "RotationMaxZ", "bool", "", "",0
+				P: "InheritType", "enum", "", "",0
+				P: "ScalingActive", "bool", "", "",0
+				P: "ScalingMin", "Vector3D", "Vector", "",0,0,0
+				P: "ScalingMax", "Vector3D", "Vector", "",1,1,1
+				P: "ScalingMinX", "bool", "", "",0
+				P: "ScalingMinY", "bool", "", "",0
+				P: "ScalingMinZ", "bool", "", "",0
+				P: "ScalingMaxX", "bool", "", "",0
+				P: "ScalingMaxY", "bool", "", "",0
+				P: "ScalingMaxZ", "bool", "", "",0
+				P: "GeometricTranslation", "Vector3D", "Vector", "",0,0,0
+				P: "GeometricRotation", "Vector3D", "Vector", "",0,0,0
+				P: "GeometricScaling", "Vector3D", "Vector", "",1,1,1
+				P: "MinDampRangeX", "double", "Number", "",0
+				P: "MinDampRangeY", "double", "Number", "",0
+				P: "MinDampRangeZ", "double", "Number", "",0
+				P: "MaxDampRangeX", "double", "Number", "",0
+				P: "MaxDampRangeY", "double", "Number", "",0
+				P: "MaxDampRangeZ", "double", "Number", "",0
+				P: "MinDampStrengthX", "double", "Number", "",0
+				P: "MinDampStrengthY", "double", "Number", "",0
+				P: "MinDampStrengthZ", "double", "Number", "",0
+				P: "MaxDampStrengthX", "double", "Number", "",0
+				P: "MaxDampStrengthY", "double", "Number", "",0
+				P: "MaxDampStrengthZ", "double", "Number", "",0
+				P: "PreferedAngleX", "double", "Number", "",0
+				P: "PreferedAngleY", "double", "Number", "",0
+				P: "PreferedAngleZ", "double", "Number", "",0
+				P: "LookAtProperty", "object", "", ""
+				P: "UpVectorProperty", "object", "", ""
+				P: "Show", "bool", "", "",1
+				P: "NegativePercentShapeSupport", "bool", "", "",1
+				P: "DefaultAttributeIndex", "int", "Integer", "",-1
+				P: "Freeze", "bool", "", "",0
+				P: "LODBox", "bool", "", "",0
+				P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+				P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+				P: "Lcl Scaling", "Lcl Scaling", "", "A",1,1,1
+				P: "Visibility", "Visibility", "", "A",1
+				P: "Visibility Inheritance", "Visibility Inheritance", "", "",1
+			}
+		}
+	}
+	ObjectType: "Geometry" {
+		Count: 6
+		PropertyTemplate: "FbxMesh" {
+			Properties70:  {
+				P: "Color", "ColorRGB", "Color", "",0.8,0.8,0.8
+				P: "BBoxMin", "Vector3D", "Vector", "",0,0,0
+				P: "BBoxMax", "Vector3D", "Vector", "",0,0,0
+				P: "Primary Visibility", "bool", "", "",1
+				P: "Casts Shadows", "bool", "", "",1
+				P: "Receive Shadows", "bool", "", "",1
+			}
+		}
+	}
+	ObjectType: "Material" {
+		Count: 1
+		PropertyTemplate: "FbxSurfaceLambert" {
+			Properties70:  {
+				P: "ShadingModel", "KString", "", "", "Lambert"
+				P: "MultiLayer", "bool", "", "",0
+				P: "EmissiveColor", "Color", "", "A",0,0,0
+				P: "EmissiveFactor", "Number", "", "A",1
+				P: "AmbientColor", "Color", "", "A",0.2,0.2,0.2
+				P: "AmbientFactor", "Number", "", "A",1
+				P: "DiffuseColor", "Color", "", "A",0.8,0.8,0.8
+				P: "DiffuseFactor", "Number", "", "A",1
+				P: "Bump", "Vector3D", "Vector", "",0,0,0
+				P: "NormalMap", "Vector3D", "Vector", "",0,0,0
+				P: "BumpFactor", "double", "Number", "",1
+				P: "TransparentColor", "Color", "", "A",0,0,0
+				P: "TransparencyFactor", "Number", "", "A",0
+				P: "DisplacementColor", "ColorRGB", "Color", "",0,0,0
+				P: "DisplacementFactor", "double", "Number", "",1
+				P: "VectorDisplacementColor", "ColorRGB", "Color", "",0,0,0
+				P: "VectorDisplacementFactor", "double", "Number", "",1
+			}
+		}
+	}
+	ObjectType: "Texture" {
+		Count: 1
+		PropertyTemplate: "FbxFileTexture" {
+			Properties70:  {
+				P: "TextureTypeUse", "enum", "", "",0
+				P: "Texture alpha", "Number", "", "A",1
+				P: "CurrentMappingType", "enum", "", "",0
+				P: "WrapModeU", "enum", "", "",0
+				P: "WrapModeV", "enum", "", "",0
+				P: "UVSwap", "bool", "", "",0
+				P: "PremultiplyAlpha", "bool", "", "",1
+				P: "Translation", "Vector", "", "A",0,0,0
+				P: "Rotation", "Vector", "", "A",0,0,0
+				P: "Scaling", "Vector", "", "A",1,1,1
+				P: "TextureRotationPivot", "Vector3D", "Vector", "",0,0,0
+				P: "TextureScalingPivot", "Vector3D", "Vector", "",0,0,0
+				P: "CurrentTextureBlendMode", "enum", "", "",1
+				P: "UVSet", "KString", "", "", "default"
+				P: "UseMaterial", "bool", "", "",0
+				P: "UseMipMap", "bool", "", "",0
+			}
+		}
+	}
+	ObjectType: "Video" {
+		Count: 1
+		PropertyTemplate: "FbxVideo" {
+			Properties70:  {
+				P: "ImageSequence", "bool", "", "",0
+				P: "ImageSequenceOffset", "int", "Integer", "",0
+				P: "FrameRate", "double", "Number", "",0
+				P: "LastFrame", "int", "Integer", "",0
+				P: "Width", "int", "Integer", "",0
+				P: "Height", "int", "Integer", "",0
+				P: "Path", "KString", "XRefUrl", "", ""
+				P: "StartFrame", "int", "Integer", "",0
+				P: "StopFrame", "int", "Integer", "",0
+				P: "PlaySpeed", "double", "Number", "",0
+				P: "Offset", "KTime", "Time", "",0
+				P: "InterlaceMode", "enum", "", "",0
+				P: "FreeRunning", "bool", "", "",0
+				P: "Loop", "bool", "", "",0
+				P: "AccessMode", "enum", "", "",0
+			}
+		}
+	}
+	ObjectType: "AnimationStack" {
+		Count: 4
+		PropertyTemplate: "FbxAnimStack" {
+			Properties70:  {
+				P: "Description", "KString", "", "", ""
+				P: "LocalStart", "KTime", "Time", "",0
+				P: "LocalStop", "KTime", "Time", "",0
+				P: "ReferenceStart", "KTime", "Time", "",0
+				P: "ReferenceStop", "KTime", "Time", "",0
+			}
+		}
+	}
+	ObjectType: "AnimationLayer" {
+		Count: 4
+		PropertyTemplate: "FbxAnimLayer" {
+			Properties70:  {
+				P: "Weight", "Number", "", "A",100
+				P: "Mute", "bool", "", "",0
+				P: "Solo", "bool", "", "",0
+				P: "Lock", "bool", "", "",0
+				P: "Color", "ColorRGB", "Color", "",0.8,0.8,0.8
+				P: "BlendMode", "enum", "", "",0
+				P: "RotationAccumulationMode", "enum", "", "",0
+				P: "ScaleAccumulationMode", "enum", "", "",0
+				P: "BlendModeBypass", "ULongLong", "", "",0
+			}
+		}
+	}
+	ObjectType: "AnimationCurveNode" {
+		Count: 13
+		PropertyTemplate: "FbxAnimCurveNode" {
+			Properties70:  {
+				P: "d", "Compound", "", ""
+			}
+		}
+	}
+	ObjectType: "AnimationCurve" {
+		Count: 39
+	}
+}
+
+; Object properties
+;------------------------------------------------------------------
+
+Objects:  {
+	Model: 77182533, "Model::root", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 77197476, "Model::body", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,75,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 73166056, "Model::head", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,75,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 71273491, "Model::right_arm", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",-37.5,62.5,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",90,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 72043214, "Model::left_arm", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",37.5,62.5,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",90,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 70895895, "Model::right_leg", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",-12.5,75,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 73350164, "Model::left_leg", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",12.5,75,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 71501872, "Model::head_cube", "Mesh" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Geometry: 70518292, "Geometry::head_cube", "Mesh" {
+		Vertices: *24 {
+			a: 25,50,25,25,50,-25,25,0,25,25,0,-25,-25,50,-25,-25,50,25,-25,0,-25,-25,0,25
+		}
+		PolygonVertexIndex: *24 {
+			a: 3,6,4,-2,2,3,1,-1,7,2,0,-6,6,7,5,-5,5,0,1,-5,6,3,2,-8
+		}
+		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			Normals: *18 {
+				a: 0,0,-1,1,0,0,0,0,1,-1,0,0,0,1,0,0,-1,0
+			}
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			UV: *48 {
+				a: 0.125,0.75,0.25,0.75,0.25,0.875,0.125,0.875,0,0.75,0.125,0.75,0.125,0.875,0,0.875,0.375,0.75,0.5,0.75,0.5,0.875,0.375,0.875,0.25,0.75,0.375,0.75,0.375,0.875,0.25,0.875,0.25,1,0.125,1,0.125,0.875,0.25,0.875,0.375,0.875,0.25,0.875,0.25,1,0.375,1
+			}
+		}
+		LayerElementMaterial: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			Materials: *1 {
+				a: 0
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementMaterial"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+	}
+	Model: 78503403, "Model::body_cube", "Mesh" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Geometry: 76713198, "Geometry::body_cube", "Mesh" {
+		Vertices: *24 {
+			a: 25,75,12.5,25,75,-12.5,25,0,12.5,25,0,-12.5,-25,75,-12.5,-25,75,12.5,-25,0,-12.5,-25,0,12.5
+		}
+		PolygonVertexIndex: *24 {
+			a: 3,6,4,-2,2,3,1,-1,7,2,0,-6,6,7,5,-5,5,0,1,-5,6,3,2,-8
+		}
+		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			Normals: *18 {
+				a: 0,0,-1,1,0,0,0,0,1,-1,0,0,0,1,0,0,-1,0
+			}
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			UV: *48 {
+				a: 0.3125,0.5,0.4375,0.5,0.4375,0.6875,0.3125,0.6875,0.25,0.5,0.3125,0.5,0.3125,0.6875,0.25,0.6875,0.5,0.5,0.625,0.5,0.625,0.6875,0.5,0.6875,0.4375,0.5,0.5,0.5,0.5,0.6875,0.4375,0.6875,0.4375,0.75,0.3125,0.75,0.3125,0.6875,0.4375,0.6875,0.5625,0.6875,0.4375,0.6875,0.4375,0.75,0.5625,0.75
+			}
+		}
+		LayerElementMaterial: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			Materials: *1 {
+				a: 0
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementMaterial"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+	}
+	Model: 79629940, "Model::right_arm_cube", "Mesh" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Geometry: 75388103, "Geometry::right_arm_cube", "Mesh" {
+		Vertices: *24 {
+			a: 12.5,12.5,12.5,12.5,12.5,-12.5,12.5,-62.5,12.5,12.5,-62.5,-12.5,-12.5,12.5,-12.5,-12.5,12.5,12.5,-12.5,-62.5,-12.5,-12.5,-62.5,12.5
+		}
+		PolygonVertexIndex: *24 {
+			a: 3,6,4,-2,2,3,1,-1,7,2,0,-6,6,7,5,-5,5,0,1,-5,6,3,2,-8
+		}
+		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			Normals: *18 {
+				a: 0,0,-1,1,0,0,0,0,1,-1,0,0,0,1,0,0,-1,0
+			}
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			UV: *48 {
+				a: 0.6875,0.5,0.75,0.5,0.75,0.6875,0.6875,0.6875,0.625,0.5,0.6875,0.5,0.6875,0.6875,0.625,0.6875,0.8125,0.5,0.875,0.5,0.875,0.6875,0.8125,0.6875,0.75,0.5,0.8125,0.5,0.8125,0.6875,0.75,0.6875,0.75,0.75,0.6875,0.75,0.6875,0.6875,0.75,0.6875,0.8125,0.6875,0.75,0.6875,0.75,0.75,0.8125,0.75
+			}
+		}
+		LayerElementMaterial: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			Materials: *1 {
+				a: 0
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementMaterial"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+	}
+	Model: 70387653, "Model::left_arm_cube", "Mesh" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Geometry: 71375727, "Geometry::left_arm_cube", "Mesh" {
+		Vertices: *24 {
+			a: 12.5,12.5,12.5,12.5,12.5,-12.5,12.5,-62.5,12.5,12.5,-62.5,-12.5,-12.5,12.5,-12.5,-12.5,12.5,12.5,-12.5,-62.5,-12.5,-12.5,-62.5,12.5
+		}
+		PolygonVertexIndex: *24 {
+			a: 3,6,4,-2,2,3,1,-1,7,2,0,-6,6,7,5,-5,5,0,1,-5,6,3,2,-8
+		}
+		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			Normals: *18 {
+				a: 0,0,-1,1,0,0,0,0,1,-1,0,0,0,1,0,0,-1,0
+			}
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			UV: *48 {
+				a: 0.75,0.5,0.6875,0.5,0.6875,0.6875,0.75,0.6875,0.8125,0.5,0.75,0.5,0.75,0.6875,0.8125,0.6875,0.875,0.5,0.8125,0.5,0.8125,0.6875,0.875,0.6875,0.6875,0.5,0.625,0.5,0.625,0.6875,0.6875,0.6875,0.6875,0.75,0.75,0.75,0.75,0.6875,0.6875,0.6875,0.75,0.6875,0.8125,0.6875,0.8125,0.75,0.75,0.75
+			}
+		}
+		LayerElementMaterial: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			Materials: *1 {
+				a: 0
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementMaterial"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+	}
+	Model: 75505184, "Model::right_leg_cube", "Mesh" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Geometry: 75684570, "Geometry::right_leg_cube", "Mesh" {
+		Vertices: *24 {
+			a: 12.5,0,12.5,12.5,0,-12.5,12.5,-75,12.5,12.5,-75,-12.5,-12.5,0,-12.5,-12.5,0,12.5,-12.5,-75,-12.5,-12.5,-75,12.5
+		}
+		PolygonVertexIndex: *24 {
+			a: 3,6,4,-2,2,3,1,-1,7,2,0,-6,6,7,5,-5,5,0,1,-5,6,3,2,-8
+		}
+		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			Normals: *18 {
+				a: 0,0,-1,1,0,0,0,0,1,-1,0,0,0,1,0,0,-1,0
+			}
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			UV: *48 {
+				a: 0.0625,0.5,0.125,0.5,0.125,0.6875,0.0625,0.6875,0,0.5,0.0625,0.5,0.0625,0.6875,0,0.6875,0.1875,0.5,0.25,0.5,0.25,0.6875,0.1875,0.6875,0.125,0.5,0.1875,0.5,0.1875,0.6875,0.125,0.6875,0.125,0.75,0.0625,0.75,0.0625,0.6875,0.125,0.6875,0.1875,0.6875,0.125,0.6875,0.125,0.75,0.1875,0.75
+			}
+		}
+		LayerElementMaterial: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			Materials: *1 {
+				a: 0
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementMaterial"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+	}
+	Model: 72198704, "Model::left_leg_cube", "Mesh" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+			P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+			P: "RotationOrder", "enum", "", "",0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Geometry: 76571863, "Geometry::left_leg_cube", "Mesh" {
+		Vertices: *24 {
+			a: 12.5,0,12.5,12.5,0,-12.5,12.5,-75,12.5,12.5,-75,-12.5,-12.5,0,-12.5,-12.5,0,12.5,-12.5,-75,-12.5,-12.5,-75,12.5
+		}
+		PolygonVertexIndex: *24 {
+			a: 3,6,4,-2,2,3,1,-1,7,2,0,-6,6,7,5,-5,5,0,1,-5,6,3,2,-8
+		}
+		GeometryVersion: 124
+		LayerElementNormal: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygon"
+			ReferenceInformationType: "Direct"
+			Normals: *18 {
+				a: 0,0,-1,1,0,0,0,0,1,-1,0,0,0,1,0,0,-1,0
+			}
+		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "Direct"
+			UV: *48 {
+				a: 0.125,0.5,0.0625,0.5,0.0625,0.6875,0.125,0.6875,0.1875,0.5,0.125,0.5,0.125,0.6875,0.1875,0.6875,0.25,0.5,0.1875,0.5,0.1875,0.6875,0.25,0.6875,0.0625,0.5,0,0.5,0,0.6875,0.0625,0.6875,0.0625,0.75,0.125,0.75,0.125,0.6875,0.0625,0.6875,0.125,0.6875,0.1875,0.6875,0.1875,0.75,0.125,0.75
+			}
+		}
+		LayerElementMaterial: 0 {
+			Version: 101
+			Name: ""
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			Materials: *1 {
+				a: 0
+			}
+		}
+		Layer: 0 {
+			Version: 100
+			LayerElement:  {
+				Type: "LayerElementNormal"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementMaterial"
+				TypedIndex: 0
+			}
+			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+		}
+	}
+	Material: 74849549, "Material::zombie.png", "" {
+		Version: 102
+		ShadingModel: "lambert"
+		MultiLayer: 0
+		Properties70:  {
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.2,0.2,0.2
+			P: "Diffuse", "Vector3D", "Vector", "",0.8,0.8,0.8
+			P: "Opacity", "double", "Number", "",1
+		}
+	}
+	Texture: 76957841, "Texture::zombie.png", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::zombie.png"
+		Media: "Video::zombie.png"
+		FileName: ""
+		RelativeFilename: ""
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
+	}
+	Video: 73992239, "Video::zombie.png", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "zombie.png"
+		}
+		UseMipMap: 0
+		Filename: ""
+		RelativeFilename: ""
+		Content: "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"
+	}
+	AnimationStack: 72300479, "AnimStack::animation.vr_zombie.walk", "" {
+		Properties70:  {
+			P: "LocalStop", "KTime", "Time", "",46186158000
+			P: "ReferenceStop", "KTime", "Time", "",46186158000
+		}
+	}
+	AnimationLayer: 71818721, "AnimLayer::animation.vr_zombie.walk", "" {
+	}
+	AnimationCurveNode: 75883099, "AnimCurveNode::animation.vr_zombie.walk.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 78896873, "AnimCurve::animation.vr_zombie.walk.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *3 {
+			a: 0,23093078016,46186156032
+		}
+		KeyValueFloat: *3 {
+			a: 28,-28,28
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 3
+		}
+	}
+	AnimationCurve: 75875129, "AnimCurve::animation.vr_zombie.walk.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *3 {
+			a: 0,23093078016,46186156032
+		}
+		KeyValueFloat: *3 {
+			a: 0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 3
+		}
+	}
+	AnimationCurve: 77470559, "AnimCurve::animation.vr_zombie.walk.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *3 {
+			a: 0,23093078016,46186156032
+		}
+		KeyValueFloat: *3 {
+			a: 0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 3
+		}
+	}
+	AnimationCurveNode: 78766641, "AnimCurveNode::animation.vr_zombie.walk.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 78336354, "AnimCurve::animation.vr_zombie.walk.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *3 {
+			a: 0,23093078016,46186156032
+		}
+		KeyValueFloat: *3 {
+			a: -28,28,-28
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 3
+		}
+	}
+	AnimationCurve: 72365722, "AnimCurve::animation.vr_zombie.walk.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *3 {
+			a: 0,23093078016,46186156032
+		}
+		KeyValueFloat: *3 {
+			a: 0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 3
+		}
+	}
+	AnimationCurve: 79233174, "AnimCurve::animation.vr_zombie.walk.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *3 {
+			a: 0,23093078016,46186156032
+		}
+		KeyValueFloat: *3 {
+			a: 0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 3
+		}
+	}
+	AnimationStack: 74990497, "AnimStack::animation.vr_zombie.look_around", "" {
+		Properties70:  {
+			P: "LocalStop", "KTime", "Time", "",184744632000
+			P: "ReferenceStop", "KTime", "Time", "",184744632000
+		}
+	}
+	AnimationLayer: 79193093, "AnimLayer::animation.vr_zombie.look_around", "" {
+	}
+	AnimationCurveNode: 73178141, "AnimCurveNode::animation.vr_zombie.look_around.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 70050668, "AnimCurve::animation.vr_zombie.look_around.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *9 {
+			a: 0,23093078016,46186156032,69279236096,92372312064,115465396224,138558472192,161651556352,184744624128
+		}
+		KeyValueFloat: *9 {
+			a: 0,15,0,-15,0,10,-10,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 9
+		}
+	}
+	AnimationCurve: 79197006, "AnimCurve::animation.vr_zombie.look_around.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *9 {
+			a: 0,23093078016,46186156032,69279236096,92372312064,115465396224,138558472192,161651556352,184744624128
+		}
+		KeyValueFloat: *9 {
+			a: 0,0,25,0,-25,0,0,15,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 9
+		}
+	}
+	AnimationCurve: 70203336, "AnimCurve::animation.vr_zombie.look_around.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *9 {
+			a: 0,23093078016,46186156032,69279236096,92372312064,115465396224,138558472192,161651556352,184744624128
+		}
+		KeyValueFloat: *9 {
+			a: 0,0,0,0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 9
+		}
+	}
+	AnimationStack: 70078727, "AnimStack::animation.vr_zombie.attack", "" {
+		Properties70:  {
+			P: "LocalStop", "KTime", "Time", "",27711694800
+			P: "ReferenceStop", "KTime", "Time", "",27711694800
+		}
+	}
+	AnimationLayer: 71448929, "AnimLayer::animation.vr_zombie.attack", "" {
+	}
+	AnimationCurveNode: 70830534, "AnimCurveNode::animation.vr_zombie.attack.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 72768555, "AnimCurve::animation.vr_zombie.attack.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *4 {
+			a: 0,8313508864,13855848448,27711696896
+		}
+		KeyValueFloat: *4 {
+			a: 90,108,108,90
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 4
+		}
+	}
+	AnimationCurve: 78258271, "AnimCurve::animation.vr_zombie.attack.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *4 {
+			a: 0,8313508864,13855848448,27711696896
+		}
+		KeyValueFloat: *4 {
+			a: 0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 4
+		}
+	}
+	AnimationCurve: 78973272, "AnimCurve::animation.vr_zombie.attack.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *4 {
+			a: 0,8313508864,13855848448,27711696896
+		}
+		KeyValueFloat: *4 {
+			a: 0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 4
+		}
+	}
+	AnimationCurveNode: 78315465, "AnimCurveNode::animation.vr_zombie.attack.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 79009919, "AnimCurve::animation.vr_zombie.attack.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *4 {
+			a: 0,8313508864,13855848448,27711696896
+		}
+		KeyValueFloat: *4 {
+			a: 90,108,108,90
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 4
+		}
+	}
+	AnimationCurve: 77073101, "AnimCurve::animation.vr_zombie.attack.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *4 {
+			a: 0,8313508864,13855848448,27711696896
+		}
+		KeyValueFloat: *4 {
+			a: 0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 4
+		}
+	}
+	AnimationCurve: 78784742, "AnimCurve::animation.vr_zombie.attack.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *4 {
+			a: 0,8313508864,13855848448,27711696896
+		}
+		KeyValueFloat: *4 {
+			a: 0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 4
+		}
+	}
+	AnimationStack: 70484723, "AnimStack::animation.vr_zombie.death", "" {
+		Properties70:  {
+			P: "LocalStop", "KTime", "Time", "",57732697500
+			P: "ReferenceStop", "KTime", "Time", "",57732697500
+		}
+	}
+	AnimationLayer: 76230719, "AnimLayer::animation.vr_zombie.death", "" {
+	}
+	AnimationCurveNode: 78279794, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 79846835, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 76069086, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 73977956, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-5,16,95,87,90
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 75334249, "AnimCurveNode::animation.vr_zombie.death.P", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 71081721, "AnimCurve::animation.vr_zombie.death.PX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 70569382, "AnimCurve::animation.vr_zombie.death.PY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,1.875,0.9375,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 73484506, "AnimCurve::animation.vr_zombie.death.PZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 72173435, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 78106933, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-12,9,5,2,3
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 72928220, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,4,-6,-9,-6,-6
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 70968466, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,-2,-5,2,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 71871762, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 76378308, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-10,12,20,14,16
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 75665748, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,10,-10,-14,-10,-10
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 71652368, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-6,6,13,8,9
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 79578148, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 74779109, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 90,95,82,58,65,61.999996185302734
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 70661728, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-5,8,12,8,8
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 76857025, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-8,-20,-56,-47,-50
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 70375641, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 70785193, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 90,95,84,61.999996185302734,68,65
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 73943041, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,5,-8,-12,-8,-8
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 73330856, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,8,22,54,45,48
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 72297699, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 71778507, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,8,-24,28,21,23
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 74845102, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 70930876, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-3,-10,-14,-9,-10
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurveNode: 77292983, "AnimCurveNode::animation.vr_zombie.death.R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 74546903, "AnimCurve::animation.vr_zombie.death.RX", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,-5,18,-20,-14,-16
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 77069854, "AnimCurve::animation.vr_zombie.death.RY", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,0,0,0,0,0
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+	AnimationCurve: 77159155, "AnimCurve::animation.vr_zombie.death.RZ", "" {
+		Default: 0
+		KeyVer: 4008
+		KeyTime: *6 {
+			a: 0,6466062336,16165154816,36948926464,45262434304,57732698112
+		}
+		KeyValueFloat: *6 {
+			a: 0,3,8,12,8,9
+		}
+		KeyAttrFlags: *1 {
+			a: 24836
+		}
+		KeyAttrDataFloat: *4 {
+			a: 0,0,255790911,0
+		}
+		KeyAttrRefCount: *1 {
+			a: 6
+		}
+	}
+}
+
+; Object connections
+;------------------------------------------------------------------
+
+Connections:  {
+
+	;Model::root, Model::RootNode
+	C: "OO",77182533,0
+
+	;Model::body, Model::root
+	C: "OO",77197476,77182533
+
+	;Model::head, Model::body
+	C: "OO",73166056,77197476
+
+	;Model::right_arm, Model::body
+	C: "OO",71273491,77197476
+
+	;Model::left_arm, Model::body
+	C: "OO",72043214,77197476
+
+	;Model::right_leg, Model::root
+	C: "OO",70895895,77182533
+
+	;Model::left_leg, Model::root
+	C: "OO",73350164,77182533
+
+	;Model::head_cube, Model::head
+	C: "OO",71501872,73166056
+
+	;Geometry::head_cube, Model::head_cube
+	C: "OO",70518292,71501872
+
+	;Material::zombie.png, Model::head_cube
+	C: "OO",74849549,71501872
+
+	;Model::body_cube, Model::body
+	C: "OO",78503403,77197476
+
+	;Geometry::body_cube, Model::body_cube
+	C: "OO",76713198,78503403
+
+	;Material::zombie.png, Model::body_cube
+	C: "OO",74849549,78503403
+
+	;Model::right_arm_cube, Model::right_arm
+	C: "OO",79629940,71273491
+
+	;Geometry::right_arm_cube, Model::right_arm_cube
+	C: "OO",75388103,79629940
+
+	;Material::zombie.png, Model::right_arm_cube
+	C: "OO",74849549,79629940
+
+	;Model::left_arm_cube, Model::left_arm
+	C: "OO",70387653,72043214
+
+	;Geometry::left_arm_cube, Model::left_arm_cube
+	C: "OO",71375727,70387653
+
+	;Material::zombie.png, Model::left_arm_cube
+	C: "OO",74849549,70387653
+
+	;Model::right_leg_cube, Model::right_leg
+	C: "OO",75505184,70895895
+
+	;Geometry::right_leg_cube, Model::right_leg_cube
+	C: "OO",75684570,75505184
+
+	;Material::zombie.png, Model::right_leg_cube
+	C: "OO",74849549,75505184
+
+	;Model::left_leg_cube, Model::left_leg
+	C: "OO",72198704,73350164
+
+	;Geometry::left_leg_cube, Model::left_leg_cube
+	C: "OO",76571863,72198704
+
+	;Material::zombie.png, Model::left_leg_cube
+	C: "OO",74849549,72198704
+
+	;Texture::zombie.png, Material::zombie.png
+	C: "OP",76957841,74849549, "DiffuseColor"
+
+	;Video::zombie.png, Texture::zombie.png
+	C: "OO",73992239,76957841
+
+	;AnimLayer::animation.vr_zombie.walk, AnimStack::animation.vr_zombie.walk
+	C: "OO",71818721,72300479
+
+	;AnimCurveNode::animation.vr_zombie.walk.R, Model::left_leg
+	C: "OP",75883099,73350164, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.walk.R, AnimLayer::animation.vr_zombie.walk
+	C: "OO",75883099,71818721
+
+	;AnimCurve::animation.vr_zombie.walk.RX, AnimCurveNode::animation.vr_zombie.walk.R
+	C: "OP",78896873,75883099, "d|X"
+
+	;AnimCurve::animation.vr_zombie.walk.RY, AnimCurveNode::animation.vr_zombie.walk.R
+	C: "OP",75875129,75883099, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.walk.RZ, AnimCurveNode::animation.vr_zombie.walk.R
+	C: "OP",77470559,75883099, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.walk.R, Model::right_leg
+	C: "OP",78766641,70895895, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.walk.R, AnimLayer::animation.vr_zombie.walk
+	C: "OO",78766641,71818721
+
+	;AnimCurve::animation.vr_zombie.walk.RX, AnimCurveNode::animation.vr_zombie.walk.R
+	C: "OP",78336354,78766641, "d|X"
+
+	;AnimCurve::animation.vr_zombie.walk.RY, AnimCurveNode::animation.vr_zombie.walk.R
+	C: "OP",72365722,78766641, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.walk.RZ, AnimCurveNode::animation.vr_zombie.walk.R
+	C: "OP",79233174,78766641, "d|Z"
+
+	;AnimLayer::animation.vr_zombie.look_around, AnimStack::animation.vr_zombie.look_around
+	C: "OO",79193093,74990497
+
+	;AnimCurveNode::animation.vr_zombie.look_around.R, Model::head
+	C: "OP",73178141,73166056, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.look_around.R, AnimLayer::animation.vr_zombie.look_around
+	C: "OO",73178141,79193093
+
+	;AnimCurve::animation.vr_zombie.look_around.RX, AnimCurveNode::animation.vr_zombie.look_around.R
+	C: "OP",70050668,73178141, "d|X"
+
+	;AnimCurve::animation.vr_zombie.look_around.RY, AnimCurveNode::animation.vr_zombie.look_around.R
+	C: "OP",79197006,73178141, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.look_around.RZ, AnimCurveNode::animation.vr_zombie.look_around.R
+	C: "OP",70203336,73178141, "d|Z"
+
+	;AnimLayer::animation.vr_zombie.attack, AnimStack::animation.vr_zombie.attack
+	C: "OO",71448929,70078727
+
+	;AnimCurveNode::animation.vr_zombie.attack.R, Model::left_arm
+	C: "OP",70830534,72043214, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.attack.R, AnimLayer::animation.vr_zombie.attack
+	C: "OO",70830534,71448929
+
+	;AnimCurve::animation.vr_zombie.attack.RX, AnimCurveNode::animation.vr_zombie.attack.R
+	C: "OP",72768555,70830534, "d|X"
+
+	;AnimCurve::animation.vr_zombie.attack.RY, AnimCurveNode::animation.vr_zombie.attack.R
+	C: "OP",78258271,70830534, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.attack.RZ, AnimCurveNode::animation.vr_zombie.attack.R
+	C: "OP",78973272,70830534, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.attack.R, Model::right_arm
+	C: "OP",78315465,71273491, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.attack.R, AnimLayer::animation.vr_zombie.attack
+	C: "OO",78315465,71448929
+
+	;AnimCurve::animation.vr_zombie.attack.RX, AnimCurveNode::animation.vr_zombie.attack.R
+	C: "OP",79009919,78315465, "d|X"
+
+	;AnimCurve::animation.vr_zombie.attack.RY, AnimCurveNode::animation.vr_zombie.attack.R
+	C: "OP",77073101,78315465, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.attack.RZ, AnimCurveNode::animation.vr_zombie.attack.R
+	C: "OP",78784742,78315465, "d|Z"
+
+	;AnimLayer::animation.vr_zombie.death, AnimStack::animation.vr_zombie.death
+	C: "OO",76230719,70484723
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::root
+	C: "OP",78279794,77182533, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",78279794,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",79846835,78279794, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",76069086,78279794, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",73977956,78279794, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.P, Model::root
+	C: "OP",75334249,77182533, "Lcl Translation"
+
+	;AnimCurveNode::animation.vr_zombie.death.P, AnimLayer::animation.vr_zombie.death
+	C: "OO",75334249,76230719
+
+	;AnimCurve::animation.vr_zombie.death.PX, AnimCurveNode::animation.vr_zombie.death.P
+	C: "OP",71081721,75334249, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.PY, AnimCurveNode::animation.vr_zombie.death.P
+	C: "OP",70569382,75334249, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.PZ, AnimCurveNode::animation.vr_zombie.death.P
+	C: "OP",73484506,75334249, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::body
+	C: "OP",72173435,77197476, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",72173435,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",78106933,72173435, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",72928220,72173435, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",70968466,72173435, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::head
+	C: "OP",71871762,73166056, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",71871762,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",76378308,71871762, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",75665748,71871762, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",71652368,71871762, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::right_arm
+	C: "OP",79578148,71273491, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",79578148,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",74779109,79578148, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",70661728,79578148, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",76857025,79578148, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::left_arm
+	C: "OP",70375641,72043214, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",70375641,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",70785193,70375641, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",73943041,70375641, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",73330856,70375641, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::right_leg
+	C: "OP",72297699,70895895, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",72297699,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",71778507,72297699, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",74845102,72297699, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",70930876,72297699, "d|Z"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, Model::left_leg
+	C: "OP",77292983,73350164, "Lcl Rotation"
+
+	;AnimCurveNode::animation.vr_zombie.death.R, AnimLayer::animation.vr_zombie.death
+	C: "OO",77292983,76230719
+
+	;AnimCurve::animation.vr_zombie.death.RX, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",74546903,77292983, "d|X"
+
+	;AnimCurve::animation.vr_zombie.death.RY, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",77069854,77292983, "d|Y"
+
+	;AnimCurve::animation.vr_zombie.death.RZ, AnimCurveNode::animation.vr_zombie.death.R
+	C: "OP",77159155,77292983, "d|Z"
+}
+
+; Takes section
+;------------------------------------------------------------------
+
+Takes:  {
+	Current: ""
+	Take: "animation.vr_zombie.walk" {
+		FileName: "animation.vr_zombie.walk.tak"
+		LocalTime: 0,46186158000
+		ReferenceTime: 0,46186158000
+	}
+	Take: "animation.vr_zombie.look_around" {
+		FileName: "animation.vr_zombie.look_around.tak"
+		LocalTime: 0,184744632000
+		ReferenceTime: 0,184744632000
+	}
+	Take: "animation.vr_zombie.attack" {
+		FileName: "animation.vr_zombie.attack.tak"
+		LocalTime: 0,27711694800
+		ReferenceTime: 0,27711694800
+	}
+	Take: "animation.vr_zombie.death" {
+		FileName: "animation.vr_zombie.death.tak"
+		LocalTime: 0,57732697500
+		ReferenceTime: 0,57732697500
+	}
+}

@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.unity.ai.navigation": {
+      "version": "1.1.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.burst": {
       "version": "1.8.21",
       "depth": 1,
@@ -211,7 +220,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.xr.picoxr": {
-      "version": "file:E:/workspace/CraftFight/PICO Unity Integration SDK-3.4.0-20260226",
+      "version": "file:D:/课程/大三上/虚拟现实/craft/PICO_sdk",
       "depth": 0,
       "source": "local",
       "dependencies": {

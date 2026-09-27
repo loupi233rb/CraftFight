@@ -7,6 +7,9 @@
 #
 .utmp/
 /[Ll]ibrary/
+# Local-only Unity MCP embedded package
+/Packages/com.coplaydev.unity-mcp/
+/Packages/com.coplaydev.unity-mcp.meta
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
