@@ -8,12 +8,12 @@ public class CraftTable : MonoBehaviour
     public float SlotSize = 0.15f;
     public float SlotGap = 0.075f;
     private List<GameObject> slots = new();
-    private int[] slotItems = new int[9];
+    private int[] slotItems = new int[10];
     // Start is called before the first frame update
     void Start()
     {
         GenerateSlots();
-        slotItems = new int[9]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+        slotItems = new int[10]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     }
 
     // Update is called once per frame
@@ -32,5 +32,10 @@ public class CraftTable : MonoBehaviour
             slot.transform.localScale = new Vector3(SlotSize, SlotSize, SlotSize);
             slots.Add(slot);
         }
+        GameObject outputSlot = Instantiate(SlotPrefab, transform);
+        outputSlot.name = "OutputSlot";
+        outputSlot.transform.localPosition = new Vector3(- 2 * (SlotSize + SlotGap), 0, 0);
+        outputSlot.transform.localScale = new Vector3(SlotSize, SlotSize, SlotSize);
+        slots.Add(outputSlot);
     }
 }
