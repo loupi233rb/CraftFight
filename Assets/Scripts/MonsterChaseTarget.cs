@@ -24,6 +24,7 @@ public sealed class MonsterChaseTarget : MonoBehaviour
 
     private NavMeshAgent agent;
     private Animator animator;
+    private MonsterAudio monsterAudio;
     private Transform head;
     private Transform loadedArrow;
     private SteveHealth targetHealth;
@@ -39,23 +40,50 @@ public sealed class MonsterChaseTarget : MonoBehaviour
     private float headYaw;
     private float headPitch;
     private Quaternion headRestRotation;
+    private Vector3 previousPosition;
+    private int upperBodyLayer;
+
+    public bool IsKnockedBack => isKnockedBack;
+
+    private static readonly int MoveSpeedParameter = Animator.StringToHash("MoveSpeed");
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         health = GetComponent<MonsterHealth>();
+        monsterAudio = GetComponent<MonsterAudio>();
         head = transform.Find("root/body/head") ?? transform.Find("body/head");
         loadedArrow = transform.Find("root/bow/arrow") ?? transform.Find("bow/arrow");
         headRestRotation = head != null ? head.localRotation : Quaternion.identity;
+        previousPosition = transform.position;
+        upperBodyLayer = animator.GetLayerIndex("Upper Body");
         agent.updateRotation = false;
         agent.stoppingDistance = attackStyle == AttackStyle.Bow ? 10f : 1.25f;
         if (target != null)
             targetHealth = target.GetComponent<SteveHealth>();
     }
 
+
+    private void Start()
+    {
+        if (target != null)
+            return;
+        SteveHealth player = FindObjectOfType<SteveHealth>();
+        if (player != null)
+            Initialize(player.transform);
+    }
+
+    public void Initialize(Transform playerTarget)
+    {
+        target = playerTarget;
+        targetHealth = target != null ? target.GetComponent<SteveHealth>() : null;
+        nextPathUpdate = 0f;
+    }
+
     private void Update()
     {
+        UpdateLocomotion();
         if (!agent.isOnNavMesh)
             return;
         if (isKnockedBack)
@@ -91,7 +119,8 @@ public sealed class MonsterChaseTarget : MonoBehaviour
         bool lineOfSight = HasLineOfSight();
         float range = attackStyle == AttackStyle.Bow ? bowRange : meleeRange;
         bool canAttack = distance <= range && lineOfSight;
-        agent.isStopped = impactPending || canAttack;
+        agent.isStopped = canAttack &&
+            (attackStyle == AttackStyle.Bow || distance <= agent.stoppingDistance);
 
         Vector3 bodyDirection = agent.isStopped ? flatTarget : agent.desiredVelocity;
         if (bodyDirection.sqrMagnitude < 0.01f)
@@ -103,8 +132,6 @@ public sealed class MonsterChaseTarget : MonoBehaviour
             Quaternion facing = Quaternion.LookRotation(-bodyDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, facing, bodyTurnSpeed * Time.deltaTime);
         }
-
-        animator.SetBool("Moving", !agent.isStopped && agent.velocity.sqrMagnitude > 0.04f);
 
         if (impactPending && Time.time >= impactAt)
         {
@@ -119,12 +146,24 @@ public sealed class MonsterChaseTarget : MonoBehaviour
             Vector3.Angle(-transform.forward, flatTarget) < 40f)
         {
             animator.SetTrigger("Attack");
+            if (attackStyle == AttackStyle.Melee && monsterAudio != null)
+                monsterAudio.PlayAttack();
             if (loadedArrow != null && attackStyle == AttackStyle.Bow)
                 loadedArrow.gameObject.SetActive(true);
             impactPending = true;
             impactAt = Time.time + attackImpactTime;
             nextAttack = Time.time + attackInterval;
         }
+    }
+
+    private void UpdateLocomotion()
+    {
+        Vector3 displacement = Vector3.ProjectOnPlane(transform.position - previousPosition, Vector3.up);
+        previousPosition = transform.position;
+        float speed = Time.deltaTime > 0f ? displacement.magnitude / Time.deltaTime : 0f;
+        float amount = health.IsDead ? 0f : Mathf.Clamp01(speed / Mathf.Max(0.1f, agent.speed));
+        animator.SetFloat(MoveSpeedParameter, amount, 0.14f, Time.deltaTime);
+        animator.SetBool("Moving", !health.IsDead && speed > 0.05f);
     }
 
     private bool HasLineOfSight()
@@ -161,6 +200,9 @@ public sealed class MonsterChaseTarget : MonoBehaviour
         agent.isStopped = true;
         agent.updatePosition = false;
         impactPending = false;
+        animator.ResetTrigger("Attack");
+        if (upperBodyLayer >= 0)
+            animator.CrossFadeInFixedTime("Upper Body.Rest", 0.1f, upperBodyLayer);
         if (loadedArrow != null && attackStyle == AttackStyle.Bow)
             loadedArrow.gameObject.SetActive(false);
     }
@@ -177,9 +219,12 @@ public sealed class MonsterChaseTarget : MonoBehaviour
         if (loadedArrow != null && attackStyle == AttackStyle.Bow)
             loadedArrow.gameObject.SetActive(false);
         animator.SetBool("Moving", false);
+        animator.SetFloat(MoveSpeedParameter, 0f);
         animator.ResetTrigger("Attack");
+        if (upperBodyLayer >= 0)
+            animator.SetLayerWeight(upperBodyLayer, 0f);
         if (animator.HasState(0, Animator.StringToHash("Base Layer.Death")))
-            animator.CrossFade("Base Layer.Death", 0.05f);
+            animator.CrossFadeInFixedTime("Base Layer.Death", 0.05f, 0);
         CapsuleCollider bodyCollider = GetComponent<CapsuleCollider>();
         if (bodyCollider != null)
             bodyCollider.enabled = false;
@@ -192,7 +237,6 @@ public sealed class MonsterChaseTarget : MonoBehaviour
         knockbackHeight = Mathf.Max(0f, knockbackHeight + knockbackVerticalSpeed * Time.deltaTime);
         transform.position = agent.nextPosition + Vector3.up * knockbackHeight;
         knockbackVelocity = Vector3.MoveTowards(knockbackVelocity, Vector3.zero, 12f * Time.deltaTime);
-        animator.SetBool("Moving", false);
 
         if (knockbackHeight <= 0f && knockbackVerticalSpeed <= 0f)
         {
@@ -223,7 +267,10 @@ public sealed class MonsterChaseTarget : MonoBehaviour
 
         GameObject arrow = Instantiate(loadedArrow.gameObject, origin, Quaternion.LookRotation(-direction));
         arrow.name = "SkeletonArrow";
-        arrow.AddComponent<ArrowProjectile>().Launch(direction, transform, targetHealth, attackDamage);
+        MonsterAudioProfile audioProfile = monsterAudio != null ? monsterAudio.Profile : null;
+        arrow.AddComponent<ArrowProjectile>().Launch(direction, transform, targetHealth, attackDamage, audioProfile);
+        if (monsterAudio != null)
+            monsterAudio.PlayShoot();
         loadedArrow.gameObject.SetActive(false);
     }
 

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Skeleton_UpperBody
+  m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 0
+  - m_Path: root
+    m_Weight: 0
+  - m_Path: root/body
+    m_Weight: 1
+  - m_Path: root/body/body_cube
+    m_Weight: 1
+  - m_Path: root/body/head
+    m_Weight: 1
+  - m_Path: root/body/head/head_cube
+    m_Weight: 1
+  - m_Path: root/body/left_arm
+    m_Weight: 1
+  - m_Path: root/body/left_arm/left_arm_cube
+    m_Weight: 1
+  - m_Path: root/body/right_arm
+    m_Weight: 1
+  - m_Path: root/body/right_arm/right_arm_cube
+    m_Weight: 1
+  - m_Path: root/bow
+    m_Weight: 1
+  - m_Path: root/bow/arrow
+    m_Weight: 1
+  - m_Path: root/bow/arrow/arrow_fletching_bottom
+    m_Weight: 1
+  - m_Path: root/bow/arrow/arrow_fletching_top
+    m_Weight: 1
+  - m_Path: root/bow/arrow/arrow_shaft
+    m_Weight: 1
+  - m_Path: root/bow/arrow/arrow_tip
+    m_Weight: 1
+  - m_Path: root/bow/bow_grip
+    m_Weight: 1
+  - m_Path: root/bow/bow_lower_base
+    m_Weight: 1
+  - m_Path: root/bow/bow_lower_mid
+    m_Weight: 1
+  - m_Path: root/bow/bow_lower_tip
+    m_Weight: 1
+  - m_Path: root/bow/bow_upper_base
+    m_Weight: 1
+  - m_Path: root/bow/bow_upper_mid
+    m_Weight: 1
+  - m_Path: root/bow/bow_upper_tip
+    m_Weight: 1
+  - m_Path: root/bow/bowstring_lower
+    m_Weight: 1
+  - m_Path: root/bow/bowstring_lower/string_lower
+    m_Weight: 1
+  - m_Path: root/bow/bowstring_upper
+    m_Weight: 1
+  - m_Path: root/bow/bowstring_upper/string_upper
+    m_Weight: 1
+  - m_Path: root/left_leg
+    m_Weight: 0
+  - m_Path: root/left_leg/left_leg_cube
+    m_Weight: 0
+  - m_Path: root/right_leg
+    m_Weight: 0
+  - m_Path: root/right_leg/right_leg_cube
+    m_Weight: 0
