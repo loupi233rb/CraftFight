@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Zombie_UpperBody
+  m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 0
+  - m_Path: root
+    m_Weight: 0
+  - m_Path: root/body
+    m_Weight: 1
+  - m_Path: root/body/body_cube
+    m_Weight: 1
+  - m_Path: root/body/head
+    m_Weight: 1
+  - m_Path: root/body/head/head_cube
+    m_Weight: 1
+  - m_Path: root/body/left_arm
+    m_Weight: 1
+  - m_Path: root/body/left_arm/left_arm_cube
+    m_Weight: 1
+  - m_Path: root/body/right_arm
+    m_Weight: 1
+  - m_Path: root/body/right_arm/right_arm_cube
+    m_Weight: 1
+  - m_Path: root/left_leg
+    m_Weight: 0
+  - m_Path: root/left_leg/left_leg_cube
+    m_Weight: 0
+  - m_Path: root/right_leg
+    m_Weight: 0
+  - m_Path: root/right_leg/right_leg_cube
+    m_Weight: 0

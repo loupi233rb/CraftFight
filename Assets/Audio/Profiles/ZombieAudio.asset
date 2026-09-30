@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec51b490576c3034e8917581575c3765, type: 3}
+  m_Name: ZombieAudio
+  m_EditorClassIdentifier: 
+  ambientClips:
+  - {fileID: 8300000, guid: 7d156eb030c524b4e87f91961251daab, type: 3}
+  - {fileID: 8300000, guid: d80d9b8d5b9b421448821335b4a2330a, type: 3}
+  - {fileID: 8300000, guid: 1328056688ce43a4d91cc6a24abf9b7c, type: 3}
+  footstepClips:
+  - {fileID: 8300000, guid: e214f413f2c226744a04db66c3ad0d06, type: 3}
+  - {fileID: 8300000, guid: 4bc4a52002559e74b8e41b81a7258c5e, type: 3}
+  - {fileID: 8300000, guid: 176d87983bab62f4595317548e758051, type: 3}
+  - {fileID: 8300000, guid: 95b390c470b2fb3499b4b8a117af8d6d, type: 3}
+  - {fileID: 8300000, guid: bde68d7459c0d22488bdcefd31bb9051, type: 3}
+  attackClips:
+  - {fileID: 8300000, guid: e8f24cd6a24099e40bfa152b6220a611, type: 3}
+  - {fileID: 8300000, guid: e6054b9452c264243aabe9987c64fc56, type: 3}
+  - {fileID: 8300000, guid: 02f702d12da1b7a479abc31ec1f0b9ce, type: 3}
+  hurtClips:
+  - {fileID: 8300000, guid: c3f478c309b65444fbddf1e044012668, type: 3}
+  - {fileID: 8300000, guid: e416bb242a9d5844abd354deee95e088, type: 3}
+  deathClips:
+  - {fileID: 8300000, guid: f91c1a1af85d06c45bf14c080920b2a2, type: 3}
+  shootClips: []
+  arrowImpactClips: []
+  masterVolume: 0.8
+  ambientVolume: 0.65
+  footstepVolume: 0.45
+  combatVolume: 1
+  ambientInterval: {x: 4, y: 8}
+  stepDistance: 1.1
+  pitchRange: {x: 0.95, y: 1.05}
+  minDistance: 1.5
+  maxDistance: 24

@@ -9,13 +9,16 @@ public sealed class ArrowProjectile : MonoBehaviour
     private Transform owner;
     private SteveHealth target;
     private int damage;
+    private MonsterAudioProfile audioProfile;
 
-    public void Launch(Vector3 travelDirection, Transform shooter, SteveHealth hitTarget, int hitDamage)
+    public void Launch(Vector3 travelDirection, Transform shooter, SteveHealth hitTarget, int hitDamage,
+        MonsterAudioProfile soundProfile = null)
     {
         direction = travelDirection.normalized;
         owner = shooter;
         target = hitTarget;
         damage = hitDamage;
+        audioProfile = soundProfile;
         Destroy(gameObject, lifetime);
     }
 
@@ -41,6 +44,9 @@ public sealed class ArrowProjectile : MonoBehaviour
 
         if (found)
         {
+            if (audioProfile != null)
+                audioProfile.PlayAtPoint(audioProfile.Pick(audioProfile.arrowImpactClips), closest.point,
+                    audioProfile.combatVolume);
             if (target != null && (closest.transform == target.transform ||
                 closest.transform.IsChildOf(target.transform)))
                 target.TakeDamage(damage, transform.position - direction);

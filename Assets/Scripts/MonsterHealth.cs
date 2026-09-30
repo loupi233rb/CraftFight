@@ -8,6 +8,7 @@ public sealed class MonsterHealth : MonoBehaviour
     [SerializeField, Min(0f)] private float corpseDuration = 1.4f;
 
     private DamageVisuals visuals;
+    private MonsterAudio monsterAudio;
 
     public int CurrentHealth => currentHealth;
     public int MaxHealth => MaxHealthValue;
@@ -16,6 +17,7 @@ public sealed class MonsterHealth : MonoBehaviour
     private void Awake()
     {
         currentHealth = MaxHealthValue;
+        monsterAudio = GetComponent<MonsterAudio>();
         visuals = GetComponent<DamageVisuals>();
         if (visuals == null)
             visuals = gameObject.AddComponent<DamageVisuals>();
@@ -30,6 +32,8 @@ public sealed class MonsterHealth : MonoBehaviour
         if (IsDead)
         {
             visuals.ShowDeath();
+            if (monsterAudio != null)
+                monsterAudio.PlayDeath();
             MonsterChaseTarget chase = GetComponent<MonsterChaseTarget>();
             if (chase != null)
                 chase.Die();
@@ -38,6 +42,8 @@ public sealed class MonsterHealth : MonoBehaviour
         }
 
         visuals.ShowHit();
+        if (monsterAudio != null)
+            monsterAudio.PlayHurt();
         MonsterChaseTarget livingChase = GetComponent<MonsterChaseTarget>();
         if (livingChase != null)
             livingChase.ApplyKnockback(sourcePosition);
