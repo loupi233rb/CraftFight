@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: tnt
   m_EditorClassIdentifier: 
-  itemID: 0
-  itemName: oak_plank
-  displayName: "\u6A61\u6728\u677F"
+  itemID: 9
+  itemName: tnt
+  displayName: "\u70B8\u5F39"
   attckPower: 0
-  worldPrefab: {fileID: 0}
+  worldPrefab: {fileID: 6366174318709310483, guid: 58a705ff32ade774cafd66da91db9be7,
+    type: 3}

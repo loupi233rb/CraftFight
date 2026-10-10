@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: iron_ingot
   m_EditorClassIdentifier: 
-  itemID: 0
-  itemName: oak_plank
-  displayName: "\u6A61\u6728\u677F"
+  itemID: 4
+  itemName: iron_ingot
+  displayName: "\u94C1\u952D"
   attckPower: 0
-  worldPrefab: {fileID: 0}
+  worldPrefab: {fileID: 4855379187942625773, guid: 531a5cc6c49430742bd35a2b6f4c984f,
+    type: 3}

@@ -16,4 +16,5 @@ MonoBehaviour:
   itemName: oak_plank
   displayName: "\u6A61\u6728\u677F"
   attckPower: 0
-  worldPrefab: {fileID: 0}
+  worldPrefab: {fileID: 6366174318709310483, guid: 7042f251d7ba8ee41b60ebdd901bdfaf,
+    type: 3}

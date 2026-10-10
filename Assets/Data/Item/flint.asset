@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: flint
   m_EditorClassIdentifier: 
-  itemID: 0
-  itemName: oak_plank
-  displayName: "\u6A61\u6728\u677F"
+  itemID: 2
+  itemName: flint
+  displayName: "\u71E7\u77F3"
   attckPower: 0
-  worldPrefab: {fileID: 0}
+  worldPrefab: {fileID: 6366174318709310483, guid: 27097ab18d7ac094cb1d55d52d9a7a6d,
+    type: 3}
