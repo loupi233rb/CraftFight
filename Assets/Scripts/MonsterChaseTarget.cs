@@ -133,13 +133,10 @@ public sealed class MonsterChaseTarget : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, facing, bodyTurnSpeed * Time.deltaTime);
         }
 
-        if (impactPending && Time.time >= impactAt)
+        if (impactPending && attackStyle == AttackStyle.Bow && Time.time >= impactAt)
         {
             impactPending = false;
-            if (attackStyle == AttackStyle.Bow)
-                FireArrow();
-            else
-                HitTarget();
+            FireArrow();
         }
 
         if (!impactPending && canAttack && Time.time >= nextAttack &&
@@ -151,9 +148,19 @@ public sealed class MonsterChaseTarget : MonoBehaviour
             if (loadedArrow != null && attackStyle == AttackStyle.Bow)
                 loadedArrow.gameObject.SetActive(true);
             impactPending = true;
-            impactAt = Time.time + attackImpactTime;
+            if (attackStyle == AttackStyle.Bow)
+                impactAt = Time.time + attackImpactTime;
             nextAttack = Time.time + attackInterval;
         }
+    }
+
+    public void OnMeleeImpact()
+    {
+        if (attackStyle != AttackStyle.Melee || !impactPending || health.IsDead || isKnockedBack)
+            return;
+
+        impactPending = false;
+        HitTarget();
     }
 
     private void UpdateLocomotion()

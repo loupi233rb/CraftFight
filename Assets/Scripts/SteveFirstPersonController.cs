@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterController))]
+
 public sealed class SteveFirstPersonController : MonoBehaviour
 {
     [SerializeField] private Transform viewCamera;
@@ -18,6 +19,8 @@ public sealed class SteveFirstPersonController : MonoBehaviour
     private float cameraLocalYaw;
     private Vector3 knockbackVelocity;
     private SteveHealth health;
+    private bool deathView;
+    private readonly Vector3 deathCameraOffset = new Vector3(0f, 2.25f, -3.25f);
 
     private void Awake()
     {
@@ -45,17 +48,32 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            SetCursorLocked(false);
-        else if (Input.GetMouseButtonDown(0))
-            SetCursorLocked(true);
+        if (!deathView)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                SetCursorLocked(false);
+            else if (Input.GetMouseButtonDown(0))
+                SetCursorLocked(true);
 
-        if (Cursor.lockState == CursorLockMode.Locked)
-            LookAround();
+            if (Cursor.lockState == CursorLockMode.Locked)
+                LookAround();
+        }
 
         if (health == null || !health.IsDead || knockbackVelocity.sqrMagnitude > 0.01f ||
             !characterController.isGrounded)
             Move();
+    }
+
+    public void EnterDeathView()
+    {
+        deathView = true;
+        SetCursorLocked(false);
+        if (viewCamera == null)
+            return;
+
+        viewCamera.localPosition = deathCameraOffset;
+        Vector3 focus = transform.position + Vector3.up * 0.9f;
+        viewCamera.rotation = Quaternion.LookRotation(focus - viewCamera.position, Vector3.up);
     }
 
     public void ApplyKnockback(Vector3 sourcePosition)

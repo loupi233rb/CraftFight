@@ -1,0 +1,4 @@
+System.InvalidOperationException: Boundary/terrain validation failed; inspect Logs/BoatAttackTutorialPolish
+  at BoatAttackTutorialPolish.AuditBoundary (UnityEngine.GameObject env, UnityEngine.Terrain terrain) [0x002d5] in D:\课程\大三上\虚拟现实\craft\CraftFight\Assets\BoatAttackTutorial\Editor\BoatAttackTutorialPolish.cs:251 
+  at BoatAttackTutorialPolish.Run () [0x0011d] in D:\课程\大三上\虚拟现实\craft\CraftFight\Assets\BoatAttackTutorial\Editor\BoatAttackTutorialPolish.cs:43 
+  at BoatAttackTutorialTools.Tick () [0x0007a] in D:\课程\大三上\虚拟现实\craft\CraftFight\Assets\BoatAttackTutorial\Editor\BoatAttackTutorialTools.cs:32 

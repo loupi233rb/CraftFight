@@ -22,10 +22,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 176d87983bab62f4595317548e758051, type: 3}
   - {fileID: 8300000, guid: 95b390c470b2fb3499b4b8a117af8d6d, type: 3}
   - {fileID: 8300000, guid: bde68d7459c0d22488bdcefd31bb9051, type: 3}
-  attackClips:
-  - {fileID: 8300000, guid: e8f24cd6a24099e40bfa152b6220a611, type: 3}
-  - {fileID: 8300000, guid: e6054b9452c264243aabe9987c64fc56, type: 3}
-  - {fileID: 8300000, guid: 02f702d12da1b7a479abc31ec1f0b9ce, type: 3}
+  attackClips: []
   hurtClips:
   - {fileID: 8300000, guid: c3f478c309b65444fbddf1e044012668, type: 3}
   - {fileID: 8300000, guid: e416bb242a9d5844abd354deee95e088, type: 3}

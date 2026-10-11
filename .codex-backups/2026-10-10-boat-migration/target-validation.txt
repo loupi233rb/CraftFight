@@ -1,0 +1,12 @@
+Scene: Assets/BoatAttackTutorial/Scenes/Tutorial_BoatAttack.unity
+Saved: True
+Renderers: 492
+Mesh colliders: 363
+Missing scripts: 0
+Terrain size: (225.00, 100.00, 150.00)
+Environment bounds: Center: (109.76, 28.24, -123.77), Extents: (138.67, 61.84, 87.24)
+Spawn: (110.00, -1.50, -80.00)
+Spawn unobstructed: True
+Terrain collider raycast: True
+Shader errors: 0
+Asset errors: 0
