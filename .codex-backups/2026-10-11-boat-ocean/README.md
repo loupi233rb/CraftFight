@@ -1,0 +1,1 @@
+Sea migration backup: Scene.before.unity and Terrain.before.asset are the pre-migration files. BoatAttackOceanMigration.cs is the one-time editor tool archived after verification. The current migration reports and screenshots are in Logs/BoatAttackTutorialOcean. Original SampleScene and package manifest were unchanged during this migration.

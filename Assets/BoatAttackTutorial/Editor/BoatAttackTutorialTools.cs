@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using CraftFight.Tutorial;
 
 public static class BoatAttackTutorialTools
 {
@@ -36,11 +37,23 @@ public static class BoatAttackTutorialTools
         if(!terrainHit) errors.Add("No terrain beneath spawn");
         foreach(var root in scene.GetRootGameObjects()) foreach(var t in root.GetComponentsInChildren<Transform>(true)) missing+=GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(t.gameObject);
         if(missing>0) errors.Add("Missing scripts: "+missing);
-        var renderers=env.GetComponentsInChildren<Renderer>(true);
+        var renderers=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<Renderer>(true)).ToArray();
+        var oceans=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<TutorialOcean>(true)).ToArray();
+        foreach(var ocean in oceans)
+        {
+            if(ocean.resources==null || ocean.surface==null || ocean.seafloorHeight==null || ocean.skyReflection==null) errors.Add("Missing ocean resources");
+            if(ocean.resources!=null && (ocean.resources.defaultSeaMaterial==null || ocean.resources.defaultFoamMap==null || ocean.resources.defaultSurfaceMap==null || ocean.resources.defaultFoamRamp==null || ocean.resources.defaultWaterMeshes.Any(m=>m==null))) errors.Add("Incomplete BoatAttack water resources");
+            if(spawn.position.y<ocean.SeaLevel+.75f) errors.Add("Spawn is too close to sea level");
+        }
+        foreach(var marker in scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<Transform>()).Where(t=>t.name=="PlayerSpawn" || t.name=="BattleEntry - Placeholder"))
+        {
+            if(Physics.CheckCapsule(marker.position+Vector3.up*.4f,marker.position+Vector3.up*1.7f,.3f,~0,QueryTriggerInteraction.Ignore)) errors.Add("Placement obstructed: "+marker.name);
+            if(Physics.Raycast(marker.position+Vector3.up*100,Vector3.down,out var overhead,102,~0,QueryTriggerInteraction.Ignore) && overhead.point.y>marker.position.y+.3f) errors.Add("Placement is inside or beneath scenery: "+marker.name);
+        }
         foreach(var r in renderers) foreach(var m in r.sharedMaterials) if(m==null || m.shader==null) errors.Add("Missing material/shader: "+r.name);
-        foreach(var shader in renderers.SelectMany(r=>r.sharedMaterials).Concat(new[]{terrain.materialTemplate}).Where(m=>m!=null && m.shader!=null).Select(m=>m.shader).Distinct())
+        foreach(var shader in renderers.SelectMany(r=>r.sharedMaterials).Concat(new[]{terrain.materialTemplate}).Concat(oceans.Where(o=>o.resources!=null).Select(o=>o.resources.defaultSeaMaterial)).Where(m=>m!=null && m.shader!=null).Select(m=>m.shader).Distinct())
             foreach(var message in ShaderUtil.GetShaderMessages(shader)) if(message.severity.ToString()=="Error") shaderErrors.Add(shader.name+": "+message.message);
-        foreach(var mf in env.GetComponentsInChildren<MeshFilter>(true)) if(mf.sharedMesh==null) errors.Add("Missing mesh: "+mf.name);
+        foreach(var mf in scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<MeshFilter>(true))) if(mf.sharedMesh==null) errors.Add("Missing mesh: "+mf.name);
         if(terrain.GetComponent<TerrainCollider>().terrainData!=terrain.terrainData) errors.Add("Terrain collider data mismatch");
         var bounds=renderers[0].bounds;foreach(var r in renderers) bounds.Encapsulate(r.bounds);
         Render(camera,Work+"/tutorial-overview.png");
@@ -59,8 +72,17 @@ public static class BoatAttackTutorialTools
     }
     public static void Render(Camera camera,string path)
     {
-        var rt=new RenderTexture(1500,900,24);camera.targetTexture=rt;camera.Render();RenderTexture.active=rt;
-        var tex=new Texture2D(1500,900,TextureFormat.RGB24,false);tex.ReadPixels(new Rect(0,0,1500,900),0,0);tex.Apply();File.WriteAllBytes(path,tex.EncodeToPNG());
-        camera.targetTexture=null;RenderTexture.active=null;UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(tex);
+        var previousTarget=camera.targetTexture;var previousActive=RenderTexture.active;
+        var rt=new RenderTexture(1500,900,24);var tex=new Texture2D(1500,900,TextureFormat.RGB24,false);
+        try
+        {
+            camera.targetTexture=rt;camera.Render();RenderTexture.active=rt;
+            tex.ReadPixels(new Rect(0,0,1500,900),0,0);tex.Apply();File.WriteAllBytes(path,tex.EncodeToPNG());
+        }
+        finally
+        {
+            camera.targetTexture=previousTarget;RenderTexture.active=previousActive;
+            UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(tex);
+        }
     }
 }
