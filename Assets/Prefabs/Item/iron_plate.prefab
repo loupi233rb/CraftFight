@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2901047818781055402}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8482119002196132449}
   - component: {fileID: 4013526504815988567}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: iron_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,8 +61,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2901047818781055402}
   - {fileID: 2002606158074336152}
+  - {fileID: 2901047818781055402}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4013526504815988567
@@ -90,8 +90,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 80
+  m_CollisionDetection: 3
 --- !u!1001 &2035652104445146227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,42 +155,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: iron_plate
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fd404e602e73cf2478fb19fb359ee2ca,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fd404e602e73cf2478fb19fb359ee2ca,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7358691344957141867}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd404e602e73cf2478fb19fb359ee2ca, type: 3}
---- !u!1 &1189371536444197154 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fd404e602e73cf2478fb19fb359ee2ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 2035652104445146227}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &7358691344957141867
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189371536444197154}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0021875, y: 0.0021875, z: 0.00015625}
-  m_Center: {x: 0.00390625, y: 0.0014062499, z: 0.000078125}
 --- !u!4 &2002606158074336152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fd404e602e73cf2478fb19fb359ee2ca,

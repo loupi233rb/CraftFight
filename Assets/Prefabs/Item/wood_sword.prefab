@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4084090252876645181
+--- !u!1 &813980240763900593
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6817022822857806879}
-  - component: {fileID: 3744980194248125576}
+  - component: {fileID: 2604126006674549425}
+  - component: {fileID: 4042249812822644518}
   m_Layer: 0
-  m_Name: collider
+  m_Name: sword_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6817022822857806879
+  m_IsActive: 0
+--- !u!4 &2604126006674549425
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4084090252876645181}
+  m_GameObject: {fileID: 813980240763900593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -0.0231, y: 0.0232, z: 0.005}
-  m_LocalScale: {x: 0.05, y: 0.23216844, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6362517234682520291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!65 &3744980194248125576
+--- !u!65 &4042249812822644518
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4084090252876645181}
+  m_GameObject: {fileID: 813980240763900593}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -51,8 +51,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.035, y: 0.14, z: 0.015}
+  m_Center: {x: 0, y: 0.07, z: 0.005}
 --- !u!1 &6139165503407356046
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7007693599193961319}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6362517234682520291}
   - component: {fileID: 4541145997156897983}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: wood_sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,9 +114,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7007693599193961319}
   - {fileID: 3148271897854351096}
-  - {fileID: 6817022822857806879}
+  - {fileID: 7007693599193961319}
+  - {fileID: 2604126006674549425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4541145997156897983
@@ -144,8 +144,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 80
+  m_CollisionDetection: 3
 --- !u!1001 &3186949713685999891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -208,6 +208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wood_sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dd3e44237b6cfd54693c2b35b4d42c96,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
