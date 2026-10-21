@@ -168,9 +168,18 @@ public sealed class MonsterChaseTarget : MonoBehaviour
         Vector3 displacement = Vector3.ProjectOnPlane(transform.position - previousPosition, Vector3.up);
         previousPosition = transform.position;
         float speed = Time.deltaTime > 0f ? displacement.magnitude / Time.deltaTime : 0f;
-        float amount = health.IsDead ? 0f : Mathf.Clamp01(speed / Mathf.Max(0.1f, agent.speed));
-        animator.SetFloat(MoveSpeedParameter, amount, 0.14f, Time.deltaTime);
-        animator.SetBool("Moving", !health.IsDead && speed > 0.05f);
+        bool moving = !health.IsDead && speed > 0.05f;
+        if (moving)
+        {
+            float amount = Mathf.Clamp01(speed / Mathf.Max(0.1f, agent.speed));
+            animator.SetFloat(MoveSpeedParameter, amount, 0.14f, Time.deltaTime);
+        }
+        else
+        {
+            // Fully select the standing pose instead of retaining a damped walk weight.
+            animator.SetFloat(MoveSpeedParameter, 0f);
+        }
+        animator.SetBool("Moving", moving);
     }
 
     private bool HasLineOfSight()

@@ -16,6 +16,7 @@ public sealed class HandInventory : MonoBehaviour
     [SerializeField] private string handLabel = "LEFT";
     [SerializeField] private Transform viewCamera;
     [SerializeField] private Vector3 panelOffset = new Vector3(0f, -0.1f, -0.24f);
+    [SerializeField] private Vector3 panelRotation;
     [SerializeField, Range(0.25f, 2f)] private float panelScale = 0.85f;
     [SerializeField] private Material boardMaterial;
     [SerializeField] private Material slotMaterial;
@@ -64,7 +65,8 @@ public sealed class HandInventory : MonoBehaviour
     {
         // The panel stays on the wrist; its face remains readable from the player's head.
         // Position and item selection never depend on whether the arm is raised.
-        if (panel != null && viewCamera != null) panel.rotation = viewCamera.rotation;
+        if (panel != null && viewCamera != null)
+            panel.rotation = viewCamera.rotation * Quaternion.Euler(panelRotation);
     }
 
     private void BuildView()
