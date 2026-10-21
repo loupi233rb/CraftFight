@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 5755096570384923683}
   m_Layer: 11
   m_Name: DroppedItem
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: oak_plank
+  itemId: -1

@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     [Header("基础信息")]
-    public int itemID;
+    public int itemId;
     public string itemName;
     public string displayName;
 

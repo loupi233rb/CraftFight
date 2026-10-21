@@ -6,6 +6,7 @@ using UnityEngine;
 public class DroppedItem : MonoBehaviour
 {
     public string itemName = "oak_plank";
+    public int itemId = -1;
     private ItemData itemData;
     private ItemDatabase itemDatabase;
     private Rigidbody rb;
@@ -19,11 +20,13 @@ public class DroppedItem : MonoBehaviour
         itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
         rb = GetComponent<Rigidbody>();
         itemData = itemDatabase.Get(itemName);
+        itemId = itemData.itemId;
     }
     void Start()
     {
-        startAngle =Random.Range(0f, 360f);
-        transform.rotation = Quaternion.Euler(0, startAngle, 0);
+        // 防止掉落物碰撞箱旋转
+        // startAngle =Random.Range(0f, 360f);
+        // transform.rotation = Quaternion.Euler(0, startAngle, 0);
         // 传入之前必须执行Init，否则默认物品为木板
         model = itemData.worldPrefab;
         model = Instantiate(model, transform);
