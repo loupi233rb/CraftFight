@@ -18,3 +18,7 @@ MonoBehaviour:
   attckPower: 0
   worldPrefab: {fileID: 4855379187942625773, guid: 531a5cc6c49430742bd35a2b6f4c984f,
     type: 3}
+  heldItemSize: 0.28
+  heldItemRotation: {x: -20, y: 20, z: -8}
+  heldItemOffset: {x: 0, y: 0, z: -0.02}
+  enableHeldSwordCollider: 0

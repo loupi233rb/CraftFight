@@ -1987,6 +1987,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: vr_steve
       objectReference: {fileID: 0}
+    - target: {fileID: 2541315070195094371, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541315070195094371, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemOffset.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541315070195094371, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemOffset.y
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541315070195094371, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemOffset.z
+      value: -0.129
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363605485074834372, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363605485074834372, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemOffset.x
+      value: 0.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363605485074834372, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemOffset.y
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363605485074834372, guid: 8ca2c0f513a02484080391aea2219665,
+        type: 3}
+      propertyPath: heldItemOffset.z
+      value: -0.187
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
