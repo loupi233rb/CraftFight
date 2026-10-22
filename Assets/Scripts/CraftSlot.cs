@@ -7,6 +7,7 @@ public class CraftSlot : MonoBehaviour
     public int index;
     public int capturedItemId = -1;
     public string capturedItemName = "";
+    public bool isOutputSlot = false;
     private ItemDatabase itemDatabase;
     private GameObject itemIcon;
     private CraftTable craftTable;
@@ -23,11 +24,12 @@ public class CraftSlot : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Item"))
+        // 非输出格子才会检测
+        if (other.gameObject.CompareTag("Item") && !isOutputSlot)
         {
-            var droppedItem = other.gameObject.transform.parent.GetComponent<DroppedItem>();
+            var droppedItem = other.gameObject.GetComponentInParent<DroppedItem>();
             if (!droppedItem)
             {
                 Debug.LogError("DroppedItem component not found on the parent of the collided object.");
@@ -43,14 +45,21 @@ public class CraftSlot : MonoBehaviour
         Debug.Log("Entered Slot Area");
     }
 
-    private void SetItemIcon()
+    public void SetItemIcon()
     {
-        GameObject itemPrefab = itemDatabase.Get(capturedItemName).worldPrefab;
-        if (itemIcon != null)
+        if (capturedItemId <= 0)
         {
-            itemIcon = Instantiate(itemPrefab, transform);
-            itemIcon.transform.localPosition = Vector3.zero;
-            itemIcon.transform.localScale = Vector3.one * 0.7f;
+            if (itemIcon != null)
+            {
+                Destroy(itemIcon);
+                itemIcon = null;
+            }
+            return;
         }
+        GameObject itemPrefab = itemDatabase.Get(capturedItemName).worldPrefab;
+        itemIcon = Instantiate(itemPrefab, transform);
+        itemIcon.transform.localPosition = new Vector3(0, 0.8f, 0);
+        itemIcon.transform.localScale = Vector3.one / 0.15f * 0.75f;
+        Debug.Log($"槽{index} 图标实例化成功");
     }
 }

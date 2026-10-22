@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: m1911
   m_EditorClassIdentifier: 
-  itemID: 8
+  itemId: 9
   itemName: m1911
   displayName: "\u624B\u67AA"
   attckPower: 0

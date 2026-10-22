@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: iron_sword
   m_EditorClassIdentifier: 
-  itemID: 7
+  itemId: 8
   itemName: iron_sword
   displayName: "\u94C1\u5251"
   attckPower: 0

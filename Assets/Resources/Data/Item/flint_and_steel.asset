@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: flint_and_steel
   m_EditorClassIdentifier: 
-  itemID: 3
+  itemId: 6
   itemName: flint_and_steel
   displayName: "\u6253\u706B\u77F3"
   attckPower: 0

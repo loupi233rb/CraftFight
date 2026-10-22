@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: oak_plank
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemId: 1
   itemName: oak_plank
   displayName: "\u6A61\u6728\u677F"
   attckPower: 0

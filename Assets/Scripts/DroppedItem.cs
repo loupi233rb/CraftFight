@@ -13,7 +13,6 @@ public class DroppedItem : MonoBehaviour
     private float floatedY = 0.025f;
     private float floatSpeed = 0.5f;
     private float rotateSpeed = 30f;
-    private float startAngle = 0f;
     private GameObject model;
     void Awake()
     {

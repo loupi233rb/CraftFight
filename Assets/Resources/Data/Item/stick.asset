@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: stick
   m_EditorClassIdentifier: 
-  itemID: 1
+  itemId: 2
   itemName: stick
   displayName: "\u6728\u68CD"
   attckPower: 0

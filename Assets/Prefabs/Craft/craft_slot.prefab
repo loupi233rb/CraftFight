@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2609189567680949975}
-  - component: {fileID: 3079925799815296789}
   - component: {fileID: 3367976248068341441}
+  - component: {fileID: 3079925799815296789}
   m_Layer: 0
   m_Name: craft_slot
   m_TagString: Untagged
@@ -34,21 +34,6 @@ Transform:
   - {fileID: 660444722120335832}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3079925799815296789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2380481649212280602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef2f0fd96d0db8409df754480af8eeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
-  capturedItemId: -1
-  capturedItemName: 
 --- !u!65 &3367976248068341441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +55,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3079925799815296789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380481649212280602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef2f0fd96d0db8409df754480af8eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  capturedItemId: -1
+  capturedItemName: 
 --- !u!1 &5310479413337921703
 GameObject:
   m_ObjectHideFlags: 0

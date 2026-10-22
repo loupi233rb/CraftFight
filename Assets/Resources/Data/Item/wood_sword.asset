@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395301fc88294e24488267da49e56b34, type: 3}
   m_Name: wood_sword
   m_EditorClassIdentifier: 
-  itemID: 6
+  itemId: 7
   itemName: wood_sword
   displayName: "\u6728\u5251"
   attckPower: 0
