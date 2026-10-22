@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-/// <summary>Three independent slots and their wrist-mounted 3D preview.</summary>
+/// <summary>Three independent slots, wrist previews, and the selected item held in the hand.</summary>
 [DefaultExecutionOrder(200)]
 [DisallowMultipleComponent]
 public sealed class HandInventory : MonoBehaviour
@@ -22,13 +22,27 @@ public sealed class HandInventory : MonoBehaviour
     [SerializeField] private Material slotMaterial;
     [SerializeField] private Material selectedMaterial;
 
+    [Header("Hand-held item")]
+    [SerializeField] private Vector3 heldItemOffset = new Vector3(0f, 0f, -0.08f);
+    [SerializeField] private Vector3 heldItemRotation;
+    [SerializeField, Min(0.01f)] private float heldItemScale = 1f;
+
     private Transform panel;
+    private Transform heldItemRoot;
+    private GameObject heldItem;
+    private ItemData heldItemData;
+    private Vector3 heldPrefabScale;
+    private float heldPrefabSize;
+    private string heldItemName;
+    private bool initialized;
     private readonly Transform[] previews = new Transform[Capacity];
     private readonly MeshRenderer[] frames = new MeshRenderer[Capacity];
     private readonly TextMesh[] numbers = new TextMesh[Capacity];
     private readonly Dictionary<Material, Material> previewMaterials = new Dictionary<Material, Material>();
 
     public int SelectedIndex => selectedIndex;
+    public Vector3 PlacementPosition => heldItem != null && heldItemRoot != null
+        ? heldItemRoot.position : transform.TransformPoint(heldItemOffset);
 
     private void Awake() => ValidateSlots();
 
@@ -36,12 +50,14 @@ public sealed class HandInventory : MonoBehaviour
     {
         if (itemDatabase == null)
         {
-            Debug.LogError("Assign Assets/Data/ItemDatabase.asset to the hand inventory.", this);
+            Debug.LogError("Assign Assets/Resources/Data/ItemDatabase.asset to the hand inventory.", this);
             return;
         }
         itemDatabase.Init();
         if (viewCamera == null && Camera.main != null) viewCamera = Camera.main.transform;
         BuildView();
+        initialized = true;
+        RefreshHeldItem();
     }
 
     private void OnValidate() => ValidateSlots();
@@ -59,6 +75,7 @@ public sealed class HandInventory : MonoBehaviour
         if (selectedIndex == next) return;
         selectedIndex = next;
         if (panel != null) UpdateHighlight();
+        if (initialized) RefreshHeldItem();
     }
 
     private void LateUpdate()
@@ -67,6 +84,116 @@ public sealed class HandInventory : MonoBehaviour
         // Position and item selection never depend on whether the arm is raised.
         if (panel != null && viewCamera != null)
             panel.rotation = viewCamera.rotation * Quaternion.Euler(panelRotation);
+
+        if (initialized) RefreshHeldItem();
+        ApplyHeldItemPose();
+    }
+
+    private void RefreshHeldItem()
+    {
+        string selectedName = itemNames[selectedIndex] ?? string.Empty;
+        if (heldItemName == selectedName) return;
+        heldItemName = selectedName;
+        heldItemData = null;
+
+        if (heldItem != null)
+        {
+            // Hide immediately so switching several times in one frame never shows two items.
+            heldItem.SetActive(false);
+            Destroy(heldItem);
+            heldItem = null;
+        }
+        if (string.IsNullOrEmpty(selectedName)) return;
+
+        ItemData item = itemDatabase.Get(selectedName);
+        if (item == null || item.worldPrefab == null)
+        {
+            Debug.LogWarning("No held-item prefab found for: " + selectedName, this);
+            return;
+        }
+
+        if (heldItemRoot == null)
+        {
+            heldItemRoot = new GameObject("HeldItem").transform;
+            heldItemRoot.SetParent(transform, false);
+            heldItemRoot.localPosition = heldItemOffset;
+            heldItemRoot.localRotation = Quaternion.Euler(heldItemRotation);
+            heldItemRoot.localScale = Vector3.one * heldItemScale;
+        }
+
+        // Use the same original prefab as the inventory slot, without miniature scaling/materials.
+        heldItem = SafeInstance(item.worldPrefab, heldItemRoot, false);
+        heldItem.name = selectedName + " (Held)";
+        heldItemData = item;
+        heldPrefabScale = heldItem.transform.localScale;
+        AlignHeldItemGrip(heldItem.transform);
+        heldPrefabSize = TryGetLocalBounds(heldItem, heldItemRoot, out Bounds bounds)
+            ? Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z) : 0f;
+        ApplyHeldItemPose();
+        heldItem.SetActive(true);
+        if (item.enableHeldSwordCollider) EnableHeldSwordCollider();
+    }
+
+    private void ApplyHeldItemPose()
+    {
+        if (heldItemRoot == null || heldItem == null || heldItemData == null) return;
+
+        heldItemRoot.localPosition = heldItemOffset + heldItemData.heldItemOffset;
+        heldItemRoot.localRotation = Quaternion.Euler(heldItemRotation) *
+            Quaternion.Euler(heldItemData.heldItemRotation);
+        heldItemRoot.localScale = Vector3.one * Mathf.Max(0.01f, heldItemScale);
+
+        Transform model = heldItem.transform;
+        float sizeMultiplier = heldPrefabSize > 0.00001f
+            ? Mathf.Max(0.01f, heldItemData.heldItemSize) / heldPrefabSize : 1f;
+        model.localScale = heldPrefabScale * sizeMultiplier;
+        AlignHeldItemGrip(model);
+    }
+
+    private void EnableHeldSwordCollider()
+    {
+        Transform colliderRoot = heldItem.transform.Find("sword_collider");
+        if (colliderRoot == null)
+        {
+            Debug.LogWarning("Held sword has no sword_collider child: " + heldItemName, this);
+            return;
+        }
+
+        colliderRoot.gameObject.SetActive(true);
+        SteveHealth owner = GetComponentInParent<SteveHealth>();
+        Collider[] ownerColliders = owner != null
+            ? owner.GetComponentsInChildren<Collider>(true) : Array.Empty<Collider>();
+        foreach (var swordCollider in colliderRoot.GetComponentsInChildren<Collider>(true))
+        {
+            swordCollider.gameObject.SetActive(true);
+            swordCollider.enabled = true;
+            Rigidbody body = swordCollider.attachedRigidbody;
+            if (body != null) body.detectCollisions = true;
+            foreach (var ownerCollider in ownerColliders)
+            {
+                if (ownerCollider.enabled && ownerCollider.gameObject.activeInHierarchy &&
+                    !ownerCollider.transform.IsChildOf(heldItem.transform))
+                    Physics.IgnoreCollision(swordCollider, ownerCollider, true);
+            }
+        }
+    }
+
+    private static void AlignHeldItemGrip(Transform model)
+    {
+        Transform grip = model.Find("hand");
+        if (grip != null)
+        {
+            // Align the prefab's authored grip with the palm, preserving its root scale.
+            Vector3 gripPosition = grip.localPosition;
+            Quaternion gripRotation = grip.localRotation;
+            model.localRotation = Quaternion.Inverse(gripRotation);
+            model.localPosition = -(model.localRotation * Vector3.Scale(model.localScale, gripPosition));
+        }
+        else
+        {
+            model.localPosition = Vector3.zero;
+            model.localRotation = Quaternion.identity;
+        }
     }
 
     private void BuildView()
@@ -170,7 +297,7 @@ public sealed class HandInventory : MonoBehaviour
         }
     }
 
-    private static GameObject SafeInstance(GameObject prefab, Transform parent)
+    private static GameObject SafeInstance(GameObject prefab, Transform parent, bool preview = true)
     {
         // Instantiate under an inactive holder so physics/scripts cannot run before sanitizing.
         var staging = new GameObject("Staging");
@@ -186,10 +313,13 @@ public sealed class HandInventory : MonoBehaviour
         }
         foreach (var collider in instance.GetComponentsInChildren<Collider>(true)) collider.enabled = false;
         foreach (var behaviour in instance.GetComponentsInChildren<MonoBehaviour>(true)) behaviour.enabled = false;
-        foreach (var renderer in instance.GetComponentsInChildren<Renderer>(true))
+        if (preview)
         {
-            renderer.shadowCastingMode = ShadowCastingMode.Off;
-            renderer.receiveShadows = false;
+            foreach (var renderer in instance.GetComponentsInChildren<Renderer>(true))
+            {
+                renderer.shadowCastingMode = ShadowCastingMode.Off;
+                renderer.receiveShadows = false;
+            }
         }
         instance.transform.SetParent(parent, false);
         Destroy(staging);
