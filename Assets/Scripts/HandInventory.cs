@@ -41,6 +41,8 @@ public sealed class HandInventory : MonoBehaviour
     private readonly Dictionary<Material, Material> previewMaterials = new Dictionary<Material, Material>();
 
     public int SelectedIndex => selectedIndex;
+    public Vector3 PlacementPosition => heldItem != null && heldItemRoot != null
+        ? heldItemRoot.position : transform.TransformPoint(heldItemOffset);
 
     private void Awake() => ValidateSlots();
 
