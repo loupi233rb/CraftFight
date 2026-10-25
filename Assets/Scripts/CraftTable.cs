@@ -74,7 +74,7 @@ public class CraftTable : MonoBehaviour
             return;
         }
         slotItemId[slotIndex] = itemId;
-        // 每次有物品添加时检查
+        // 每次有物品变动时检查
         CheckSlots();
         // 顺便更新输出槽
         if (outputItemId == 0)

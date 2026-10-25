@@ -5,7 +5,7 @@ using UnityEngine;
 public class CraftSlot : MonoBehaviour
 {
     public int index;
-    public int capturedItemId = -1;
+    public int capturedItemId = 0;
     public string capturedItemName = "";
     public bool isOutputSlot = false;
     private ItemDatabase itemDatabase;
@@ -26,8 +26,8 @@ public class CraftSlot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 非输出格子才会检测
-        if (other.gameObject.CompareTag("Item") && !isOutputSlot)
+        // 非输出格子为空才会检测新物品
+        if (other.gameObject.CompareTag("Item") && !isOutputSlot && capturedItemId == 0)
         {
             var droppedItem = other.gameObject.GetComponentInParent<DroppedItem>();
             if (!droppedItem)
@@ -43,6 +43,26 @@ public class CraftSlot : MonoBehaviour
             return;
         }
         Debug.Log("Entered Slot Area");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+       if (other.gameObject.CompareTag("Item") && !isOutputSlot)
+        {
+            var droppedItem = other.gameObject.GetComponentInParent<DroppedItem>();
+            if (!droppedItem)
+            {
+                Debug.LogError("DroppedItem component not found on the parent of the collided object.");
+                return;
+            };
+            capturedItemId = 0;
+            capturedItemName = "";
+            craftTable.SetSlotItem(index, capturedItemId);
+            SetItemIcon();
+            Debug.Log($"Slot {index} cleared item {droppedItem.itemName}");
+            return;
+        }
+        Debug.Log("Exited Slot Area");
     }
 
     public void SetItemIcon()
