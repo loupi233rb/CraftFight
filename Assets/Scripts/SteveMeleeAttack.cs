@@ -10,10 +10,20 @@ public sealed class SteveMeleeAttack : MonoBehaviour
     private SteveHealth health;
     private Camera viewCamera;
     private float nextAttackTime;
+    private PlayerEconomy economy;
+
+    public int AttackDamage => attackDamage;
+
+    public void IncreaseAttackDamage(int amount)
+    {
+        if (amount > 0)
+            attackDamage += amount;
+    }
 
     private void Awake()
     {
         health = GetComponent<SteveHealth>();
+        economy = GetComponent<PlayerEconomy>();
         viewCamera = GetComponentInChildren<Camera>();
         if (viewCamera == null)
             viewCamera = Camera.main;
@@ -21,7 +31,8 @@ public sealed class SteveMeleeAttack : MonoBehaviour
 
     private void Update()
     {
-        if (health.IsDead || !Input.GetMouseButtonDown(0) || Time.time < nextAttackTime)
+        if (health.IsDead || (economy != null && economy.BlocksGameplayInput) ||
+            !Input.GetMouseButtonDown(0) || Time.time < nextAttackTime)
             return;
 
         nextAttackTime = Time.time + attackInterval;
@@ -46,7 +57,7 @@ public sealed class SteveMeleeAttack : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!health.IsDead)
+        if (!health.IsDead && (economy == null || !economy.BlocksGameplayInput))
             GUI.Label(new Rect(Screen.width * 0.5f - 5f, Screen.height * 0.5f - 10f, 20f, 20f), "+");
     }
 }

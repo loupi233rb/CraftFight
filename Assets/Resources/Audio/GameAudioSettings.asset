@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22d4196dedc471b9a72481651a37eb8, type: 3}
+  m_Name: GameAudioSettings
+  m_EditorClassIdentifier: 
+  playerSteps:
+  - {fileID: 8300000, guid: 6bf497c8105a4a28b81a804f50a5aff9, type: 3}
+  - {fileID: 8300000, guid: b4408683952542d6b51d3ac272559c4f, type: 3}
+  playerHurt: {fileID: 8300000, guid: c3c22c5b4a1f48f1b94fd805f591c44f, type: 3}
+  itemSelect: {fileID: 8300000, guid: b1dbbcf5e1374edeacc5739923a99778, type: 3}
+  villagerAmbient:
+  - {fileID: 8300000, guid: e3d9ea84c1cf4876a86a5942a2e87d07, type: 3}
+  villagerYes: {fileID: 8300000, guid: ae7eb5e7a7504ec0953a1565ed4eb476, type: 3}
+  villagerNo: {fileID: 8300000, guid: a01b2a13690e42f9b82c952f5262d242, type: 3}
+  combatMusic: {fileID: 8300000, guid: fe7cdce7f782429280509e537edde6d9, type: 3}
+  explorationMusic: {fileID: 8300000, guid: 191b9bb7b6c44668814cf72629da2be4, type: 3}
+  playerStepVolume: 0.45
+  playerHurtVolume: 0.8
+  selectionVolume: 0.55
+  villagerVolume: 0.65
+  musicVolume: 0.22
+  playerStepDistance: 1.4
+  villagerInterval: {x: 6, y: 12}
+  villagerMinDistance: 2
+  villagerMaxDistance: 16
+  musicFadeSeconds: 1.5
+  combatReleaseDelay: 3

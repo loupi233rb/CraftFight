@@ -1501,6 +1501,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 20
   corpseDuration: 1.4
+  coinPrefab: {fileID: 8043559716324829594, guid: eb897264b77c9274d87d670ee0b80203,
+    type: 3}
 --- !u!136 &4651714867556818347
 CapsuleCollider:
   m_ObjectHideFlags: 0

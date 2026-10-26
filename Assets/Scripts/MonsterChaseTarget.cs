@@ -45,6 +45,10 @@ public sealed class MonsterChaseTarget : MonoBehaviour
 
     public bool IsKnockedBack => isKnockedBack;
 
+    // The current AI pursues its assigned player continuously, without an aggro-radius system.
+    public bool IsPursuing(SteveHealth player) => isActiveAndEnabled && targetHealth == player &&
+        player != null && !player.IsDead && health != null && !health.IsDead && agent.isOnNavMesh;
+
     private static readonly int MoveSpeedParameter = Animator.StringToHash("MoveSpeed");
 
     private void Awake()
