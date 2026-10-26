@@ -3,19 +3,20 @@ using UnityEngine;
 
 public sealed class SteveHealth : MonoBehaviour
 {
-    private const int MaxHealthValue = 20;
-    [SerializeField] private int currentHealth = MaxHealthValue;
+    [SerializeField, Min(1)] private int maxHealth = 20;
+    [SerializeField] private int currentHealth = 20;
     private DamageVisuals visuals;
     private Animator animator;
     private bool showDeathMessage;
 
     public bool IsDead => currentHealth <= 0;
     public int CurrentHealth => currentHealth;
-    public int MaxHealth => MaxHealthValue;
+    public int MaxHealth => maxHealth;
 
     private void Awake()
     {
-        currentHealth = MaxHealthValue;
+        maxHealth = Mathf.Max(1, maxHealth);
+        currentHealth = maxHealth;
         animator = GetComponent<Animator>();
         visuals = GetComponent<DamageVisuals>();
         if (visuals == null)
@@ -51,7 +52,15 @@ public sealed class SteveHealth : MonoBehaviour
             if (movement != null)
                 movement.ApplyKnockback(sourcePosition);
         }
-        Debug.Log("Steve HP: " + currentHealth + "/" + MaxHealthValue, this);
+        Debug.Log("Steve HP: " + currentHealth + "/" + maxHealth, this);
+    }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        if (IsDead || amount <= 0)
+            return;
+        maxHealth += amount;
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
     }
 
     private IEnumerator ShowMessageAfterDeathAnimation()
@@ -69,7 +78,7 @@ public sealed class SteveHealth : MonoBehaviour
     {
         if (!IsDead)
             GUI.Box(new Rect(Screen.width * 0.5f - 85f, Screen.height - 48f, 170f, 32f),
-                "Steve  " + currentHealth + " / " + MaxHealthValue + " HP");
+                "Steve  " + currentHealth + " / " + maxHealth + " HP");
         if (showDeathMessage)
             GUI.Box(new Rect(Screen.width * 0.5f - 90f, Screen.height * 0.5f - 20f, 180f, 40f), "Steve 已死亡");
     }

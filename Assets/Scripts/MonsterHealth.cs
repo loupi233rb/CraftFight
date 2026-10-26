@@ -6,6 +6,7 @@ public sealed class MonsterHealth : MonoBehaviour
     private const int MaxHealthValue = 20;
     [SerializeField] private int currentHealth = MaxHealthValue;
     [SerializeField, Min(0f)] private float corpseDuration = 1.4f;
+    [SerializeField] private CoinPickup coinPrefab;
 
     private DamageVisuals visuals;
     private MonsterAudio monsterAudio;
@@ -31,6 +32,7 @@ public sealed class MonsterHealth : MonoBehaviour
         currentHealth = Mathf.Max(0, currentHealth - amount);
         if (IsDead)
         {
+            CoinPickup.Spawn(transform.position, coinPrefab);
             visuals.ShowDeath();
             if (monsterAudio != null)
                 monsterAudio.PlayDeath();

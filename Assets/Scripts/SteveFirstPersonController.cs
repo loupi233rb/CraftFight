@@ -20,13 +20,23 @@ public sealed class SteveFirstPersonController : MonoBehaviour
     private Vector3 knockbackVelocity;
     private SteveHealth health;
     private bool deathView;
+    private PlayerEconomy economy;
     private readonly Vector3 deathCameraOffset = new Vector3(0f, 2.25f, -3.25f);
+
+    public float MoveSpeed => moveSpeed;
+
+    public void IncreaseMoveSpeed(float amount)
+    {
+        if (amount > 0f)
+            moveSpeed += amount;
+    }
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         health = GetComponent<SteveHealth>();
+        economy = GetComponent<PlayerEconomy>();
 
         if (viewCamera == null)
         {
@@ -48,7 +58,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     private void Update()
     {
-        if (!deathView)
+        if (!deathView && (economy == null || !economy.BlocksGameplayInput))
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 SetCursorLocked(false);
@@ -103,7 +113,8 @@ public sealed class SteveFirstPersonController : MonoBehaviour
         Vector3 forward = Vector3.ProjectOnPlane(viewCamera.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(viewCamera.right, Vector3.up).normalized;
         Vector3 movement = Vector3.ClampMagnitude(forward * vertical + right * horizontal, 1f);
-        if (knockbackVelocity.sqrMagnitude > 0.01f || (health != null && health.IsDead))
+        if (knockbackVelocity.sqrMagnitude > 0.01f || (health != null && health.IsDead) ||
+            (economy != null && economy.BlocksGameplayInput))
             movement = Vector3.zero;
 
         if (characterController.isGrounded && verticalSpeed < 0f)

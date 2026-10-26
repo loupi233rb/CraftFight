@@ -20,16 +20,19 @@ public sealed class PlayerHandInventory : MonoBehaviour
     private float rightWeight;
     private bool inspectLeft;
     private bool inspectRight;
+    private PlayerEconomy economy;
 
     private void Awake()
     {
         health = GetComponent<SteveHealth>();
+        economy = GetComponent<PlayerEconomy>();
         if (viewCamera == null && Camera.main != null) viewCamera = Camera.main.transform;
     }
 
     private void Update()
     {
         if (health != null && health.IsDead) { inspectLeft = inspectRight = false; return; }
+        if (economy != null && economy.BlocksGameplayInput) { inspectLeft = inspectRight = false; return; }
         if (Input.GetKeyDown(KeyCode.Q)) activeHand = Hand.Left;
         if (Input.GetKeyDown(KeyCode.E)) activeHand = Hand.Right;
         inspectLeft = Input.GetKey(KeyCode.Q);
