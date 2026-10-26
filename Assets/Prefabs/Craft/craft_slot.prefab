@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3079925799815296789}
   m_Layer: 0
   m_Name: craft_slot
-  m_TagString: Untagged
+  m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,6 +70,7 @@ MonoBehaviour:
   index: 0
   capturedItemId: -1
   capturedItemName: 
+  isOutputSlot: 0
 --- !u!1 &5310479413337921703
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item
   - Anvil
+  - Slot
   layers:
   - Default
   - TransparentFX

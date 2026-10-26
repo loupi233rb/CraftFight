@@ -43,4 +43,10 @@ public class DroppedItem : MonoBehaviour
         this.itemName = itemName;
         itemData = itemDatabase.Get(itemName);
     }
+
+    public void IsSelected(bool selected)
+    {
+        // 处理物品被选中的逻辑
+    }
+
 }

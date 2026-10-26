@@ -56,7 +56,7 @@ public class ItemSpawner : MonoBehaviour
         {
             return;
         }
-        var droppedItem = other.gameObject.transform.parent.GetComponent<DroppedItem>();
+        var droppedItem = other.gameObject.GetComponent<DroppedItem>();
         if (!droppedItem) return;
         if (droppedItem.itemName == itemName)
         {
@@ -78,7 +78,7 @@ public class ItemSpawner : MonoBehaviour
             Debug.Log("离开物品标签不匹配");
             return;
         }
-        var droppedItem = other.gameObject.transform.parent.GetComponent<DroppedItem>();
+        var droppedItem = other.gameObject.GetComponent<DroppedItem>();
         if (!droppedItem)
         {
             Debug.Log("离开物品没有DroppedItem组件");

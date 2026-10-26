@@ -44,6 +44,40 @@ public sealed class HandInventory : MonoBehaviour
     public Vector3 PlacementPosition => heldItem != null && heldItemRoot != null
         ? heldItemRoot.position : transform.TransformPoint(heldItemOffset);
 
+    /// <summary>Adds an item to the slot if it is empty.</summary>
+    public bool AddItem(string itemName)
+    {
+        if (itemNames[SelectedIndex] != string.Empty) return false;
+
+        if (string.IsNullOrWhiteSpace(itemName))
+        {
+            Debug.LogWarning("Cannot add an item with an empty name.", this);
+            return false;
+        }
+
+        ItemData item = itemDatabase != null ? itemDatabase.Get(itemName) : null;
+        if (item == null)
+        {
+            Debug.LogWarning("Cannot add item not found in the database: " + itemName, this);
+            return false;
+        }
+
+        itemNames[SelectedIndex] = itemName;
+        RefreshSlot(SelectedIndex);
+        return false;
+    }
+
+    /// <summary>Removes the item.</summary>
+    public bool RemoveItem()
+    {
+        if (itemNames[SelectedIndex] == string.Empty) return false;
+        itemNames[SelectedIndex] = string.Empty;
+        RefreshSlot(SelectedIndex);
+        return true;
+    }
+
+    public string GetSelectedItemName() => itemNames[SelectedIndex] ?? string.Empty;
+
     private void Awake() => ValidateSlots();
 
     private void Start()
@@ -255,6 +289,19 @@ public sealed class HandInventory : MonoBehaviour
             model.transform.localPosition -= bounds.center * scale;
         }
         model.SetActive(true);
+    }
+
+    private void RefreshSlot(int index)
+    {
+        if (previews[index] != null)
+        {
+            for (int i = previews[index].childCount - 1; i >= 0; i--)
+                Destroy(previews[index].GetChild(i).gameObject);
+            CreatePreview(index);
+            UpdateHighlight();
+        }
+
+        if (initialized && index == selectedIndex) RefreshHeldItem();
     }
 
     private void MakePreviewUnlit(GameObject model)
