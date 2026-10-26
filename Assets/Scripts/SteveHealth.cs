@@ -8,6 +8,7 @@ public sealed class SteveHealth : MonoBehaviour
     private DamageVisuals visuals;
     private Animator animator;
     private bool showDeathMessage;
+    private PlayerAudio playerAudio;
 
     public bool IsDead => currentHealth <= 0;
     public int CurrentHealth => currentHealth;
@@ -17,6 +18,9 @@ public sealed class SteveHealth : MonoBehaviour
     {
         maxHealth = Mathf.Max(1, maxHealth);
         currentHealth = maxHealth;
+        playerAudio = GetComponent<PlayerAudio>();
+        if (playerAudio == null)
+            playerAudio = gameObject.AddComponent<PlayerAudio>();
         animator = GetComponent<Animator>();
         visuals = GetComponent<DamageVisuals>();
         if (visuals == null)
@@ -28,6 +32,7 @@ public sealed class SteveHealth : MonoBehaviour
         if (IsDead || amount <= 0)
             return;
         currentHealth = Mathf.Max(0, currentHealth - amount);
+        playerAudio.PlayHurt();
         SteveFirstPersonController movement = GetComponent<SteveFirstPersonController>();
         if (IsDead)
         {

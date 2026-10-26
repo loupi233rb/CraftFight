@@ -74,6 +74,8 @@ public sealed class HandInventory : MonoBehaviour
         int next = (((selectedIndex + direction) % Capacity) + Capacity) % Capacity;
         if (selectedIndex == next) return;
         selectedIndex = next;
+        PlayerAudio playerAudio = GetComponentInParent<PlayerAudio>();
+        if (playerAudio != null) playerAudio.PlaySelection();
         if (panel != null) UpdateHighlight();
         if (initialized) RefreshHeldItem();
     }

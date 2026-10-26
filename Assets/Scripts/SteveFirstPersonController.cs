@@ -121,8 +121,15 @@ public sealed class SteveFirstPersonController : MonoBehaviour
             verticalSpeed = -2f;
 
         verticalSpeed += Physics.gravity.y * Time.deltaTime;
+        Vector3 positionBeforeMove = transform.position;
+        bool walking = characterController.isGrounded && movement.sqrMagnitude > 0.01f &&
+            knockbackVelocity.sqrMagnitude <= 0.01f;
         Vector3 horizontalStep = LimitToNavMesh((movement * moveSpeed + knockbackVelocity) * Time.deltaTime);
         characterController.Move(horizontalStep + Vector3.up * verticalSpeed * Time.deltaTime);
+        PlayerAudio playerAudio = GetComponent<PlayerAudio>();
+        if (playerAudio != null)
+            playerAudio.RecordMovement(Vector3.ProjectOnPlane(transform.position - positionBeforeMove, Vector3.up).magnitude,
+                walking && characterController.isGrounded);
         knockbackVelocity = Vector3.MoveTowards(knockbackVelocity, Vector3.zero, 12f * Time.deltaTime);
         if (animator != null)
             animator.SetBool("Moving", characterController.isGrounded &&

@@ -59,6 +59,8 @@ public sealed class PlayerEconomy : MonoBehaviour
         previousCursorLock = Cursor.lockState;
         previousCursorVisible = Cursor.visible;
         currentTrader = trader;
+        VillagerAudio voice = trader.GetComponent<VillagerAudio>();
+        if (voice != null) voice.Greet();
         tradeOpen = true;
         feedback = "每项可重复购买，升级立即生效";
         Cursor.lockState = CursorLockMode.None;

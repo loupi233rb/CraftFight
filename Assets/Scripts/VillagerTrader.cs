@@ -18,6 +18,11 @@ public sealed class VillagerTrader : MonoBehaviour
     private void OnEnable() => ActiveTraders.Add(this);
     private void OnDisable() => ActiveTraders.Remove(this);
 
+    private void Awake()
+    {
+        if (GetComponent<VillagerAudio>() == null) gameObject.AddComponent<VillagerAudio>();
+    }
+
     public int GetCost(Upgrade upgrade)
     {
         switch (upgrade)
@@ -67,7 +72,10 @@ public sealed class VillagerTrader : MonoBehaviour
         if (upgrade != Upgrade.MoveSpeed && upgrade != Upgrade.AttackDamage && upgrade != Upgrade.MaxHealth)
             return false;
         if (!player.TrySpendCoins(GetCost(upgrade)))
+        {
+            GetComponent<VillagerAudio>().Respond(false);
             return false;
+        }
 
         switch (upgrade)
         {
@@ -75,6 +83,7 @@ public sealed class VillagerTrader : MonoBehaviour
             case Upgrade.AttackDamage: player.Attack.IncreaseAttackDamage(attackDamageIncrease); break;
             case Upgrade.MaxHealth: player.Health.IncreaseMaxHealth(maxHealthIncrease); break;
         }
+        GetComponent<VillagerAudio>().Respond(true);
         return true;
     }
 
