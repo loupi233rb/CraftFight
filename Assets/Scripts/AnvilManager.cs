@@ -13,7 +13,7 @@ public class AnvilManager : MonoBehaviour
     [InspectorName("最少加工次数")] public int minCount = 5;
     void Start()
     {
-        itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
+        itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
         ingot = itemDatabase.Get("iron_ingot").worldPrefab;
         plate = itemDatabase.Get("iron_plate").worldPrefab;
     }
