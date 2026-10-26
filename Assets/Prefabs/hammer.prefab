@@ -84,6 +84,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4921774957501516905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406649650565250827}
+  m_Layer: 0
+  m_Name: point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406649650565250827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4921774957501516905}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0015, y: 0.1487, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 92488142322058553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5548392218729823126
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 92488142322058553}
   - component: {fileID: 199044509074403550}
+  - component: {fileID: 7183023228185214306}
   m_Layer: 0
   m_Name: hammer
   m_TagString: Untagged
@@ -171,6 +203,7 @@ Transform:
   - {fileID: 8821459183695564581}
   - {fileID: 9020924593436134548}
   - {fileID: 1776876938212999391}
+  - {fileID: 406649650565250827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &199044509074403550
@@ -200,6 +233,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7183023228185214306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8628446956482417180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d6f8b53e3d778449ab8c73ac3f5bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anvil: {fileID: 0}
+  processVel: 0
 --- !u!1001 &1313223900200021598
 PrefabInstance:
   m_ObjectHideFlags: 0
