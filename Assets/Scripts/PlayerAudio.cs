@@ -11,6 +11,7 @@ public sealed class PlayerAudio : MonoBehaviour
     private AudioSource selection;
     private AudioSource combat;
     private AudioSource exploration;
+    private AudioSource interact;
     private float walkedDistance;
     private int previousStep = -1;
     private float nextThreatCheck;
@@ -28,6 +29,7 @@ public sealed class PlayerAudio : MonoBehaviour
         }
         steps = CreateSource("Player Footsteps");
         hurt = CreateSource("Player Hurt");
+        interact = CreateSource("Player Interact");
         selection = CreateSource("Item Selection");
         combat = CreateSource("Combat Music", settings.combatMusic);
         exploration = CreateSource("Exploration Music", settings.explorationMusic);
@@ -82,6 +84,12 @@ public sealed class PlayerAudio : MonoBehaviour
     {
         if (isActiveAndEnabled && settings != null && settings.itemSelect != null)
             selection.PlayOneShot(settings.itemSelect, settings.selectionVolume);
+    }
+
+    public void PlayInteract()
+    {
+        if (isActiveAndEnabled && settings != null && settings.interactSound != null)
+            interact.PlayOneShot(settings.interactSound, settings.selectionVolume);
     }
 
     private void Update()

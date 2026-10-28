@@ -44,6 +44,9 @@ public sealed class HandInventory : MonoBehaviour
     public Vector3 PlacementPosition => heldItem != null && heldItemRoot != null
         ? heldItemRoot.position : transform.TransformPoint(heldItemOffset);
 
+    public string GetHandLabel() => handLabel ?? string.Empty;
+
+
     /// <summary>Adds an item to the slot if it is empty.</summary>
     public bool AddItem(string itemName)
     {

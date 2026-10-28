@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CraftTable : MonoBehaviour
 {
@@ -41,7 +42,22 @@ public class CraftTable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // for test
+        KeyCode startKey = KeyCode.Keypad1;
+        for (int i = 1; i < 10; i++)
+        {
+            if (Input.GetKeyDown(startKey + i - 1))
+            {
+                int index = i + 5 - 6 * ((i - 1) / 3);
+                Debug.Log($"{index}");
+                CraftSlot slot = slots[index].GetComponent<CraftSlot>();
+                if (slot.capturedItemName != string.Empty)
+                {
+                    slot.SetSlotItem(string.Empty);
+                }
+                else slot.SetSlotItem("oak_plank");
+            }
+        }
     }
 
     private void GenerateSlots()
@@ -76,18 +92,7 @@ public class CraftTable : MonoBehaviour
         slotItemId[slotIndex] = itemId;
         // 每次有物品变动时检查
         CheckSlots();
-        // 顺便更新输出槽
-        if (outputItemId == 0)
-        {
-            outputSlot.capturedItemId = 0;
-            outputSlot.capturedItemName = "";
-        }
-        else
-        {
-            outputSlot.capturedItemId = outputItemId;
-            outputSlot.capturedItemName = itemDatabase.Get(outputItemId).itemName;
-        }
-        outputSlot.SetItemIcon();
+        // 更新输出槽交由按钮调用函数TryCraft()触发
     }
 
     private void CheckSlots()
@@ -122,5 +127,36 @@ public class CraftTable : MonoBehaviour
             }
         }
         outputItemId = 0;
+    }
+
+    private void ClearAllSlots()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            slots[i].GetComponent<CraftSlot>().SetSlotItem(string.Empty);
+        }
+    }
+
+    public bool TryCraft()
+    {
+        bool returnValue = false;
+        // 输出格子为空才会处理合成
+        if (outputSlot.capturedItemName != string.Empty) return false;
+        // 在这里处理合成逻辑
+        if (outputItemId == 0)
+        {
+            outputSlot.capturedItemId = 0;
+            outputSlot.capturedItemName = "";
+            returnValue = false;
+        }
+        else
+        {
+            outputSlot.capturedItemId = outputItemId;
+            outputSlot.capturedItemName = itemDatabase.Get(outputItemId).itemName;
+            ClearAllSlots();
+            returnValue = true;
+        }
+        outputSlot.SetItemIcon();
+        return returnValue;
     }
 }

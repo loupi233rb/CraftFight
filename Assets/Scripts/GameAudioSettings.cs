@@ -11,6 +11,7 @@ public sealed class GameAudioSettings : ScriptableObject
     public AudioClip villagerNo;
     public AudioClip combatMusic;
     public AudioClip explorationMusic;
+    public AudioClip interactSound;
 
     [Range(0f, 1f)] public float playerStepVolume = 0.45f;
     [Range(0f, 1f)] public float playerHurtVolume = 0.8f;
