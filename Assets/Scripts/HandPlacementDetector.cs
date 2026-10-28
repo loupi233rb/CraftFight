@@ -47,6 +47,8 @@ public sealed class HandPlacementDetector : MonoBehaviour
 
     void Update()
     {
+        // Check before destroying pickups or changing crafting/anvil contents.
+        if (inventory == null || !inventory.IsInventoryEnabled) return;
         bool ok = false;
         bool ko = false;
         // 交互，包括掉落物拾取、工作台和铁砧物品放置取出

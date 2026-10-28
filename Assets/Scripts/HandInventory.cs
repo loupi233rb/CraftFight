@@ -35,21 +35,46 @@ public sealed class HandInventory : MonoBehaviour
     private float heldPrefabSize;
     private string heldItemName;
     private bool initialized;
+    private TextMesh disabledMarker;
     private readonly Transform[] previews = new Transform[Capacity];
     private readonly MeshRenderer[] frames = new MeshRenderer[Capacity];
     private readonly TextMesh[] numbers = new TextMesh[Capacity];
     private readonly Dictionary<Material, Material> previewMaterials = new Dictionary<Material, Material>();
 
     public int SelectedIndex => selectedIndex;
+    public bool IsInventoryEnabled { get; private set; } = true;
     public Vector3 PlacementPosition => heldItem != null && heldItemRoot != null
         ? heldItemRoot.position : transform.TransformPoint(heldItemOffset);
 
     public string GetHandLabel() => handLabel ?? string.Empty;
 
+    /// <summary>
+    /// Locks this hand's inventory and displays X when false; true restores it.
+    /// Stored items and the selected slot are preserved. Safe to call before Start.
+    /// </summary>
+    public void SetInventoryEnabled(bool enabled)
+    {
+        IsInventoryEnabled = enabled;
+        if (initialized && enabled) RefreshHeldItem();
+        UpdateInventoryAvailability();
+    }
+
+    private void UpdateInventoryAvailability()
+    {
+        if (disabledMarker != null) disabledMarker.gameObject.SetActive(!IsInventoryEnabled);
+        for (int i = 0; i < Capacity; i++)
+        {
+            if (frames[i] != null) frames[i].gameObject.SetActive(IsInventoryEnabled);
+            if (previews[i] != null) previews[i].gameObject.SetActive(IsInventoryEnabled);
+            if (numbers[i] != null) numbers[i].gameObject.SetActive(IsInventoryEnabled);
+        }
+        if (heldItemRoot != null) heldItemRoot.gameObject.SetActive(IsInventoryEnabled);
+    }
 
     /// <summary>Adds an item to the slot if it is empty.</summary>
     public bool AddItem(string itemName)
     {
+        if (!IsInventoryEnabled) return false;
         if (itemNames[SelectedIndex] != string.Empty) return false;
 
         if (string.IsNullOrWhiteSpace(itemName))
@@ -73,6 +98,7 @@ public sealed class HandInventory : MonoBehaviour
     /// <summary>Removes the item.</summary>
     public bool RemoveItem()
     {
+        if (!IsInventoryEnabled) return false;
         if (itemNames[SelectedIndex] == string.Empty) return false;
         itemNames[SelectedIndex] = string.Empty;
         RefreshSlot(SelectedIndex);
@@ -95,6 +121,7 @@ public sealed class HandInventory : MonoBehaviour
         BuildView();
         initialized = true;
         RefreshHeldItem();
+        UpdateInventoryAvailability();
     }
 
     private void OnValidate() => ValidateSlots();
@@ -108,6 +135,7 @@ public sealed class HandInventory : MonoBehaviour
 
     public void Cycle(int direction)
     {
+        if (!IsInventoryEnabled) return;
         int next = (((selectedIndex + direction) % Capacity) + Capacity) % Capacity;
         if (selectedIndex == next) return;
         selectedIndex = next;
@@ -130,6 +158,7 @@ public sealed class HandInventory : MonoBehaviour
 
     private void RefreshHeldItem()
     {
+        if (!IsInventoryEnabled) return;
         string selectedName = itemNames[selectedIndex] ?? string.Empty;
         if (heldItemName == selectedName) return;
         heldItemName = selectedName;
@@ -264,7 +293,11 @@ public sealed class HandInventory : MonoBehaviour
                 new Vector3(x, -0.057f, -0.02f), 0.0035f, TextAnchor.MiddleCenter);
             CreatePreview(i);
         }
+        disabledMarker = MakeText("X", panel, new Vector3(0f, -0.005f, -0.025f),
+            0.016f, TextAnchor.MiddleCenter);
+        disabledMarker.color = new Color(1f, 0.25f, 0.25f);
         UpdateHighlight();
+        UpdateInventoryAvailability();
     }
 
     private void CreatePreview(int index)
