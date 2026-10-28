@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/// <summary>Q/E arm poses and mouse-wheel selection for the two inventories.</summary>
+/// <summary>Desktop Q/E poses and wheel selection; tracked hands are owned by PicoPlayerTracking.</summary>
 [DefaultExecutionOrder(100)]
 [DisallowMultipleComponent]
 public sealed class PlayerHandInventory : MonoBehaviour
@@ -21,16 +21,19 @@ public sealed class PlayerHandInventory : MonoBehaviour
     private bool inspectLeft;
     private bool inspectRight;
     private PlayerEconomy economy;
+    private PicoPlayerTracking tracking;
 
     private void Awake()
     {
         health = GetComponent<SteveHealth>();
         economy = GetComponent<PlayerEconomy>();
+        tracking = GetComponent<PicoPlayerTracking>();
         if (viewCamera == null && Camera.main != null) viewCamera = Camera.main.transform;
     }
 
     private void Update()
     {
+        if (tracking != null && tracking.IsActive) { inspectLeft = inspectRight = false; return; }
         if (health != null && health.IsDead) { inspectLeft = inspectRight = false; return; }
         if (economy != null && economy.BlocksGameplayInput) { inspectLeft = inspectRight = false; return; }
         if (Input.GetKeyDown(KeyCode.Q)) activeHand = Hand.Left;
@@ -44,6 +47,7 @@ public sealed class PlayerHandInventory : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (tracking != null && tracking.IsActive) return;
         if (health != null && health.IsDead) return;
         leftWeight = Mathf.MoveTowards(leftWeight, inspectLeft ? 1f : 0f, Time.deltaTime / raiseDuration);
         rightWeight = Mathf.MoveTowards(rightWeight, inspectRight ? 1f : 0f, Time.deltaTime / raiseDuration);

@@ -1,7 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
@@ -11,83 +10,118 @@ public class ItemSpawner : MonoBehaviour
     public int leftCount = 0;
     public TextMeshProUGUI infoText;
     public GameObject droppedItemPrefab;
+    public int _countInZone = 0;
+
     private ItemDatabase itemDatabase;
     private GameObject itemIcon;
-    private Vector3 itemIconPos = new(0, 0.85f, 0);
-    private Vector3 spawnPos = new(0, 1f, 0);
-    public int _countInZone = 0;
-    private float _spawnInterval = 1f;
-    private float _lastSpawnTime = 0f;
-    void Start()
+    private readonly Vector3 itemIconPos = new Vector3(0, 0.85f, 0);
+    private Vector3 spawnPos;
+    private const float SpawnInterval = 1f;
+    private float lastSpawnTime;
+    private bool initialized;
+    private bool roundManaged;
+    private bool issuingResources = true;
+    private readonly List<DroppedItem> producedItems = new List<DroppedItem>();
+    private readonly HashSet<DroppedItem> itemsInZone = new HashSet<DroppedItem>();
+
+    private void Start()
     {
-        itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
-        if (itemDatabase == null)
-        {
-            Debug.LogError("ItemDatabase not found in Resources/Data/ItemDatabase");
-            return;
-        }
-        GameObject itemPrefab = itemDatabase.Get(itemName).worldPrefab;
-        itemIcon = Instantiate(itemPrefab, transform);
-        itemIcon.transform.SetLocalPositionAndRotation(itemIconPos, Quaternion.identity);
-        leftCount = maxCount;
-        spawnPos = transform.Find("spawn_point").GetComponent<Transform>().position;
+        EnsureInitialized();
+        if (!roundManaged) leftCount = maxCount;
+        UpdateLabel();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ValidateForRound()
     {
-        if (infoText == null) Debug.LogError("infoText is null");
-        infoText.SetText($"{leftCount}/{maxCount}");
+        if (droppedItemPrefab == null || droppedItemPrefab.GetComponent<DroppedItem>() == null)
+            throw new InvalidOperationException(name + " needs a DroppedItem prefab.");
+        if (transform.Find("spawn_point") == null)
+            throw new InvalidOperationException(name + " needs a spawn_point.");
+        ItemDatabase database = Resources.Load<ItemDatabase>("Data/ItemDatabase");
+        if (database == null || database.Get(itemName) == null)
+            throw new InvalidOperationException("Unknown resource item: " + itemName);
+    }
 
-        if (leftCount > 0 && _countInZone <= 0)
+    private void EnsureInitialized()
+    {
+        if (initialized) return;
+        ValidateForRound();
+        itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
+        GameObject itemPrefab = itemDatabase.Get(itemName).worldPrefab;
+        if (itemPrefab != null)
         {
-            if (Time.time - _lastSpawnTime >= _spawnInterval)
-            {
-                Spawn();
-                _lastSpawnTime = Time.time;
-                leftCount--;
-            }
+            itemIcon = Instantiate(itemPrefab, transform);
+            itemIcon.transform.SetLocalPositionAndRotation(itemIconPos, Quaternion.identity);
         }
+        spawnPos = transform.Find("spawn_point").position;
+        initialized = true;
+    }
+
+    public void UseRoundQuotas()
+    {
+        roundManaged = true;
+        issuingResources = false;
+        maxCount = leftCount = 0;
+        UpdateLabel();
+    }
+
+    public void SetRoundQuota(int count)
+    {
+        EnsureInitialized();
+        // Picked-up items were destroyed by the inventory and are no longer in this list.
+        foreach (DroppedItem item in producedItems)
+        {
+            if (item == null) continue;
+            item.gameObject.SetActive(false);
+            Destroy(item.gameObject);
+        }
+        producedItems.Clear();
+        itemsInZone.Clear();
+        _countInZone = 0;
+        roundManaged = true;
+        issuingResources = true;
+        maxCount = leftCount = Mathf.Max(0, count);
+        lastSpawnTime = Time.time - SpawnInterval;
+        UpdateLabel();
+    }
+
+    public void StopRoundGeneration() => issuingResources = false;
+
+    private void Update()
+    {
+        itemsInZone.RemoveWhere(item => item == null || !item.gameObject.activeInHierarchy);
+        _countInZone = itemsInZone.Count;
+        if (initialized && issuingResources && leftCount > 0 && _countInZone == 0 &&
+            Time.time - lastSpawnTime >= SpawnInterval)
+        {
+            GameObject instance = Instantiate(droppedItemPrefab, transform);
+            DroppedItem item = instance.GetComponent<DroppedItem>();
+            item.Init(spawnPos, Vector3.zero, itemName);
+            producedItems.Add(item);
+            lastSpawnTime = Time.time;
+            leftCount--;
+        }
+        UpdateLabel();
+    }
+
+    private void UpdateLabel()
+    {
+        if (infoText != null) infoText.SetText($"{leftCount}/{maxCount}");
     }
 
     public void TriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Item"))
-        {
-            return;
-        }
-        var droppedItem = other.gameObject.GetComponent<DroppedItem>();
-        if (!droppedItem) return;
-        if (droppedItem.itemName == itemName)
-        {
-            _countInZone++;
-            Debug.Log($"物品 {droppedItem.itemName} 进入生成器 {itemName}，当前数量 {_countInZone}");
-        }
-    }
-
-    private void Spawn()
-    {
-        GameObject droppedItem = Instantiate(droppedItemPrefab, transform);
-        droppedItem.GetComponent<DroppedItem>().Init(spawnPos, Vector3.zero, itemName);
+        if (!other.CompareTag("Item")) return;
+        DroppedItem item = other.GetComponentInParent<DroppedItem>();
+        if (item != null && item.itemName == itemName) itemsInZone.Add(item);
+        _countInZone = itemsInZone.Count;
     }
 
     public void TriggerExit(Collider other)
     {
-        if (!other.gameObject.CompareTag("Item"))
-        {
-            Debug.Log("离开物品标签不匹配");
-            return;
-        }
-        var droppedItem = other.gameObject.GetComponent<DroppedItem>();
-        if (!droppedItem)
-        {
-            Debug.Log("离开物品没有DroppedItem组件");
-            return;
-        }
-        if (droppedItem.itemName == itemName)
-        {
-            _countInZone--;
-            Debug.Log($"物品 {droppedItem.itemName} 离开生成器 {itemName}，当前数量 {_countInZone}");
-        }
+        if (!other.CompareTag("Item")) return;
+        DroppedItem item = other.GetComponentInParent<DroppedItem>();
+        if (item != null) itemsInZone.Remove(item);
+        _countInZone = itemsInZone.Count;
     }
 }

@@ -19,7 +19,10 @@ namespace CraftFight.Tutorial
             {
                 renderer.gameObject.isStatic = false;
                 renderer.lightmapIndex = -1;
+                // This lighting-bake setting exists only in the Unity Editor API.
+#if UNITY_EDITOR
                 renderer.receiveGI = ReceiveGI.LightProbes;
+#endif
                 renderer.lightProbeUsage = LightProbeUsage.CustomProvided;
                 renderer.GetPropertyBlock(properties);
                 properties.CopySHCoefficientArraysFrom(new[] { ambient });

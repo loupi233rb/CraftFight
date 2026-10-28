@@ -21,9 +21,37 @@ public sealed class SteveFirstPersonController : MonoBehaviour
     private SteveHealth health;
     private bool deathView;
     private PlayerEconomy economy;
+    private PicoPlayerTracking tracking;
     private readonly Vector3 deathCameraOffset = new Vector3(0f, 2.25f, -3.25f);
 
     public float MoveSpeed => moveSpeed;
+    public bool IsMovementSuspended { get; private set; }
+
+    public void SetMovementSuspended(bool suspended)
+    {
+        IsMovementSuspended = suspended;
+        verticalSpeed = 0f;
+        knockbackVelocity = Vector3.zero;
+        if (animator != null) animator.SetBool("Moving", false);
+        if (suspended) SetCursorLocked(false);
+    }
+
+    public void TeleportTo(Vector3 position, float yaw)
+    {
+        if (characterController == null) characterController = GetComponent<CharacterController>();
+        bool wasEnabled = characterController.enabled;
+        characterController.enabled = false;
+        transform.SetPositionAndRotation(position, Quaternion.Euler(0f, yaw, 0f));
+        verticalSpeed = 0f;
+        knockbackVelocity = Vector3.zero;
+        if ((tracking == null || !tracking.IsActive) && viewCamera != null && !deathView)
+        {
+            pitch = 0f;
+            viewCamera.localRotation = Quaternion.Euler(0f, cameraLocalYaw, 0f);
+        }
+        characterController.enabled = wasEnabled;
+        Physics.SyncTransforms();
+    }
 
     public void IncreaseMoveSpeed(float amount)
     {
@@ -37,6 +65,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
         animator = GetComponent<Animator>();
         health = GetComponent<SteveHealth>();
         economy = GetComponent<PlayerEconomy>();
+        tracking = GetComponent<PicoPlayerTracking>();
 
         if (viewCamera == null)
         {
@@ -58,7 +87,8 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     private void Update()
     {
-        if (!deathView && (economy == null || !economy.BlocksGameplayInput))
+        if (IsMovementSuspended) return;
+        if ((tracking == null || !tracking.IsActive) && !deathView && (economy == null || !economy.BlocksGameplayInput))
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 SetCursorLocked(false);
@@ -78,6 +108,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
     {
         deathView = true;
         SetCursorLocked(false);
+        if (tracking != null && tracking.IsActive) return;
         if (viewCamera == null)
             return;
 
@@ -88,6 +119,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     public void ApplyKnockback(Vector3 sourcePosition)
     {
+        if (IsMovementSuspended) return;
         Vector3 away = Vector3.ProjectOnPlane(transform.position - sourcePosition, Vector3.up);
         if (away.sqrMagnitude < 0.0001f)
             away = -transform.forward;

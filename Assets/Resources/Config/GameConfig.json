@@ -1,0 +1,23 @@
+{
+  "spawnIntervalSeconds": 2.0,
+  "rounds": [
+    {
+      "preparationSeconds": 120.0,
+      "combatSeconds": 90.0,
+      "monsters": [ { "id": "zombie", "count": 2 }, { "id": "skeleton", "count": 0 } ],
+      "resources": { "oak_plank": 8, "iron_ingot": 4, "flint": 1 }
+    },
+    {
+      "preparationSeconds": 90.0,
+      "combatSeconds": 120.0,
+      "monsters": [ { "id": "zombie", "count": 3 }, { "id": "skeleton", "count": 1 } ],
+      "resources": { "oak_plank": 6, "iron_ingot": 6, "flint": 1 }
+    },
+    {
+      "preparationSeconds": 90.0,
+      "combatSeconds": 150.0,
+      "monsters": [ { "id": "zombie", "count": 4 }, { "id": "skeleton", "count": 2 } ],
+      "resources": { "oak_plank": 6, "iron_ingot": 8, "flint": 2 }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+PASS: Player prefab loads
+PASS: Player prefab contains PICO tracking
+PASS: Head camera bound
+PASS: Two independent arms bound
+PASS: Left inventory palm belongs to left arm
+PASS: Right inventory palm belongs to right arm
+PASS: Tracked pose method available
+PASS: Left palm reaches controller position
+PASS: Left arm follows controller rotation
+PASS: Moving left controller does not move right hand
+PASS: Right palm remains accurate under a scaled and rotated player
+PASS: Right rotation remains accurate under a rotated player
+PASS: Both existing wrist inventories retained
+Active scene: Assets/Scenes/MainScene.unity
+Active scene dirty: False
+Play Mode: False
+PASS: Editor compilation and transform checks complete.
+NOT TESTED: physical PICO headset/controller tracking, hand alignment and rendering.

@@ -1,0 +1,15 @@
+Three-round game validation 2026-10-28T11:48:35
+Config: prep=120 combat=90 monsters=2 resources=8/4/1
+Config: prep=90 combat=120 monsters=4 resources=6/6/1
+Config: prep=90 combat=150 monsters=6 resources=6/8/2
+PASS: Invalid configuration is rejected
+FAIL: System.InvalidOperationException: Runtime validation timed out at stage 0
+  at ThreeRoundGameValidation.Tick () [0x0002d] in D:\unityfiles\craft\CraftFight\Assets\Editor\ThreeRoundGameValidation.cs:93 
+RUNTIME ERROR: Three-round validation failed: Runtime validation timed out at stage 0
+UnityEngine.Debug:LogError (object)
+ThreeRoundGameValidation:Abort (System.Exception) (at Assets/Editor/ThreeRoundGameValidation.cs:273)
+ThreeRoundGameValidation:Tick () (at Assets/Editor/ThreeRoundGameValidation.cs:203)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+Final scene=Assets/Scenes/MainScene.unity dirty=False
+Play Mode stopped. Physical PICO headset/controller input and rendering were not tested.
