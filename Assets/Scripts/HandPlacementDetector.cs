@@ -224,7 +224,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
         {
             var droppedItem = other.gameObject.GetComponent<DroppedItem>();
             if (!droppedItem) return;
-            droppedItem.IsSelected(true);
+            droppedItem.OnSelect();
             selectedObject = other.gameObject;
             selectedType = SelectedType.DroppedItem;
         }
@@ -232,7 +232,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
         {
             var slot = other.gameObject.GetComponent<CraftSlot>();
             if (!slot) return;
-            slot.IsSelected(true);
+            slot.OnSelect();
             selectedObject = other.gameObject;
             selectedType = SelectedType.CraftSlot;
         }
@@ -251,7 +251,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
         {
             var droppedItem = other.gameObject.GetComponent<DroppedItem>();
             if (!droppedItem) return;
-            droppedItem.IsSelected(false);
+            droppedItem.OffSelect();
             selectedObject = null;
             selectedType = SelectedType.None;
         }
@@ -259,7 +259,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
         {
             var slot = other.gameObject.GetComponent<CraftSlot>();
             if (!slot) return;
-            slot.IsSelected(false);
+            slot.OffSelect();
             selectedObject = null;
             selectedType = SelectedType.None;
         }

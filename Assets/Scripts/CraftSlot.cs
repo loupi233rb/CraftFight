@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CraftSlot : MonoBehaviour
@@ -11,9 +12,11 @@ public class CraftSlot : MonoBehaviour
     private ItemDatabase itemDatabase;
     private GameObject itemIcon;
     private CraftTable craftTable;
-    private bool handInArea = false;
+    private GameObject selectedBox;
     void Start()
     {
+        selectedBox = transform.Find("selected").GameObject();
+        selectedBox.SetActive(false);
         craftTable = GetComponentInParent<CraftTable>();
         itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
     }
@@ -47,9 +50,16 @@ public class CraftSlot : MonoBehaviour
         Debug.Log($"槽{index} 图标实例化成功");
     }
 
-    public void IsSelected(bool selected)
+    public void OnSelect()
     {
         // 处理物品被选中的逻辑
+        selectedBox.SetActive(true);
+    }
+
+    public void OffSelect()
+    {
+        // 处理物品取消选中的逻辑
+        selectedBox.SetActive(false);
     }
 
     public void SetSlotItem(string itemName)

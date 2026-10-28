@@ -14,10 +14,14 @@ public class DroppedItem : MonoBehaviour
     private float floatSpeed = 0.5f;
     private float rotateSpeed = 30f;
     private GameObject model;
+    private GameObject selectionBox;
     void Awake()
     {
         itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
         rb = GetComponent<Rigidbody>();
+        // 生成时选中框不能显示
+        selectionBox = transform.Find("selected").gameObject;
+        selectionBox.SetActive(false);
     }
     void Start()
     {
@@ -44,9 +48,14 @@ public class DroppedItem : MonoBehaviour
         itemData = itemDatabase.Get(itemName);
     }
 
-    public void IsSelected(bool selected)
+    public void OnSelect()
     {
-        // 处理物品被选中的逻辑
+        selectionBox.SetActive(true);
+    }
+
+    public void OffSelect()
+    {
+        selectionBox.SetActive(false);
     }
 
 }
