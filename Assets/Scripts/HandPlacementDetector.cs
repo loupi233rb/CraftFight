@@ -1,21 +1,26 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum SelectedType
-{
-    None,
-    DroppedItem,
-    CraftSlot,
-    Anvil
-}
-
 /// <summary>Small palm trigger reserved for workbench slot detection.</summary>
 [DefaultExecutionOrder(250)]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(SphereCollider), typeof(Rigidbody))]
 public sealed class HandPlacementDetector : MonoBehaviour
 {
+    public enum SelectedType
+    {
+        None,
+        DroppedItem,
+        CraftSlot,
+        Anvil
+    }
+
+    public enum Hand { Left, Right }
+
     [SerializeField] private HandInventory inventory;
+    private Hand hand;
+    private KeyCode interactKey;
+    private KeyCode dropKey;
     private PlayerAudio playerAudio;
     public GameObject selectedObject;
     public SelectedType selectedType = SelectedType.None;
@@ -27,6 +32,12 @@ public sealed class HandPlacementDetector : MonoBehaviour
     {
         playerAudio = GetComponentInParent<PlayerAudio>();
         if (inventory == null) inventory = GetComponentInParent<HandInventory>();
+        string handLabel = inventory.GetHandLabel();
+        hand = handLabel == "LEFT" ? Hand.Left : Hand.Right;
+        // 交互键位和丢物品键位
+        // 分别为左手的逗号和分号，右手的句号和单引号
+        interactKey = hand ==Hand.Left? KeyCode.Comma : KeyCode.Period;
+        dropKey = hand ==Hand.Left? KeyCode.Semicolon : KeyCode.Quote;
         GetComponent<SphereCollider>().isTrigger = true;
         Rigidbody body = GetComponent<Rigidbody>();
         body.isKinematic = true;
@@ -36,7 +47,10 @@ public sealed class HandPlacementDetector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        bool ok = false;
+        bool ko = false;
+        // 交互，包括掉落物拾取、工作台和铁砧物品放置取出
+        if (Input.GetKeyDown(interactKey))
         {
             if (selectedObject != null)
             {
@@ -51,17 +65,19 @@ public sealed class HandPlacementDetector : MonoBehaviour
                         string itemName = droppedItem.itemName;
                         Destroy(selectedObject);
                         inventory.AddItem(itemName);
+                        ok = true;
                         break;
                     case SelectedType.CraftSlot:
                         var craftSlot = selectedObject.GetComponent<CraftSlot>();
                         if (craftSlot != null)
                         {
-                            // 放置物品到合成栏
-                            if (craftSlot.capturedItemName == string.Empty)
+                            // 放置物品到合成槽位
+                            if (craftSlot.capturedItemName == string.Empty && !craftSlot.isOutputSlot)
                             {
                                 if (inventory.RemoveItem())
                                 {
                                     craftSlot.SetSlotItem(inventory.GetSelectedItemName());
+                                    ok = true;
                                     Debug.Log($"Placed item in Craft Slot: {craftSlot.index}");
                                 }
                                 else
@@ -69,18 +85,34 @@ public sealed class HandPlacementDetector : MonoBehaviour
                                     Debug.Log("No item to place in Craft Slot");
                                 }
                             }
-                            // 拿取物品至物品栏
-                            else
+                            // 拿取合成槽位物品至物品栏
+                            else if (craftSlot.capturedItemName != string.Empty && !craftSlot.isOutputSlot)
                             {
                                 if (inventory.GetSelectedItemName() == string.Empty)
                                 {
                                     inventory.AddItem(craftSlot.capturedItemName);
                                     craftSlot.SetSlotItem(string.Empty);
+                                    ok = true;
                                     Debug.Log($"Removed item from Craft Slot: {craftSlot.index}");
                                 }
                                 else
                                 {
                                     Debug.Log("Inventory already has an item, cannot remove from Craft Slot");
+                                }
+                            }
+                            // 输出槽位只能取出
+                            else if (craftSlot.isOutputSlot)
+                            {
+                                if (inventory.GetSelectedItemName() == string.Empty && craftSlot.capturedItemName != string.Empty)
+                                {
+                                    inventory.AddItem(craftSlot.capturedItemName);
+                                    craftSlot.SetSlotItem(string.Empty);
+                                    ok = true;
+                                    Debug.Log($"Removed item from Output Slot: {craftSlot.index}");
+                                }
+                                else
+                                {
+                                    Debug.Log("Inventory already has an item or Output Slot is empty, cannot remove from Output Slot");
                                 }
                             }
                             
@@ -97,6 +129,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
                                 {
                                     inventory.RemoveItem();
                                     anvil.captured = true;
+                                    ok = true;
                                     Debug.Log("Placed item in Anvil");
                                 }
                                 else
@@ -121,7 +154,8 @@ public sealed class HandPlacementDetector : MonoBehaviour
                                         anvil.captured = false;
                                         anvil.process = 0f;
                                         Debug.Log("Removed iron_ingot from Anvil");
-                                    } 
+                                    }
+                                    ok = true;
                                 }
                                 else
                                 {
@@ -131,13 +165,12 @@ public sealed class HandPlacementDetector : MonoBehaviour
                         }
                         break;
                 }
-                playerAudio.PlayInteract();
+                if (ok) playerAudio.PlayInteract();
             }
-
         }
 
         // 丢物品
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(dropKey))
         {
             if (inventory.GetSelectedItemName() == string.Empty)
             {
@@ -155,10 +188,11 @@ public sealed class HandPlacementDetector : MonoBehaviour
                 {
                     GameObject droppedItem = Instantiate(droppedItemPrefab, transform.position, Quaternion.identity);
                     droppedItem.GetComponent<DroppedItem>().Init(transform.position, Vector3.zero, itemName);
+                    ko = true;
                     Debug.Log($"Dropped item: {itemName}");
                 }
             }
-            playerAudio.PlayInteract();
+            if (ko) playerAudio.PlayInteract();
         }
     }
 
