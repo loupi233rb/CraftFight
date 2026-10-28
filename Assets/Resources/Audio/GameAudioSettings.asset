@@ -23,6 +23,7 @@ MonoBehaviour:
   villagerNo: {fileID: 8300000, guid: a01b2a13690e42f9b82c952f5262d242, type: 3}
   combatMusic: {fileID: 8300000, guid: fe7cdce7f782429280509e537edde6d9, type: 3}
   explorationMusic: {fileID: 8300000, guid: 191b9bb7b6c44668814cf72629da2be4, type: 3}
+  interactSound: {fileID: 8300000, guid: 7b223ede245923c4b90e824f30198189, type: 3}
   playerStepVolume: 0.45
   playerHurtVolume: 0.8
   selectionVolume: 0.55

@@ -5,7 +5,8 @@ public enum SelectedType
 {
     None,
     DroppedItem,
-    CraftSlot
+    CraftSlot,
+    Anvil
 }
 
 /// <summary>Small palm trigger reserved for workbench slot detection.</summary>
@@ -15,6 +16,7 @@ public enum SelectedType
 public sealed class HandPlacementDetector : MonoBehaviour
 {
     [SerializeField] private HandInventory inventory;
+    private PlayerAudio playerAudio;
     public GameObject selectedObject;
     public SelectedType selectedType = SelectedType.None;
 
@@ -23,6 +25,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
 
     private void Awake()
     {
+        playerAudio = GetComponentInParent<PlayerAudio>();
         if (inventory == null) inventory = GetComponentInParent<HandInventory>();
         GetComponent<SphereCollider>().isTrigger = true;
         Rigidbody body = GetComponent<Rigidbody>();
@@ -83,8 +86,54 @@ public sealed class HandPlacementDetector : MonoBehaviour
                             
                         }
                         break;
+                    case SelectedType.Anvil:
+                        var anvil = selectedObject.GetComponent<AnvilManager>();
+                        if (anvil != null)
+                        {
+                            // 放置铁锭到铁砧
+                            if (!anvil.captured)
+                            {
+                                if (inventory.GetSelectedItemName() == "iron_ingot")
+                                {
+                                    inventory.RemoveItem();
+                                    anvil.captured = true;
+                                    Debug.Log("Placed item in Anvil");
+                                }
+                                else
+                                {
+                                    Debug.Log("No item to place in Anvil");
+                                }
+                            }
+                            // 拿取物品至物品栏
+                            else
+                            {
+                                if (inventory.GetSelectedItemName() == string.Empty)
+                                {
+                                    if (anvil.process >= 1f)
+                                    {
+                                        inventory.AddItem("iron_plate");
+                                        anvil.captured = false;
+                                        Debug.Log("Removed iron_plate from Anvil");
+                                    }
+                                    else
+                                    {
+                                        inventory.AddItem("iron_ingot");
+                                        anvil.captured = false;
+                                        anvil.process = 0f;
+                                        Debug.Log("Removed iron_ingot from Anvil");
+                                    } 
+                                }
+                                else
+                                {
+                                    Debug.Log("Inventory already has an item, cannot remove from Anvil");
+                                }
+                            }
+                        }
+                        break;
                 }
+                playerAudio.PlayInteract();
             }
+
         }
 
         // 丢物品
@@ -109,6 +158,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
                     Debug.Log($"Dropped item: {itemName}");
                 }
             }
+            playerAudio.PlayInteract();
         }
     }
 
@@ -152,6 +202,11 @@ public sealed class HandPlacementDetector : MonoBehaviour
             selectedObject = other.gameObject;
             selectedType = SelectedType.CraftSlot;
         }
+        else if (other.gameObject.CompareTag("Anvil"))
+        {
+            selectedObject = other.gameObject;
+            selectedType = SelectedType.Anvil;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -171,6 +226,11 @@ public sealed class HandPlacementDetector : MonoBehaviour
             var slot = other.gameObject.GetComponent<CraftSlot>();
             if (!slot) return;
             slot.IsSelected(false);
+            selectedObject = null;
+            selectedType = SelectedType.None;
+        }
+        else if (other.gameObject.CompareTag("Anvil"))
+        {
             selectedObject = null;
             selectedType = SelectedType.None;
         }
