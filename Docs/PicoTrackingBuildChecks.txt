@@ -1,0 +1,10 @@
+Editor-condition C# compilation: PASS
+Android-condition C# compilation with Old input: PASS
+Editor validation utility compilation: PASS
+Existing warning only: CraftSlot.handInArea is unused.
+Synthetic Unity pose checks: 9 PASS (see PicoTrackingPoseChecks.txt).
+Connected Android device: model A9210, USB debugging authorized.
+Current interactive Unity editor has not imported the changes yet; reopen the project.
+Actual scene prefab validation: pending Unity refresh; Tools/CraftFight/Validate PICO hand tracking.
+Physical PICO tracking, controller alignment and rendering: NOT TESTED.
+APK build and installation: NOT RUN.

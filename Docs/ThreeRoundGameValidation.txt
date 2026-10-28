@@ -1,0 +1,70 @@
+Three-round game validation 2026-10-28T11:54:55
+Config: prep=120 combat=90 monsters=2 resources=8/4/1
+Config: prep=90 combat=120 monsters=4 resources=6/6/1
+Config: prep=90 combat=150 monsters=6 resources=6/8/2
+PASS: Invalid configuration is rejected
+PASS: Runtime flow and player exist
+PASS: Game waits for explicit start
+PASS: Player stays in the air with movement and gravity suspended
+PASS: No resources issued before start
+PASS: No monsters before combat
+PASS: Player can carry damaged health across rounds
+PASS: Validation carries an equipped weapon across rounds
+PASS: Preparation phase for round 1
+PASS: Configured preparation countdown for round 1
+PASS: Crafting teleport for round 1
+PASS: Round 1 quota flint=1
+PASS: Round 1 quota iron_ingot=4
+PASS: Round 1 quota oak_plank=8
+PASS: Repeated start cannot reset the current round
+PASS: Resource dispenser produces real dropped items
+PASS: Preparation timeout enters round 1 combat
+PASS: Round 1 configured combat countdown is 90 seconds
+PASS: First monster spawns immediately; others wait for interval
+PASS: Killing the first batch cannot finish an incompletely spawned wave
+PASS: Preparation phase for round 2
+PASS: Configured preparation countdown for round 2
+PASS: Crafting teleport for round 2
+PASS: Round 2 quota flint=1
+PASS: Round 2 quota iron_ingot=6
+PASS: Round 2 quota oak_plank=6
+PASS: Round 1 clear returns without healing
+PASS: Round 2 combat starts
+PASS: Round 2 configured combat countdown is 120 seconds
+PASS: Round 2 plans four monsters
+PASS: Preparation phase for round 3
+PASS: Configured preparation countdown for round 3
+PASS: Crafting teleport for round 3
+PASS: Round 3 quota flint=2
+PASS: Round 3 quota iron_ingot=8
+PASS: Round 3 quota oak_plank=6
+PASS: Timeout cancels pending spawns and clears living monsters
+PASS: Timeout also clears projectiles targeting the player
+PASS: Round 2 timeout returns without healing
+PASS: Round 3 combat starts
+PASS: Round 3 configured combat countdown is 150 seconds
+PASS: Round 3 plans six monsters
+PASS: Round 3 contains four zombies and two bow skeletons
+PASS: Third clear completes the game
+PASS: No fourth round or preparation timer after completion
+PASS: Completion returns to the crafting area
+PASS: All transitions preserve current health
+PASS: Wallet, upgrades and selected hand items survive transitions
+PASS: No runtime errors during three-round flow
+PASS: Three-round lifecycle checks complete.
+PASS: Runtime flow and player exist
+PASS: Death scenario enters combat
+PASS: Player death enters failure state
+PASS: Failure stops spawning and clears enemies
+PASS: No runtime errors during failure handling
+ALL RUNTIME CHECKS PASSED
+Final scene=Assets/Scenes/MainScene.unity dirty=False
+Play Mode stopped. Physical PICO headset/controller input and rendering were not tested.
+
+Final verification:
+- 55 PASS entries; ALL RUNTIME CHECKS PASSED.
+- Unity console: no errors; existing negative-scale BoxCollider warning at craft/hammer/stick remains.
+- MainScene saved, dirty=False, Play Mode stopped, missing scripts=0.
+- Validation-only background execution restored to False.
+- Game View screenshot visually inspected: Docs/ThreeRoundGameCaptures/three-round-validation.png.
+- First background-paused attempt was superseded by the successful rerun; original evidence is in .codex-backups/three-round-flow/first-background-attempt.txt.

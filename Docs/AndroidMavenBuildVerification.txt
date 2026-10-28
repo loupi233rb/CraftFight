@@ -1,0 +1,8 @@
+Gradle dependency resolution: BUILD SUCCESSFUL (5m 9s).
+Gradle assembleRelease: BUILD SUCCESSFUL (2m 48s), 112 tasks executed.
+APK signature: verified.
+APK: 
+D:\unityfiles\craft\CraftFight\Builds\Android\CraftFight-PICO.apk
+APK bytes: 
+138658570
+Physical PICO installation and gameplay: NOT TESTED.

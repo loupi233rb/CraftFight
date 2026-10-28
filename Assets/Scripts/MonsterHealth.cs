@@ -14,6 +14,7 @@ public sealed class MonsterHealth : MonoBehaviour
     public int CurrentHealth => currentHealth;
     public int MaxHealth => MaxHealthValue;
     public bool IsDead => currentHealth <= 0;
+    public event System.Action<MonsterHealth> Died;
 
     private void Awake()
     {
@@ -40,6 +41,7 @@ public sealed class MonsterHealth : MonoBehaviour
             if (chase != null)
                 chase.Die();
             StartCoroutine(DespawnAfterDeath());
+            Died?.Invoke(this);
             return;
         }
 

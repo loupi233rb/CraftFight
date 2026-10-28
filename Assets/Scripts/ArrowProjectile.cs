@@ -11,6 +11,8 @@ public sealed class ArrowProjectile : MonoBehaviour
     private int damage;
     private MonsterAudioProfile audioProfile;
 
+    public bool Targets(SteveHealth player) => player != null && target == player;
+
     public void Launch(Vector3 travelDirection, Transform shooter, SteveHealth hitTarget, int hitDamage,
         MonsterAudioProfile soundProfile = null)
     {

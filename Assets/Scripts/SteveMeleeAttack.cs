@@ -11,6 +11,7 @@ public sealed class SteveMeleeAttack : MonoBehaviour
     private Camera viewCamera;
     private float nextAttackTime;
     private PlayerEconomy economy;
+    private SteveFirstPersonController movement;
 
     public int AttackDamage => attackDamage;
 
@@ -24,6 +25,7 @@ public sealed class SteveMeleeAttack : MonoBehaviour
     {
         health = GetComponent<SteveHealth>();
         economy = GetComponent<PlayerEconomy>();
+        movement = GetComponent<SteveFirstPersonController>();
         viewCamera = GetComponentInChildren<Camera>();
         if (viewCamera == null)
             viewCamera = Camera.main;
@@ -31,7 +33,8 @@ public sealed class SteveMeleeAttack : MonoBehaviour
 
     private void Update()
     {
-        if (health.IsDead || (economy != null && economy.BlocksGameplayInput) ||
+        if (health.IsDead || (movement != null && movement.IsMovementSuspended) ||
+            (economy != null && economy.BlocksGameplayInput) ||
             !Input.GetMouseButtonDown(0) || Time.time < nextAttackTime)
             return;
 
