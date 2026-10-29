@@ -148,9 +148,10 @@ public sealed class HandInventory : MonoBehaviour
     private void LateUpdate()
     {
         // The panel stays on the wrist; its face remains readable from the player's head.
+        // 明明是躲着头
         // Position and item selection never depend on whether the arm is raised.
-        if (panel != null && viewCamera != null)
-            panel.rotation = viewCamera.rotation * Quaternion.Euler(panelRotation);
+        // if (panel != null && viewCamera != null)
+        //     panel.rotation = viewCamera.rotation * Quaternion.Euler(panelRotation);
 
         if (initialized) RefreshHeldItem();
         ApplyHeldItemPose();
@@ -275,6 +276,7 @@ public sealed class HandInventory : MonoBehaviour
         panel = new GameObject("InventoryPanel").transform;
         panel.SetParent(transform, false);
         panel.localPosition = panelOffset;
+        panel.localRotation = Quaternion.Euler(panelRotation);
         panel.localScale = Vector3.one * panelScale;
         Cube("Board", panel, Vector3.zero, new Vector3(0.326f, 0.145f, 0.016f), boardMaterial);
         MakeText(handLabel, panel, new Vector3(-0.145f, 0.057f, -0.016f), 0.0028f, TextAnchor.UpperLeft);

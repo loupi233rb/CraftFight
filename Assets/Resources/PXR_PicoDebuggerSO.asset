@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PXR_PicoDebuggerSO
   m_EditorClassIdentifier: 
   isOpen: 0
-  debuggerLauncherButton: 0
+  debuggerLauncherButton: 1
   startPosition: 0
   maxInfoCount: 500
-  rulerClearButton: 0
+  rulerClearButton: 1

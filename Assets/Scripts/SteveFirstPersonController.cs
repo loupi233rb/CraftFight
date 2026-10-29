@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterController))]
@@ -129,9 +130,21 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     private void LookAround()
     {
-        float yawChange = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float pitchChange = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        // 这里提供了两种输入方式
 
+        float yawChange;
+        float pitchChange;
+        InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        if (rightHand.isValid && rightHand.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis))
+        {
+            yawChange = axis.x * mouseSensitivity;
+            pitchChange = axis.y * mouseSensitivity;
+        }
+        else
+        {
+            yawChange = Input.GetAxis("Mouse X") * mouseSensitivity;
+            pitchChange = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        }
         transform.Rotate(Vector3.up, yawChange, Space.World);
         pitch = Mathf.Clamp(pitch - pitchChange, -maxLookAngle, maxLookAngle);
         viewCamera.localRotation = Quaternion.Euler(pitch, cameraLocalYaw, 0f);
@@ -139,8 +152,21 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     private void Move()
     {
-        float horizontal = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
-        float vertical = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
+        InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        float horizontal;
+        float vertical;
+
+        // 这里提供了两种输入方式
+        if (leftHand.isValid && leftHand.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis))
+        {
+            horizontal = axis.x;
+            vertical = axis.y;
+        }
+        else
+        {
+            horizontal = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
+            vertical = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
+        }
 
         Vector3 forward = Vector3.ProjectOnPlane(viewCamera.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(viewCamera.right, Vector3.up).normalized;

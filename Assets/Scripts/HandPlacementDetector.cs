@@ -130,7 +130,7 @@ public sealed class HandPlacementDetector : MonoBehaviour
                                 if (inventory.GetSelectedItemName() == "iron_ingot")
                                 {
                                     inventory.RemoveItem();
-                                    anvil.captured = true;
+                                    anvil.SlotUpdate(true);
                                     ok = true;
                                     Debug.Log("Placed item in Anvil");
                                 }
@@ -147,14 +147,13 @@ public sealed class HandPlacementDetector : MonoBehaviour
                                     if (anvil.process >= 1f)
                                     {
                                         inventory.AddItem("iron_plate");
-                                        anvil.captured = false;
+                                        anvil.SlotUpdate(false);
                                         Debug.Log("Removed iron_plate from Anvil");
                                     }
                                     else
                                     {
                                         inventory.AddItem("iron_ingot");
-                                        anvil.captured = false;
-                                        anvil.process = 0f;
+                                        anvil.SlotUpdate(false);
                                         Debug.Log("Removed iron_ingot from Anvil");
                                     }
                                     ok = true;

@@ -7,9 +7,8 @@ using UnityEngine;
 public class AnvilManager : MonoBehaviour
 {
     private ItemDatabase itemDatabase;
-    private GameObject ingot;
-    private GameObject plate;
-    private GameObject icon;
+    private GameObject ingot_icon;
+    private GameObject plate_icon;
     [InspectorName("是否捕获铁锭")] public bool captured = false;
     [InspectorName("加工进度0-1")] public float process = 0f;
     [InspectorName("加工最大速度")] public readonly float maxSpeed = 20f;
@@ -21,8 +20,17 @@ public class AnvilManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
-        ingot = itemDatabase.Get("iron_ingot").worldPrefab;
-        plate = itemDatabase.Get("iron_plate").worldPrefab;
+        ingot_icon = Instantiate(itemDatabase.Get("iron_ingot").worldPrefab, transform.parent);
+        plate_icon = Instantiate(itemDatabase.Get("iron_plate").worldPrefab, transform.parent);
+        Vector3 pos = new Vector3(0, 0.1f, 0);
+        Quaternion rot = Quaternion.Euler(new Vector3(-90, 90, 0));
+        Vector3 sca = new Vector3(2, 2, 2);
+        ingot_icon.transform.SetLocalPositionAndRotation(pos, rot);
+        ingot_icon.transform.localScale = sca;
+        plate_icon.transform.SetLocalPositionAndRotation(pos, rot);
+        plate_icon.transform.localScale = sca;
+        ingot_icon.SetActive(false);
+        plate_icon.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,26 +41,28 @@ public class AnvilManager : MonoBehaviour
         {
             Process(20f);
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SlotUpdate(true);
+        }
     }
 
     public void SetIcon()
     {
-        if (captured)
-        {
-            if (process >= 1f)
-            {
-                
-            }
-        }
+        ingot_icon.SetActive(captured && process < 1f);
+        plate_icon.SetActive(captured && process >= 1f);
+    }
+
+    public void SlotUpdate(bool captured)
+    {
+        this.captured = captured;
+        process = 0f;
+        SetIcon();
     }
 
     public void Process(float velocity)
     {
+        if (!captured) return;
         if (velocity <= 0f) return;
         if (process >= 1f) return;
         float amount = velocity<maxSpeed ? velocity/maxSpeed : 1f;
