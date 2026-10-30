@@ -21,4 +21,9 @@ MonoBehaviour:
   heldItemSize: 0.38
   heldItemRotation: {x: 0, y: 90, z: -90}
   heldItemOffset: {x: 0, y: 0, z: 0.015}
+  isFirearm: 1
+  firearmDamage: 10
+  firearmRange: 40
+  firearmInterval: 0.25
+  firearmShotSound: {fileID: 8300000, guid: d5eeca5ae1db3984e8b7cac8dfeb41d2, type: 3}
   enableHeldSwordCollider: 0

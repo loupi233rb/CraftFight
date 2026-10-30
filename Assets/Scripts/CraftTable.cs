@@ -43,6 +43,7 @@ public class CraftTable : MonoBehaviour
     void Update()
     {
         // for test
+        if (CraftXRPlayer.Active != null) return;
         KeyCode startKey = KeyCode.Keypad1;
         for (int i = 1; i < 10; i++)
         {

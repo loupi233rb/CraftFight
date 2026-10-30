@@ -1,43 +1,38 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 
-/// <summary>Small palm trigger reserved for workbench slot detection.</summary>
+/// <summary>Shared, transactional hand interactions for desktop and XR controllers.</summary>
 [DefaultExecutionOrder(250)]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(SphereCollider), typeof(Rigidbody))]
 public sealed class HandPlacementDetector : MonoBehaviour
 {
-    public enum SelectedType
-    {
-        None,
-        DroppedItem,
-        CraftSlot,
-        Anvil
-    }
-
+    public enum SelectedType { None, DroppedItem, CraftSlot, Anvil, CraftButton, Trader }
     public enum Hand { Left, Right }
-
     [SerializeField] private HandInventory inventory;
-    private Hand hand;
     private KeyCode interactKey;
     private KeyCode dropKey;
     private PlayerAudio playerAudio;
+    private SteveHealth health;
+    private PlayerEconomy economy;
+    private SteveFirstPersonController movement;
+    private readonly HashSet<Collider> nearby = new HashSet<Collider>();
     public GameObject selectedObject;
     public SelectedType selectedType = SelectedType.None;
-
     public HandInventory Inventory => inventory;
     public GameObject droppedItemPrefab;
 
     private void Awake()
     {
         playerAudio = GetComponentInParent<PlayerAudio>();
+        health = GetComponentInParent<SteveHealth>();
+        economy = GetComponentInParent<PlayerEconomy>();
+        movement = GetComponentInParent<SteveFirstPersonController>();
         if (inventory == null) inventory = GetComponentInParent<HandInventory>();
-        string handLabel = inventory.GetHandLabel();
-        hand = handLabel == "LEFT" ? Hand.Left : Hand.Right;
-        // 交互键位和丢物品键位
-        // 分别为左手的逗号和分号，右手的句号和单引号
-        interactKey = hand ==Hand.Left? KeyCode.Comma : KeyCode.Period;
-        dropKey = hand ==Hand.Left? KeyCode.Semicolon : KeyCode.Quote;
+        bool left = inventory != null && inventory.GetHandLabel() == "LEFT";
+        // 分别为左手的逗号和分号，右手的句号和单引号。
+        interactKey = left ? KeyCode.Comma : KeyCode.Period;
+        dropKey = left ? KeyCode.Semicolon : KeyCode.Quote;
         GetComponent<SphereCollider>().isTrigger = true;
         Rigidbody body = GetComponent<Rigidbody>();
         body.isKinematic = true;
@@ -45,156 +40,118 @@ public sealed class HandPlacementDetector : MonoBehaviour
         body.detectCollisions = true;
     }
 
-    void Update()
-    {
-        // Check before destroying pickups or changing crafting/anvil contents.
-        if (inventory == null || !inventory.IsInventoryEnabled) return;
-        bool ok = false;
-        bool ko = false;
-        // 交互，包括掉落物拾取、工作台和铁砧物品放置取出
-        if (Input.GetKeyDown(interactKey))
-        {
-            if (selectedObject != null)
-            {
-                switch (selectedType)
-                {
-                    case SelectedType.DroppedItem:
-                        var droppedItem = selectedObject.GetComponent<DroppedItem>();
-                        if (droppedItem == null)
-                        {
-                            Debug.LogError("Selected Dropped Item is null");
-                        }
-                        string itemName = droppedItem.itemName;
-                        Destroy(selectedObject);
-                        inventory.AddItem(itemName);
-                        ok = true;
-                        break;
-                    case SelectedType.CraftSlot:
-                        var craftSlot = selectedObject.GetComponent<CraftSlot>();
-                        if (craftSlot != null)
-                        {
-                            // 放置物品到合成槽位
-                            if (craftSlot.capturedItemName == string.Empty && !craftSlot.isOutputSlot)
-                            {
-                                if (inventory.RemoveItem())
-                                {
-                                    craftSlot.SetSlotItem(inventory.GetSelectedItemName());
-                                    ok = true;
-                                    Debug.Log($"Placed item in Craft Slot: {craftSlot.index}");
-                                }
-                                else
-                                {
-                                    Debug.Log("No item to place in Craft Slot");
-                                }
-                            }
-                            // 拿取合成槽位物品至物品栏
-                            else if (craftSlot.capturedItemName != string.Empty && !craftSlot.isOutputSlot)
-                            {
-                                if (inventory.GetSelectedItemName() == string.Empty)
-                                {
-                                    inventory.AddItem(craftSlot.capturedItemName);
-                                    craftSlot.SetSlotItem(string.Empty);
-                                    ok = true;
-                                    Debug.Log($"Removed item from Craft Slot: {craftSlot.index}");
-                                }
-                                else
-                                {
-                                    Debug.Log("Inventory already has an item, cannot remove from Craft Slot");
-                                }
-                            }
-                            // 输出槽位只能取出
-                            else if (craftSlot.isOutputSlot)
-                            {
-                                if (inventory.GetSelectedItemName() == string.Empty && craftSlot.capturedItemName != string.Empty)
-                                {
-                                    inventory.AddItem(craftSlot.capturedItemName);
-                                    craftSlot.SetSlotItem(string.Empty);
-                                    ok = true;
-                                    Debug.Log($"Removed item from Output Slot: {craftSlot.index}");
-                                }
-                                else
-                                {
-                                    Debug.Log("Inventory already has an item or Output Slot is empty, cannot remove from Output Slot");
-                                }
-                            }
-                            
-                        }
-                        break;
-                    case SelectedType.Anvil:
-                        var anvil = selectedObject.GetComponent<AnvilManager>();
-                        if (anvil != null)
-                        {
-                            // 放置铁锭到铁砧
-                            if (!anvil.captured)
-                            {
-                                if (inventory.GetSelectedItemName() == "iron_ingot")
-                                {
-                                    inventory.RemoveItem();
-                                    anvil.SlotUpdate(true);
-                                    ok = true;
-                                    Debug.Log("Placed item in Anvil");
-                                }
-                                else
-                                {
-                                    Debug.Log("No item to place in Anvil");
-                                }
-                            }
-                            // 拿取物品至物品栏
-                            else
-                            {
-                                if (inventory.GetSelectedItemName() == string.Empty)
-                                {
-                                    if (anvil.process >= 1f)
-                                    {
-                                        inventory.AddItem("iron_plate");
-                                        anvil.SlotUpdate(false);
-                                        Debug.Log("Removed iron_plate from Anvil");
-                                    }
-                                    else
-                                    {
-                                        inventory.AddItem("iron_ingot");
-                                        anvil.SlotUpdate(false);
-                                        Debug.Log("Removed iron_ingot from Anvil");
-                                    }
-                                    ok = true;
-                                }
-                                else
-                                {
-                                    Debug.Log("Inventory already has an item, cannot remove from Anvil");
-                                }
-                            }
-                        }
-                        break;
-                }
-                if (ok) playerAudio.PlayInteract();
-            }
-        }
+    private bool CanInteract => inventory != null && inventory.IsInventoryEnabled &&
+        (health == null || !health.IsDead) &&
+        (economy == null || !economy.BlocksGameplayInput) &&
+        (movement == null || !movement.IsMovementSuspended);
 
-        // 丢物品
-        if (Input.GetKeyDown(dropKey))
+    private void Update()
+    {
+        if (CraftXRPlayer.Active != null) return;
+        if (Input.GetKeyDown(interactKey)) TryInteract();
+        if (Input.GetKeyDown(dropKey)) TryDrop();
+    }
+
+    public void SetSelection(GameObject target)
+    {
+        if (selectedObject == target) return;
+        Highlight(selectedObject, false);
+        selectedObject = target;
+        selectedType = SelectedType.None;
+        if (target != null)
         {
-            if (inventory.GetSelectedItemName() == string.Empty)
-            {
-                Debug.Log("No item to drop");
-            }
-            else
-            {
-                string itemName = inventory.GetSelectedItemName();
-                inventory.RemoveItem();
-                if (droppedItemPrefab == null)
-                {
-                    Debug.LogError("DroppedItem prefab is not assigned in HandPlacementDetector");
-                }
-                else
-                {
-                    GameObject droppedItem = Instantiate(droppedItemPrefab, transform.position, Quaternion.identity);
-                    droppedItem.GetComponent<DroppedItem>().Init(transform.position, Vector3.zero, itemName);
-                    ko = true;
-                    Debug.Log($"Dropped item: {itemName}");
-                }
-            }
-            if (ko) playerAudio.PlayInteract();
+            if (target.GetComponent<DroppedItem>() != null) selectedType = SelectedType.DroppedItem;
+            else if (target.GetComponent<CraftSlot>() != null) selectedType = SelectedType.CraftSlot;
+            else if (target.GetComponent<AnvilManager>() != null) selectedType = SelectedType.Anvil;
+            else if (target.GetComponent<global::Button>() != null) selectedType = SelectedType.CraftButton;
+            else if (target.GetComponent<VillagerTrader>() != null) selectedType = SelectedType.Trader;
         }
+        Highlight(selectedObject, true);
+    }
+
+    private static void Highlight(GameObject target, bool selected)
+    {
+        if (target == null) return;
+        var item = target.GetComponent<DroppedItem>();
+        if (item != null) { if (selected) item.OnSelect(); else item.OffSelect(); }
+        var slot = target.GetComponent<CraftSlot>();
+        if (slot != null) { if (selected) slot.OnSelect(); else slot.OffSelect(); }
+    }
+
+    public bool TryInteract()
+    {
+        if (!CanInteract || selectedObject == null) return false;
+        bool success = false;
+        switch (selectedType)
+        {
+            case SelectedType.DroppedItem:
+                var item = selectedObject.GetComponent<DroppedItem>();
+                if (item != null && item.gameObject.activeInHierarchy && inventory.AddItem(item.itemName))
+                {
+                    item.gameObject.SetActive(false);
+                    Destroy(item.gameObject);
+                    SetSelection(null);
+                    success = true;
+                }
+                break;
+            case SelectedType.CraftSlot:
+                var slot = selectedObject.GetComponent<CraftSlot>();
+                if (slot == null) break;
+                if (!string.IsNullOrEmpty(slot.capturedItemName))
+                {
+                    if (inventory.AddItem(slot.capturedItemName))
+                    {
+                        slot.SetSlotItem(string.Empty);
+                        success = true;
+                    }
+                }
+                else if (!slot.isOutputSlot)
+                {
+                    // Cache the item name before removing it from the hand.
+                    string name = inventory.GetSelectedItemName();
+                    if (!string.IsNullOrEmpty(name) && inventory.RemoveItem())
+                    {
+                        slot.SetSlotItem(name);
+                        success = true;
+                    }
+                }
+                break;
+            case SelectedType.Anvil:
+                var anvil = selectedObject.GetComponent<AnvilManager>();
+                if (anvil == null) break;
+                if (!anvil.captured && inventory.GetSelectedItemName() == "iron_ingot" && inventory.RemoveItem())
+                {
+                    anvil.SlotUpdate(true);
+                    success = true;
+                }
+                else if (anvil.captured && inventory.AddItem(anvil.process >= 1f ? "iron_plate" : "iron_ingot"))
+                {
+                    anvil.SlotUpdate(false);
+                    success = true;
+                }
+                break;
+            case SelectedType.CraftButton:
+                success = selectedObject.GetComponent<global::Button>().Press();
+                break;
+            case SelectedType.Trader:
+                success = economy != null && economy.OpenTrade(selectedObject.GetComponent<VillagerTrader>());
+                break;
+        }
+        if (success && playerAudio != null) playerAudio.PlayInteract();
+        return success;
+    }
+
+    public bool TryDrop()
+    {
+        if (!CanInteract || droppedItemPrefab == null ||
+            droppedItemPrefab.GetComponent<DroppedItem>() == null) return false;
+        string itemName = inventory.GetSelectedItemName();
+        if (string.IsNullOrEmpty(itemName)) return false;
+        GameObject instance = Instantiate(droppedItemPrefab, transform.position, Quaternion.identity);
+        instance.GetComponent<DroppedItem>().Init(transform.position, Vector3.zero, itemName);
+        if (!inventory.RemoveItem()) { Destroy(instance); return false; }
+        if (playerAudio != null) playerAudio.PlayInteract();
+        return true;
     }
 
     private void LateUpdate()
@@ -202,72 +159,33 @@ public sealed class HandPlacementDetector : MonoBehaviour
         if (inventory != null) transform.position = inventory.PlacementPosition;
     }
 
-    private void OnDrawGizmos()
-    {
-        SphereCollider area = GetComponent<SphereCollider>();
-        if (area == null) return;
-        Matrix4x4 previousMatrix = Gizmos.matrix;
-        Color previousColor = Gizmos.color;
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.color = new Color(0.2f, 1f, 0.4f, 0.8f);
-        Gizmos.DrawWireSphere(area.center, area.radius);
-        Gizmos.matrix = previousMatrix;
-        Gizmos.color = previousColor;
-    }
-
-    // 物品选择检测
-    // 分为掉落物和合成栏
     private void OnTriggerEnter(Collider other)
     {
-        if (inventory == null) return;
-
-        if (other.gameObject.CompareTag("Item"))
-        {
-            var droppedItem = other.gameObject.GetComponent<DroppedItem>();
-            if (!droppedItem) return;
-            droppedItem.OnSelect();
-            selectedObject = other.gameObject;
-            selectedType = SelectedType.DroppedItem;
-        }
-        else if (other.gameObject.CompareTag("Slot"))
-        {
-            var slot = other.gameObject.GetComponent<CraftSlot>();
-            if (!slot) return;
-            slot.OnSelect();
-            selectedObject = other.gameObject;
-            selectedType = SelectedType.CraftSlot;
-        }
-        else if (other.gameObject.CompareTag("Anvil"))
-        {
-            selectedObject = other.gameObject;
-            selectedType = SelectedType.Anvil;
-        }
+        if (CraftXRPlayer.Active != null) return;
+        nearby.Add(other);
+        SelectNearest();
     }
-
     private void OnTriggerExit(Collider other)
     {
-        if (inventory == null) return;
-
-        if (other.gameObject.CompareTag("Item"))
-        {
-            var droppedItem = other.gameObject.GetComponent<DroppedItem>();
-            if (!droppedItem) return;
-            droppedItem.OffSelect();
-            selectedObject = null;
-            selectedType = SelectedType.None;
-        }
-        else if (other.gameObject.CompareTag("Slot"))
-        {
-            var slot = other.gameObject.GetComponent<CraftSlot>();
-            if (!slot) return;
-            slot.OffSelect();
-            selectedObject = null;
-            selectedType = SelectedType.None;
-        }
-        else if (other.gameObject.CompareTag("Anvil"))
-        {
-            selectedObject = null;
-            selectedType = SelectedType.None;
-        }
+        if (CraftXRPlayer.Active != null) return;
+        nearby.Remove(other);
+        SelectNearest();
     }
+    private void SelectNearest()
+    {
+        GameObject best = null;
+        float distance = float.PositiveInfinity;
+        nearby.RemoveWhere(c => c == null);
+        foreach (var collider in nearby)
+        {
+            GameObject target = null;
+            if (collider.GetComponent<DroppedItem>() != null || collider.GetComponent<CraftSlot>() != null ||
+                collider.GetComponent<AnvilManager>() != null) target = collider.gameObject;
+            if (target == null) continue;
+            float d = (target.transform.position - transform.position).sqrMagnitude;
+            if (d < distance) { best = target; distance = d; }
+        }
+        SetSelection(best);
+    }
+    private void OnDisable() => SetSelection(null);
 }

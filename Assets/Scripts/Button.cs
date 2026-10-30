@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -7,47 +5,38 @@ public class Button : MonoBehaviour
 {
     public CraftTable craftTable;
     [InspectorName("触发行程")] public float triggerY = 0.1f;
-    [InspectorName("回弹时间")] public float restoreTime = 2.0f;
-    [InspectorName("是否按下")] public bool isPressed = false;
-    private float pressedTime = 0.0f;
+    [InspectorName("回弹时间")] public float restoreTime = 2f;
+    [InspectorName("是否按下")] public bool isPressed;
+    private float pressedTime;
     private AudioSource audioSource;
-
-    void Awake()
+    private Vector3 restPosition;
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        if (craftTable == null)
-        {
-            craftTable = GetComponentInParent<CraftTable>();
-        }
+        if (craftTable == null) craftTable = GetComponentInParent<CraftTable>();
+        restPosition = transform.localPosition;
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
+    private void Update()
     {
         if (isPressed && Time.time - pressedTime >= restoreTime)
         {
             isPressed = false;
-            transform.position += new Vector3(0, triggerY, 0);
-            Debug.Log("按钮回弹");
+            transform.localPosition = restPosition;
         }
     }
-
-    void OnTriggerEnter(Collider other)
+    public bool Press()
     {
-        if (other.CompareTag("Player") && !isPressed)
-        {
-            isPressed = true;
-            if (craftTable != null)
-            {
-                craftTable.TryCraft();
-            }
-            pressedTime = Time.time;
-            transform.position -= new Vector3(0, triggerY, 0);
-            audioSource.Play();
-            Debug.Log("玩家按了按钮");
-        }
+        if (isPressed || craftTable == null) return false;
+        if (CraftXRPlayer.Active != null && !CraftXRPlayer.Active.CanPlay) return false;
+        isPressed = true;
+        pressedTime = Time.time;
+        transform.localPosition = restPosition - Vector3.up * triggerY;
+        audioSource.Play();
+        return craftTable.TryCraft();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponentInParent<HandPlacementDetector>() != null ||
+            (CraftXRPlayer.Active == null && other.CompareTag("Player"))) Press();
     }
 }

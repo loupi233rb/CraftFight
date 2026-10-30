@@ -7,7 +7,7 @@ using UnityEngine.XR;
 [DisallowMultipleComponent]
 public sealed class GameFlowTimer : MonoBehaviour
 {
-    public enum Phase { Waiting, Preparation, Combat, Completed, Failed }
+    public enum Phase { Waiting, Preparation, Combat, Completed, Failed, Loot }
 
     [SerializeField] private TextAsset configuration;
     [SerializeField] private SteveHealth player;
@@ -16,6 +16,7 @@ public sealed class GameFlowTimer : MonoBehaviour
     [SerializeField] private Transform combatPoint;
     [SerializeField] private MonsterSpawner monsterSpawner;
     [SerializeField] private ItemSpawner[] resourceSpawners;
+    [SerializeField, Min(0f), Tooltip("清怪后留在战斗区拾取金币的秒数。")] private float lootDuration = 5f;
     private SteveFirstPersonController movement;
     private GameConfig config;
     private int roundIndex;
@@ -26,7 +27,7 @@ public sealed class GameFlowTimer : MonoBehaviour
     public Phase CurrentPhase { get; private set; } = Phase.Waiting;
     public int RoundNumber => roundIndex + 1;
     public int RoundCount => config != null ? config.rounds.Length : 0;
-    public float RemainingSeconds => CurrentPhase == Phase.Preparation || CurrentPhase == Phase.Combat
+    public float RemainingSeconds => CurrentPhase == Phase.Preparation || CurrentPhase == Phase.Combat || CurrentPhase == Phase.Loot
         ? Mathf.Max(0f, deadline - Time.time) : 0f;
     public MonsterSpawner Monsters => monsterSpawner;
     public string StatusMessage { get; private set; } = string.Empty;
@@ -66,7 +67,7 @@ public sealed class GameFlowTimer : MonoBehaviour
             Teleport(waitingPoint);
             movement.SetMovementSuspended(true);
             initialized = true;
-            SetPhase(Phase.Waiting, "按 Enter / 空格或手柄扳机开始游戏");
+            SetPhase(Phase.Waiting, "用射线点击开始游戏，或按扳机 / Enter 开始");
         }
         catch (Exception exception) { Fail(exception.Message); }
     }
@@ -78,7 +79,7 @@ public sealed class GameFlowTimer : MonoBehaviour
         if (CurrentPhase == Phase.Waiting)
         {
             bool pressed = TriggerPressed(XRNode.LeftHand) || TriggerPressed(XRNode.RightHand);
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || (pressed && !triggerWasPressed))
+            if (Input.GetKeyDown(KeyCode.Return) || (CraftXRPlayer.Active == null && Input.GetKeyDown(KeyCode.Space)) || (pressed && !triggerWasPressed))
                 StartGame();
             triggerWasPressed = pressed;
             return;
@@ -86,6 +87,7 @@ public sealed class GameFlowTimer : MonoBehaviour
         if (Time.time < deadline) return;
         if (CurrentPhase == Phase.Preparation) BeginCombat();
         else if (CurrentPhase == Phase.Combat) FinishCombat("战斗时间结束");
+        else if (CurrentPhase == Phase.Loot) FinishCombat("金币拾取时间结束");
     }
 
     private static bool TriggerPressed(XRNode node)
@@ -124,12 +126,20 @@ public sealed class GameFlowTimer : MonoBehaviour
         catch (Exception exception) { Fail(exception.Message); }
     }
 
-    private void OnAllMonstersDefeated() => FinishCombat("怪物已全部击败");
+    private void OnAllMonstersDefeated()
+    {
+        if (CurrentPhase != Phase.Combat) return;
+        if (player.IsDead) { Fail("玩家已死亡"); return; }
+        // Coins are independent scene objects and survive clearing the monster/corpse hierarchy.
+        deadline = Time.time + lootDuration;
+        SetPhase(Phase.Loot, "怪物已全部击败，拾取金币后返回合成区");
+        monsterSpawner.StopAndClear();
+    }
 
     private void FinishCombat(string reason)
     {
         // Moving out of Combat first prevents timeout/death notifications from advancing twice.
-        if (CurrentPhase != Phase.Combat) return;
+        if (CurrentPhase != Phase.Combat && CurrentPhase != Phase.Loot) return;
         CurrentPhase = Phase.Preparation;
         monsterSpawner.StopAndClear();
         if (player.IsDead) { Fail("玩家已死亡"); return; }

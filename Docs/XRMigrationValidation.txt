@@ -1,0 +1,16 @@
+PASS: XR origin moves the existing game player
+PASS: Tracked main camera is assigned
+PASS: One active main camera
+PASS: One active audio listener
+PASS: Legacy tracking is disabled
+PASS: Both semantic hand controllers are assigned
+PASS: Two independent wrist inventories
+PASS: One XR device simulator
+PASS: One active event system
+PASS: XR UI input module is active
+PASS: World-space game and trading UI
+PASS: Hammers support XR grip selection
+PASS: Existing three-round game flow retained
+PASS: Scene root scripts resolve
+Scene: Assets/Scenes/MainScene.unity
+Automated scene checks only; physical alignment and comfort require headset verification.

@@ -29,6 +29,8 @@ public class DroppedItem : MonoBehaviour
         // startAngle =Random.Range(0f, 360f);
         // transform.rotation = Quaternion.Euler(0, startAngle, 0);
         // 传入之前必须执行Init，否则默认物品为木板
+        if (itemData == null) itemData = itemDatabase.Get(itemName);
+        if (itemData == null) { Debug.LogError("Unknown dropped item: " + itemName, this); enabled = false; return; }
         itemId = itemData.itemId;
         model = itemData.worldPrefab;
         model = Instantiate(model, transform);
@@ -36,6 +38,7 @@ public class DroppedItem : MonoBehaviour
 
     void Update()
     {
+        if (model == null) return;
         model.GetComponent<Transform>().position = new Vector3(transform.position.x, transform.position.y + Mathf.Sin(Time.time * floatSpeed) * floatedY, transform.position.z);
         model.GetComponent<Transform>().Rotate(0, rotateSpeed * Time.deltaTime, 0);
     }

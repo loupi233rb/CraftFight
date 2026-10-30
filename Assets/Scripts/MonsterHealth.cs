@@ -18,6 +18,8 @@ public sealed class MonsterHealth : MonoBehaviour
 
     private void Awake()
     {
+        if (CraftXRPlayer.Active != null && GetComponent<CraftXRMonsterLabel>() == null)
+            gameObject.AddComponent<CraftXRMonsterLabel>();
         currentHealth = MaxHealthValue;
         monsterAudio = GetComponent<MonsterAudio>();
         visuals = GetComponent<DamageVisuals>();
@@ -62,6 +64,7 @@ public sealed class MonsterHealth : MonoBehaviour
 
     private void OnGUI()
     {
+        if (CraftXRPlayer.Active != null) return;
         if (IsDead || Camera.main == null)
             return;
 

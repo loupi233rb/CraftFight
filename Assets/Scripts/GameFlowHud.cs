@@ -14,6 +14,7 @@ public sealed class GameFlowHud : MonoBehaviour
 
     private void Start()
     {
+        if (CraftXRPlayer.Active != null) return;
         if (flow == null) flow = GetComponent<GameFlowTimer>();
         if (headCamera == null) headCamera = Camera.main;
         if (flow == null || headCamera == null) return;
@@ -61,11 +62,13 @@ public sealed class GameFlowHud : MonoBehaviour
     private void Update()
     {
         if (label == null || flow == null) return;
-        if (flow.CurrentPhase == GameFlowTimer.Phase.Preparation || flow.CurrentPhase == GameFlowTimer.Phase.Combat)
+        if (flow.CurrentPhase == GameFlowTimer.Phase.Preparation || flow.CurrentPhase == GameFlowTimer.Phase.Combat ||
+            flow.CurrentPhase == GameFlowTimer.Phase.Loot)
         {
             int seconds = Mathf.CeilToInt(flow.RemainingSeconds);
             string detail = flow.CurrentPhase == GameFlowTimer.Phase.Combat
                 ? "存活 " + flow.Monsters.AliveCount + "   已生成 " + flow.Monsters.SpawnedCount + "/" + flow.Monsters.PlannedCount
+                : flow.CurrentPhase == GameFlowTimer.Phase.Loot ? "可自由移动拾取金币，倒计时结束返回合成区"
                 : "合成并整理装备，倒计时结束自动进入战斗";
             label.text = "第 " + flow.RoundNumber + " / " + flow.RoundCount + " 关   " + flow.StatusMessage +
                 "   " + (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00") + "\n" + detail;
@@ -75,6 +78,7 @@ public sealed class GameFlowHud : MonoBehaviour
 
     private void OnGUI()
     {
+        if (CraftXRPlayer.Active != null) return;
         if (flow == null || flow.CurrentPhase != GameFlowTimer.Phase.Waiting) return;
         if (GUI.Button(new Rect(Screen.width * 0.5f - 100f, Screen.height * 0.65f, 200f, 50f), "START GAME"))
             flow.StartGame();

@@ -22,6 +22,7 @@ public sealed class PlayerEconomy : MonoBehaviour
     private GUIStyle goldStyle;
 
     public int Coins => coins;
+    public string Feedback => feedback;
     public SteveHealth Health { get; private set; }
     public SteveFirstPersonController Movement { get; private set; }
     public SteveMeleeAttack Attack { get; private set; }
@@ -84,13 +85,14 @@ public sealed class PlayerEconomy : MonoBehaviour
     {
         if (tradeOpen)
         {
-            if (currentTrader == null || !currentTrader.CanInteract(this) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.F))
+            if (currentTrader == null || !currentTrader.CanInteract(this) || (CraftXRPlayer.Active == null && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.F))))
             {
                 CloseTrade();
                 return;
             }
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            if (CraftXRPlayer.Active != null) return;
             if (Input.GetKeyDown(KeyCode.Alpha1)) Purchase(VillagerTrader.Upgrade.MoveSpeed);
             else if (Input.GetKeyDown(KeyCode.Alpha2)) Purchase(VillagerTrader.Upgrade.AttackDamage);
             else if (Input.GetKeyDown(KeyCode.Alpha3)) Purchase(VillagerTrader.Upgrade.MaxHealth);
@@ -109,11 +111,11 @@ public sealed class PlayerEconomy : MonoBehaviour
             bestDistance = distance;
             nearbyTrader = trader;
         }
-        if (nearbyTrader != null && Input.GetKeyDown(KeyCode.F))
+        if (CraftXRPlayer.Active == null && nearbyTrader != null && Input.GetKeyDown(KeyCode.F))
             OpenTrade(nearbyTrader);
     }
 
-    private void Purchase(VillagerTrader.Upgrade upgrade)
+    public void Purchase(VillagerTrader.Upgrade upgrade)
     {
         if (currentTrader == null)
             return;
@@ -141,6 +143,7 @@ public sealed class PlayerEconomy : MonoBehaviour
 
     private void OnGUI()
     {
+        if (CraftXRPlayer.Active != null) return;
         CreateStyles();
         Matrix4x4 previousMatrix = GUI.matrix;
         bool previousEnabled = GUI.enabled;

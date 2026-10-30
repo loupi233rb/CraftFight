@@ -42,6 +42,18 @@ public sealed class HandInventory : MonoBehaviour
     private readonly Dictionary<Material, Material> previewMaterials = new Dictionary<Material, Material>();
 
     public int SelectedIndex => selectedIndex;
+    public ItemData SelectedItemData => heldItemData;
+    public Transform HeldItemTransform => heldItem != null ? heldItem.transform : null;
+    public bool IsFirearmSelected => heldItemData != null && heldItemData.isFirearm;
+
+    public bool TryFireSelectedGun()
+    {
+        if (!IsInventoryEnabled || !IsFirearmSelected) return false;
+        var firearm = GetComponent<CraftXRFirearm>();
+        if (firearm == null) firearm = gameObject.AddComponent<CraftXRFirearm>();
+        return firearm.TryFire();
+    }
+
     public bool IsInventoryEnabled { get; private set; } = true;
     public Vector3 PlacementPosition => heldItem != null && heldItemRoot != null
         ? heldItemRoot.position : transform.TransformPoint(heldItemOffset);
@@ -92,7 +104,7 @@ public sealed class HandInventory : MonoBehaviour
 
         itemNames[SelectedIndex] = itemName;
         RefreshSlot(SelectedIndex);
-        return false;
+        return true;
     }
 
     /// <summary>Removes the item.</summary>
@@ -130,6 +142,7 @@ public sealed class HandInventory : MonoBehaviour
     {
         if (itemNames == null) itemNames = new string[Capacity];
         else if (itemNames.Length != Capacity) Array.Resize(ref itemNames, Capacity);
+        for (int i = 0; i < Capacity; i++) itemNames[i] = itemNames[i] ?? string.Empty;
         selectedIndex = Mathf.Clamp(selectedIndex, 0, Capacity - 1);
     }
 
@@ -229,6 +242,18 @@ public sealed class HandInventory : MonoBehaviour
         }
 
         colliderRoot.gameObject.SetActive(true);
+        if (CraftXRPlayer.Active != null)
+        {
+            var damage = colliderRoot.GetComponent<CraftXRSwordDamage>();
+            if (damage == null) damage = colliderRoot.gameObject.AddComponent<CraftXRSwordDamage>();
+            damage.Configure(GetComponentInParent<SteveMeleeAttack>(), this, false);
+            var xrBody = colliderRoot.GetComponent<Rigidbody>();
+            if (xrBody == null) xrBody = colliderRoot.gameObject.AddComponent<Rigidbody>();
+            xrBody.isKinematic = true;
+            xrBody.useGravity = false;
+            xrBody.detectCollisions = true;
+            xrBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        }
         SteveHealth owner = GetComponentInParent<SteveHealth>();
         Collider[] ownerColliders = owner != null
             ? owner.GetComponentsInChildren<Collider>(true) : Array.Empty<Collider>();
@@ -236,6 +261,7 @@ public sealed class HandInventory : MonoBehaviour
         {
             swordCollider.gameObject.SetActive(true);
             swordCollider.enabled = true;
+            if (CraftXRPlayer.Active != null) swordCollider.isTrigger = true;
             Rigidbody body = swordCollider.attachedRigidbody;
             if (body != null) body.detectCollisions = true;
             foreach (var ownerCollider in ownerColliders)

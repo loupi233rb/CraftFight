@@ -18,6 +18,13 @@ public class ItemData : ScriptableObject
     public Vector3 heldItemRotation;
     public Vector3 heldItemOffset;
 
+    [Header("枪械")]
+    public bool isFirearm;
+    [Min(1)] public int firearmDamage = 10;
+    [Min(0.1f)] public float firearmRange = 40f;
+    [Min(0.05f)] public float firearmInterval = 0.25f;
+    public AudioClip firearmShotSound;
+
     [Header("手持碰撞")]
     [Tooltip("持有时启用预制体内的 sword_collider 子物体及其碰撞体。")]
     public bool enableHeldSwordCollider;

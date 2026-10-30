@@ -16,7 +16,7 @@ public class CraftSlot : MonoBehaviour
     void Start()
     {
         selectedBox = transform.Find("selected").GameObject();
-        selectedBox.SetActive(false);
+        if (selectedBox != null) selectedBox.SetActive(false);
         craftTable = GetComponentInParent<CraftTable>();
         itemDatabase = Resources.Load<ItemDatabase>("Data/ItemDatabase");
     }
@@ -34,6 +34,7 @@ public class CraftSlot : MonoBehaviour
 
     public void SetItemIcon()
     {
+        if (itemIcon != null) { itemIcon.SetActive(false); Destroy(itemIcon); itemIcon = null; }
         if (capturedItemId <= 0)
         {
             if (itemIcon != null)
@@ -53,13 +54,13 @@ public class CraftSlot : MonoBehaviour
     public void OnSelect()
     {
         // 处理物品被选中的逻辑
-        selectedBox.SetActive(true);
+        if (selectedBox != null) selectedBox.SetActive(true);
     }
 
     public void OffSelect()
     {
         // 处理物品取消选中的逻辑
-        selectedBox.SetActive(false);
+        if (selectedBox != null) selectedBox.SetActive(false);
     }
 
     public void SetSlotItem(string itemName)
@@ -76,7 +77,7 @@ public class CraftSlot : MonoBehaviour
             capturedItemId = 0;
             capturedItemName = string.Empty;
         }
-        craftTable.SetSlotItem(index, capturedItemId);
+        if (!isOutputSlot) craftTable.SetSlotItem(index, capturedItemId);
         SetItemIcon();
         Debug.Log($"Slot {index} is set to {(itemName==string.Empty?"empty":capturedItemName)}");
     }

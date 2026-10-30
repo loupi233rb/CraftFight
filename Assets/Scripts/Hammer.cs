@@ -1,38 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Hammer : MonoBehaviour
 {
-    private Rigidbody rb;
-    private Vector3 processPointPos;
     [InspectorName("铁砧")] public AnvilManager anvil;
-    public float processVel = 0f;
-    void Start()
+    public float processVel;
+    private Transform point;
+    private Vector3 previousPoint;
+    private float nextHit;
+    private void Start()
     {
-        if (anvil == null)
-        {
-            anvil = GameObject.Find("Anvil").GetComponent<AnvilManager>();
-            if (anvil == null)
-            {
-                Debug.LogError("AnvilManager not found in the scene.");
-            }
-        }
-        rb = GetComponent<Rigidbody>();
-        processPointPos = transform.Find("point").transform.position;
+        point = transform.Find("point") ?? transform;
+        previousPoint = point.position;
+        if (anvil == null) anvil = FindObjectOfType<AnvilManager>();
     }
-
-    void Update()
+    private void FixedUpdate()
     {
-        // 获取末端处理点速度
-        processVel = rb.GetPointVelocity(transform.TransformPoint(processPointPos)).magnitude;
+        float distance = Vector3.Distance(previousPoint, point.position);
+        processVel = distance < 1.5f ? distance / Mathf.Max(0.001f, Time.fixedDeltaTime) : 0f;
+        previousPoint = point.position;
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Anvil")) return;
+        var target = other.GetComponentInParent<AnvilManager>();
+        if (target == null || Time.time < nextHit || processVel < 0.1f) return;
+        anvil = target;
+        nextHit = Time.time + 0.15f;
         anvil.Process(processVel);
     }
-
 }

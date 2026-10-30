@@ -81,6 +81,7 @@ public sealed class SteveHealth : MonoBehaviour
 
     private void OnGUI()
     {
+        if (CraftXRPlayer.Active != null) return;
         if (!IsDead)
             GUI.Box(new Rect(Screen.width * 0.5f - 85f, Screen.height - 48f, 170f, 32f),
                 "Steve  " + currentHealth + " / " + maxHealth + " HP");

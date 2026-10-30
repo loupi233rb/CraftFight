@@ -23,6 +23,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
     private bool deathView;
     private PlayerEconomy economy;
     private PicoPlayerTracking tracking;
+    private CraftXRPlayer xrPlayer;
     private readonly Vector3 deathCameraOffset = new Vector3(0f, 2.25f, -3.25f);
 
     public float MoveSpeed => moveSpeed;
@@ -34,11 +35,16 @@ public sealed class SteveFirstPersonController : MonoBehaviour
         verticalSpeed = 0f;
         knockbackVelocity = Vector3.zero;
         if (animator != null) animator.SetBool("Moving", false);
-        if (suspended) SetCursorLocked(false);
+        if (suspended && xrPlayer == null) SetCursorLocked(false);
     }
 
     public void TeleportTo(Vector3 position, float yaw)
     {
+        if (xrPlayer != null && xrPlayer.isActiveAndEnabled)
+        {
+            xrPlayer.TeleportTo(position, yaw);
+            return;
+        }
         if (characterController == null) characterController = GetComponent<CharacterController>();
         bool wasEnabled = characterController.enabled;
         characterController.enabled = false;
@@ -67,6 +73,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
         health = GetComponent<SteveHealth>();
         economy = GetComponent<PlayerEconomy>();
         tracking = GetComponent<PicoPlayerTracking>();
+        xrPlayer = GetComponent<CraftXRPlayer>();
 
         if (viewCamera == null)
         {
@@ -88,6 +95,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (xrPlayer != null && xrPlayer.isActiveAndEnabled) return;
         if (IsMovementSuspended) return;
         if ((tracking == null || !tracking.IsActive) && !deathView && (economy == null || !economy.BlocksGameplayInput))
         {
@@ -108,6 +116,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
     public void EnterDeathView()
     {
         deathView = true;
+        if (xrPlayer != null && xrPlayer.isActiveAndEnabled) return;
         SetCursorLocked(false);
         if (tracking != null && tracking.IsActive) return;
         if (viewCamera == null)
@@ -120,7 +129,7 @@ public sealed class SteveFirstPersonController : MonoBehaviour
 
     public void ApplyKnockback(Vector3 sourcePosition)
     {
-        if (IsMovementSuspended) return;
+        if (IsMovementSuspended || (xrPlayer != null && xrPlayer.isActiveAndEnabled)) return;
         Vector3 away = Vector3.ProjectOnPlane(transform.position - sourcePosition, Vector3.up);
         if (away.sqrMagnitude < 0.0001f)
             away = -transform.forward;

@@ -11,7 +11,7 @@ public class AnvilManager : MonoBehaviour
     private GameObject plate_icon;
     [InspectorName("是否捕获铁锭")] public bool captured = false;
     [InspectorName("加工进度0-1")] public float process = 0f;
-    [InspectorName("加工最大速度")] public readonly float maxSpeed = 20f;
+    [InspectorName("加工最大速度")] public float maxSpeed = 200f;
     [InspectorName("最少加工次数")] public int minCount = 5;
     [InspectorName("敲打声音")] public AudioClip hitSound;
     [InspectorName("完成声音")] public AudioClip finishSound;
@@ -37,6 +37,7 @@ public class AnvilManager : MonoBehaviour
     void Update()
     {
         // for test
+        if (CraftXRPlayer.Active != null) return;
         if (Input.GetKeyDown(KeyCode.P))
         {
             Process(20f);

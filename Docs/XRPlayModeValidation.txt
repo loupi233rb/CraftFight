@@ -1,0 +1,97 @@
+PASS: Left tracking does not move right controller
+PASS: Both Steve palms follow simulated controllers
+PASS: Tracked head follows simulated HMD
+PASS: Offline simulation starts in simulator mode
+PASS: Simulator is configured to preserve physical headset devices
+PASS: A physical-headset layout disables simulation without deleting that headset
+PASS: Floor-space headset height is used directly without adding another eye-height offset
+PASS: Floor-space controllers stay below the head and visible palms follow those same poses
+PASS: Physical crouching changes eye height instead of being overridden by a fixed camera height
+PASS: Round teleport preserves physical height and places the rig floor on the destination
+PASS: Teleport before the first tracked pose does not invent a half-metre height offset
+PASS: Returning to simulator mode restores one shared 1.67 metre fallback offset
+PASS: Simulated trigger starts the existing round flow
+PASS: Left simulated stick drives standard XRI movement
+PASS: Right stick rotates continuously over time instead of jumping in 30 degree steps
+PASS: Continuous turning stops when the stick is released
+PASS: Round movement suspension blocks XRI locomotion
+PASS: Left face button cycles only the left three-slot inventory
+PASS: Secondary button drops the selected item
+PASS: Trigger ray transfers a pickup into the hand
+PASS: Full selected slot rejects pickup without destroying it
+PASS: The visible ray selects a pickup at 3.8 metres instead of a nearby off-ray item
+PASS: Ray-selected items display a hit marker and an interaction hint
+PASS: Simulated trigger collects a distant pickup into the same hand's selected slot
+PASS: A full slot explains why the ray-targeted item cannot be collected
+PASS: Solid walls block ray interaction with pickups behind them
+PASS: Items beyond five metres cannot be selected or collected
+PASS: The interaction marker hides when the ray has no target
+PASS: Trigger places the original item into an empty craft slot
+PASS: Trigger presses the workbench button and produces a real recipe
+PASS: Output can be collected without writing invalid input slot 9
+PASS: Trigger places iron into the anvil
+PASS: A single trigger ray interaction brings the hammer grip directly to the right hand and keeps holding after release
+PASS: Click-holding a hammer disables only that hand's inventory and fist hitbox
+PASS: A click-held hammer locks inventory switching while preserving the stored selected item
+PASS: The other hand cannot steal an already held hammer with a trigger interaction
+PASS: The click-held hammer physically processes iron through the original Hammer and AnvilManager logic
+PASS: The secondary button releases a click-held hammer and restores inventory without dropping a stored item
+PASS: The left hand can also pick up and latch the hammer through a single trigger interaction
+PASS: Releasing a left-hand hammer restores the left inventory
+PASS: Simulated grip selects the physical XR hammer
+PASS: Physical hammer grip locks the same hand's inventory
+PASS: Drop button cannot remove a stored item while the hand grips a physical tool
+PASS: Moving the gripped XR hammer physically advances anvil processing
+PASS: Releasing grip restores that hand's inventory
+PASS: The original anvil process reaches the completed iron plate state
+PASS: Processed iron plate can be retrieved through the same XR interaction
+PASS: Controller ray opens a nearby trader
+PASS: XR UI ray click purchases an upgrade and updates gameplay stats
+PASS: XR UI close button returns control to gameplay
+PASS: Both empty hands have active trigger hitboxes at the end of the arms
+PASS: Empty-hand triggers and the legacy ray-attack entry cannot remotely damage a monster in XR
+PASS: A stationary left fist touching a monster damages it without a trigger or minimum swing speed
+PASS: Holding contact and touching a second collider on the same monster do not repeat damage
+PASS: Separating and contacting again damages the monster after cooldown, including after a collider is disabled
+PASS: The right empty fist uses the same contact damage rules
+PASS: Selecting a material disables fist damage instead of attacking through a held item
+PASS: Wood and iron swords reuse their authored blade hitboxes and the same contact component as fists
+PASS: A sword trigger no longer performs a ranged melee attack
+PASS: A wood sword blade collision deals contact damage
+PASS: An iron sword blade collision deals contact damage
+PASS: Suspending gameplay disables sword and fist contact damage
+PASS: Contact damage retains the existing attack upgrade bonus
+PASS: Equipping a gun disables the fist hitbox on that hand
+PASS: The knockback test uses the scene's real navigable monster spawn area
+PASS: Fist contact reuses MonsterHealth damage feedback and starts the real monster knockback
+PASS: The struck monster actually moves away from the player through the existing knockback controller
+PASS: Equipped M1911 muzzle points along the simulated hand aim
+PASS: Right simulated trigger fires from the muzzle and damages a target beyond melee range
+PASS: Holding the trigger fires exactly one semi-automatic shot
+PASS: Fire interval rejects repeated shots within the same frame
+PASS: A shot displays a muzzle flash and visible tracer
+PASS: M1911 has a configured gunshot audio clip
+PASS: A solid wall blocks bullets from reaching a target behind it
+PASS: Targets beyond the configured range take no shot damage
+PASS: Existing attack upgrades also increase firearm damage
+PASS: The other hand's trigger cannot fire the right-hand gun
+PASS: The left simulated trigger fires an independently equipped left-hand gun
+PASS: Switching away from the gun prevents further firearm shots
+PASS: Pointing a loaded gun's controller at XR UI clicks the button without shooting
+PASS: Gameplay suspension blocks firearm input
+PASS: Round 1 enters combat with XR player
+PASS: Round-one monster clearance starts a five-second loot countdown without immediately teleporting
+PASS: XR locomotion stays available while collecting post-clear coins
+PASS: Monster drops remain in the scene after the monster hierarchy is cleared
+PASS: Walking the player collider into a dropped coin during Loot actually adds it to the wallet
+PASS: The loot countdown advances exactly once to the next crafting preparation
+PASS: Round 2 enters combat with XR player
+PASS: Combat timeout retains the existing transition to preparation
+PASS: Round 3 enters combat with XR player
+PASS: Final-round monster clearance starts a five-second loot countdown without immediately teleporting
+PASS: XR locomotion stays available while collecting post-clear coins
+PASS: Monster drops remain in the scene after the monster hierarchy is cleared
+PASS: Walking the player collider into a dropped coin during Loot actually adds it to the wallet
+PASS: The last round waits for loot collection before completing in the crafting area
+PASS: Three-round lifecycle completes and teleports the XR player
+Physical headset, hardware haptics and Android performance: NOT TESTED.

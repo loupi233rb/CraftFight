@@ -33,6 +33,7 @@ public sealed class PlayerHandInventory : MonoBehaviour
 
     private void Update()
     {
+        if (CraftXRPlayer.Active != null) return;
         if (tracking != null && tracking.IsActive) { inspectLeft = inspectRight = false; return; }
         if (health != null && health.IsDead) { inspectLeft = inspectRight = false; return; }
         if (economy != null && economy.BlocksGameplayInput) { inspectLeft = inspectRight = false; return; }
