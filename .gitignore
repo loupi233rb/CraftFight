@@ -111,3 +111,6 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 /Packages/packages-lock.json
+
+.codex-backups/
+.codex/

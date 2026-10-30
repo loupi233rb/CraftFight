@@ -1,1 +1,0 @@
-Assets\Scripts\CraftSlot.cs(14,18): warning CS0414: The field 'CraftSlot.handInArea' is assigned but its value is never used

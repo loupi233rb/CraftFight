@@ -1,4 +1,0 @@
-Ambient coefficient: 0.3423916
-Global SH: (0.00, 0.00, 0.00, 0.00)
-Lightmaps: 0
-Ambient mode: Flat

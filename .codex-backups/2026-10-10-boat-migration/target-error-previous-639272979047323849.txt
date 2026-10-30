@@ -1,3 +1,0 @@
-System.InvalidOperationException: Could not find an unobstructed, gently sloping beach spawn.
-  at BoatAttackTutorialTools.PrepareAndValidate () [0x00ae6] in D:\课程\大三上\虚拟现实\craft\CraftFight\Assets\BoatAttackTutorial\Editor\BoatAttackTutorialTools.cs:89 
-  at BoatAttackTutorialTools.Tick () [0x0004d] in D:\课程\大三上\虚拟现实\craft\CraftFight\Assets\BoatAttackTutorial\Editor\BoatAttackTutorialTools.cs:23 
