@@ -10,8 +10,8 @@ namespace CraftFight.Tutorial
 
         private void OnEnable()
         {
-            ApplyAmbient();
-            RenderPipelineManager.beginCameraRendering += BeforeCameraRendering;
+            // Scene RenderSettings own ambient lighting. Only these renderers need
+            // the custom vegetation probe; never replace the global ambient probe.
             var ambient = new SphericalHarmonicsL2();
             ambient.AddAmbientLight(new Color(0.35f, 0.4f, 0.45f));
             var properties = new MaterialPropertyBlock();
@@ -37,23 +37,5 @@ namespace CraftFight.Tutorial
             }
         }
 
-        private void OnDisable()
-        {
-            RenderPipelineManager.beginCameraRendering -= BeforeCameraRendering;
-        }
-
-        private void BeforeCameraRendering(ScriptableRenderContext context, Camera camera)
-        {
-            if (camera.gameObject.scene == gameObject.scene) ApplyAmbient();
-        }
-
-        private static void ApplyAmbient()
-        {
-            RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.62f, 0.69f, 0.76f);
-            var ambient = new SphericalHarmonicsL2();
-            ambient.AddAmbientLight(new Color(0.35f, 0.4f, 0.45f));
-            RenderSettings.ambientProbe = ambient;
-        }
     }
 }

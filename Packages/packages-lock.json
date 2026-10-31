@@ -1,21 +1,5 @@
 {
   "dependencies": {
-    "com.coplaydev.unity-mcp": {
-      "version": "file:com.coplaydev.unity-mcp",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.physics2d": "1.0.0",
-        "com.unity.modules.uielements": "1.0.0",
-        "com.unity.modules.screencapture": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.test-framework": "1.1.31"
-      }
-    },
     "com.unity.ai.navigation": {
       "version": "1.1.7",
       "depth": 0,
@@ -32,6 +16,15 @@
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
         "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.cinemachine": {
+      "version": "2.10.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
       },
       "url": "https://packages.unity.cn"
     },
@@ -85,13 +78,6 @@
     },
     "com.unity.mathematics": {
       "version": "1.2.6",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.cn"
-    },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "3.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -263,6 +249,15 @@
         "com.unity.xr.interaction.toolkit": "2.0.0",
         "com.unity.xr.core-utils": "2.3.0"
       }
+    },
+    "jp.keijiro.klak.spout": {
+      "version": "2.0.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.screencapture": "1.0.0"
+      },
+      "url": "https://registry.npmjs.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

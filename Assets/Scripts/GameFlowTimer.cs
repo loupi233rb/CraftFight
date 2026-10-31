@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -41,7 +42,17 @@ public sealed class GameFlowTimer : MonoBehaviour
                 if (spawner != null) spawner.UseRoundQuotas();
     }
 
-    private void Start()
+    private IEnumerator Start()
+    {
+        Initialize();
+        // The new simulator/headset delivers its first pose after scene startup.
+        // Re-align the floor under that pose rather than the prefab camera pose.
+        yield return null;
+        if (initialized && CurrentPhase == Phase.Waiting)
+            Teleport(waitingPoint);
+    }
+
+    private void Initialize()
     {
         try
         {
@@ -67,6 +78,8 @@ public sealed class GameFlowTimer : MonoBehaviour
             Teleport(waitingPoint);
             movement.SetMovementSuspended(true);
             initialized = true;
+            // Scene entry may happen while the tutorial's triggers are still held.
+            triggerWasPressed = true;
             SetPhase(Phase.Waiting, "用射线点击开始游戏，或按扳机 / Enter 开始");
         }
         catch (Exception exception) { Fail(exception.Message); }

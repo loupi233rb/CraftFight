@@ -141,11 +141,8 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.1.0
-  preloadedAssets:
-  - {fileID: 731433428470809788, guid: f74c5e0deb1437a4aab4fbef2d210d41, type: 2}
-  - {fileID: 2407903095977865510, guid: 26b3ea4f0936ba348b16ee498ae18493, type: 2}
-  - {fileID: 11400000, guid: 57f27e67627b7694eb317ab4b3023f12, type: 2}
+  bundleVersion: 0.1.2
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -166,7 +163,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.UnityTechnologies.com.unity.template.urpblank
+    Android: com.vr.craftfight
     Standalone: com.Unity-Technologies.com.unity.template.urp-blank
     iPhone: com.Unity-Technologies.com.unity.template.urp-blank
   buildNumber:
